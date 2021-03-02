@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+Backlog Quest
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Description
+This is an app that connects musisicans with each other and with people who are renting out practice space or venues
 
-## Available Scripts
+User Stories
+404: As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
+Landing page: As a anon I can click on the sign up or sign in button
+Signup: As an anon I can sign up in the platform so that I can use platform
+Login: As a user I can login to the platform so that I can use the platform
+Logout: As a user I can logout from the platform
+Home page: As an user I can choose between two search options. If my userprofile is not complete I will get a popup message
+Search musicians/bands: As I user I can search for bands to join, find people to join my band or cooperate with musicians
+Search venues: As I user a can look for venues where I or my band can practice, or a venue where I or my band can perform
+NavBar: I want to have a navbar that allows me to move between the different pages.
+Profile page: As an user I can add/edit info on my profile
+Add Venue page: As a owner of a venue I can add my venues in the venue page 
+Delete elements As a user I can delete elements from my backlog
+Venue Details: When clicked on I can see the details of the venue
 
-In the project directory, you can run:
 
-### `yarn start`
+Backlog
+Chat function for users to communicate
+User can rate each other and the venues
+User can leave comments
+payment system for venue booking
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Client / Frontend
+React Router Routes (React App)
+Path	Component	Permissions	Behavior
+/	SplashPage	public <Route>	Home page
+/logout	n/a	user only <PrivateRoute>	Navigate to homepage after logout, expire session
+/search/musicians	SearchForm, SearchResults	user only <PrivateRoute>
+/search/venues	SearchForm, SearchResults	user only <PrivateRoute>	
+/musician/:id shows you musicians page with details
+/profile/:id	Profile, Stats	user only <PrivateRoute>	Check profile with stat information
+/add-venue add a venue
+/profile/:id/edit gives you edit form to edit 
+/venue/:id show details of venue
+/venue/:id/edit edit info about the venue
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+Components
+LandingPage
+LoginPage
+SignupPage
+NavBar
+Footer
+profile
+ownProfile
+VenueDetails
+AddVenue Form
+EditVenue Form
+EditProfile Form
+MusicianSearch
+VenueSearch
+404-page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Services
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Auth Service
 
-### `yarn eject`
+auth.login(user)
+auth.signup(user)
+auth.logout()
+auth.me()
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+API for Maps
+API for chat function
+API for f
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Server / Backend
+Models
+Musician = {
+ email: {type: string, required: true, unique: true},
+ password: String,
+ firstName: String,
+ lastName: String,
+ imgUrl: String,
+ location: String,
+ instrument: String,
+ bandName: String,
+ refUrl: String
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Owner = {
+ email: {type: string, required: true, unique: true},
+ password: String,
+ firstName: String,
+ lastName: String,
+ imgUrl: String,
+ venues: Array
+}
 
-## Learn More
+Venue = {
+ title: String,
+ imgUrl: String,
+ location: String,
+ size: Number,
+ owner: {type: Schema.Types.ObjectId, ref: “Owner”}
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+API Endpoints (backend routes)
+HTTP Method	URL	Request Body	Success status	Error Status	Description
+GET	/api/profile	Saved session	200	404	Check if user is logged in and return profile page
+POST	/api/signup	{name, email, password}	201	404	Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session
+POST	/api/signin	{username, password}	200	401	Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session
+POST	/api/logout	(empty)	204	400	Logs out the user
+POST    /api/add-venue
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+GET /api/profile/:id
+GET /api/venue/:id
 
-### Analyzing the Bundle Size
+DELETE /api/venue/:id
+DELETE /api/profile/:id
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+PATCH /api/venue/:id
+PATCH /api/profile/:id
+PATCH /owner-profile/:id
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+Git
+The url to your repository and to your deployed project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Client repository Link
 
-### Deployment
+Server repository Link
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Deployed App Link
 
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Slides
+The url to your presentation slides
+Slides Link
