@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, Row, Col } from "react-bootstrap";
 
 function SignUp(props) {
   const [show, setShow] = useState(false);
@@ -20,7 +20,11 @@ function SignUp(props) {
           <Form onSubmit={props.onSignUp}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control name='email' type="email" placeholder="Enter email" />
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+              />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -28,8 +32,33 @@ function SignUp(props) {
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control name='password' type="password" placeholder="Password" />
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
             </Form.Group>
+              <Form.Group as={Row}>
+                <Form.Label as="legend" column sm={2}>
+                  I'm a 
+                </Form.Label>
+                <Col sm={10}>
+                  <Form.Check
+                    type="radio"
+                    label="Musician"
+                    name="type"
+                    id="formHorizontalRadios1"
+                    value='musician'
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Owner"
+                    name="type"
+                    id="formHorizontalRadios2"
+                    value='owner'
+                  />
+                </Col>
+              </Form.Group>
             <Button variant="primary" type="submit">
               Submit
             </Button>

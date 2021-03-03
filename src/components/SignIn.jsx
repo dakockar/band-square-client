@@ -32,7 +32,7 @@ function SignIn(props) {
               <Form.Label>Password</Form.Label>
               <Form.Control name='password' type="password" placeholder="Password" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={handleClose}>
               Submit
             </Button>
           </Form>
