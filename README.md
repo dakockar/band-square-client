@@ -35,7 +35,8 @@ This is an app that connects musisicans with each other and with people who are 
 | `/logout`                 | n/a                               | user only `<PrivateRoute>`  | Navigate to homepage after logout, expire session      |
 | `/musician-profile`       | MusicianProfile                   | user only `<PrivateRoute>`  | Check musician profile with stat information           |
 | `/owner-profile`          | OwnerProfile                      | user only `<PrivateRoute>`  | Check owner profile with stat information              |
-| `/profile/edit`           | EditProfileForm                   | user only `<PrivateRoute>`  | Shows edit profile form                                |
+| `/musician-profile/edit`  | EditMusicianForm                  | user only `<PrivateRoute>`  | Shows edit musician profile form                       |
+| `/owner-profile/edit`     | EditOwnerForm                     | user only `<PrivateRoute>`  | Shows edit owner profile form                          |
 | `/musician/:id`           | MusicianDetails                   | user only `<PrivateRoute>`  | Shows musician details page                            |
 | `/add-venue`              | AddVenueForm                      | user only `<PrivateRoute>`  | Shows the form to add a new venue                      |
 | `/venue/:id`              | VenueDetails                      | user only `<PrivateRoute>`  | Shows venue details page                               |
@@ -51,8 +52,10 @@ This is an app that connects musisicans with each other and with people who are 
 - SignupPage
 - NavBar
 - Footer
-- Profile
-- EditProfileForm
+- MusicianProfile
+- OwnerProfile
+- EditMusicianForm
+- EditOwnerForm
 - MusicianDetails
 - AddVenueForm
 - VenueDetails
@@ -66,8 +69,8 @@ This is an app that connects musisicans with each other and with people who are 
 ## Services
 
 - Auth Service
-    - auth.login(user)
     - auth.signup(user)
+    - auth.login(user)
     - auth.logout()
     - auth.me()
 
