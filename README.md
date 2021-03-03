@@ -28,32 +28,20 @@ This is an app that connects musisicans with each other and with people who are 
 # Client / Frontend
 ## React Router Routes (React App)
 
-<!-- |   /               | SplashPage          	public <Route>	Home page -->
-
-<!-- /logout	n/a	user only <PrivateRoute>	Navigate to homepage after logout, expire session -->
-<!-- /search/musicians	SearchForm, SearchResults	user only <PrivateRoute> -->
-<!-- /search/venues	SearchForm, SearchResults	user only <PrivateRoute>	 -->
-<!-- /musician/:id shows you musicians page with details -->
-<!-- /profile/:id	Profile, Stats	user only <PrivateRoute>	Check profile with stat information -->
-<!-- /add-venue add a venue -->
-<!-- /profile/:id/edit gives you edit form to edit  -->
-<!-- /venue/:id show details of venue -->
-<!-- /venue/:id/edit edit info about the venue -->
-
 
 | Path                      | Component                      | Permissions | Behavior                                                     |
 | ------------------------- | --------------------           | ----------- | ------------------------------------------------------------ |
-| `/`                       | LandingPage                    | public `<Route>`            | Home page                                              |
-| `/logout`                 | n/a                            | user only `<PrivateRoute>`  | Navigate to homepage after logout, expire session      |
-| `/search/musicians`       | SearchForm, SearchResults      | user only `<PrivateRoute>`  | Shows musician search page                             |
-| `/search/venues`          | SearchForm, SearchResults      | user only `<PrivateRoute>`  | Shows venue search page                                |
-| `/musician/:id`           | MusicianDetails                | user only `<PrivateRoute>`  | Shows musician details page                            |
-| `/profile`                | Profile                        | user only `<PrivateRoute>`  | Check profile with stat information                    |
-| `/add-venue`              | AddVenueForm                   | user only `<PrivateRoute>`  | Shows the form to add a new venue                      |
-| `/search/games`           | SearchForm, SearchResults      | user only `<PrivateRoute>`  | Search a game to be added                              |
-| `/profile/:id/edit`       | EditProfileForm                | user only `<PrivateRoute>`  | Shows edit profile form                                |
-| `/venue/:id`              | VenueDetails                   | user only `<PrivateRoute>`  | Shows venue details page                               |
-| `/venue/:id/edit`         | EditVenueForm                  | user only `<PrivateRoute>`  | Shows edit venue form                                  |
+| `/`                       | LandingPage, LoginPage, SignupPage| public `<Route>`            | Home page                                              |
+| `/logout`                 | n/a                               | user only `<PrivateRoute>`  | Navigate to homepage after logout, expire session      |
+| `/musician-profile`       | MusicianProfile                   | user only `<PrivateRoute>`  | Check musician profile with stat information           |
+| `/owner-profile`          | OwnerProfile                      | user only `<PrivateRoute>`  | Check owner profile with stat information              |
+| `/profile/edit`           | EditProfileForm                   | user only `<PrivateRoute>`  | Shows edit profile form                                |
+| `/musician/:id`           | MusicianDetails                   | user only `<PrivateRoute>`  | Shows musician details page                            |
+| `/add-venue`              | AddVenueForm                      | user only `<PrivateRoute>`  | Shows the form to add a new venue                      |
+| `/venue/:id`              | VenueDetails                      | user only `<PrivateRoute>`  | Shows venue details page                               |
+| `/venue/:id/edit`         | EditVenueForm                     | user only `<PrivateRoute>`  | Shows edit venue form                                  |
+| `/search/musicians`       | MusicianSearch                    | user only `<PrivateRoute>`  | Shows musician search page                             |
+| `/search/venues`          | VenueSearch                       | user only `<PrivateRoute>`  | Shows venue search page                                |
 
 
 
@@ -64,11 +52,11 @@ This is an app that connects musisicans with each other and with people who are 
 - NavBar
 - Footer
 - Profile
-- ownProfile (?)
-- VenueDetails
-- AddVenueForm
-- EditVenueForm
 - EditProfileForm
+- MusicianDetails
+- AddVenueForm
+- VenueDetails
+- EditVenueForm
 - MusicianSearch
 - VenueSearch
 - 404Page
@@ -83,10 +71,9 @@ This is an app that connects musisicans with each other and with people who are 
     - auth.logout()
     - auth.me()
 
-
-API for Maps
-API for chat function
-API for f
+- API for Maps
+- API for chat function
+- API for payment
 
 
 
@@ -137,34 +124,43 @@ Venue = {
 
 
 ## API Endpoints (backend routes)
-HTTP Method	URL	Request Body	Success status	Error Status	Description
-GET	/api/profile	Saved session	200	404	Check if user is logged in and return profile page
-POST	/api/signup	{name, email, password}	201	404	Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session
-POST	/api/signin	{username, password}	200	401	Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session
-POST	/api/logout	(empty)	204	400	Logs out the user
-POST    /api/add-venue
-
-GET /api/profile/:id
-GET /api/venue/:id
-
-DELETE /api/venue/:id
-DELETE /api/profile/:id
-
-PATCH /api/venue/:id
-PATCH /api/profile/:id
-PATCH /owner-profile/:id
 
 
+| HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
+| ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
+| GET         | `/api/profile`              | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
+| POST        | `/api/signup`               | {email, password}            | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| POST        | `/api/login`                 | {email, password}           | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session   |
+| POST        | `/auth/logout`               | (empty)                      | 204            | 400          | Logs out the user                                            |
+| POST        | `/api/add-venue`             | {title, imgUrl, location, size, owner}  | 200   | 400        | Adds a new venue to owner's venue list   |
+| GET         | `/api/musician/:id`          | (empty)                      | 200          | 400             | Show musician details with given id    |
+| GET         | `/api/venue/:id`             | (empty)                      | 200          | 400             | Show venue details with the given id     |
+| PATCH       | `/api/venue/:id`             | {title, imgUrl, location, size, owner} | 200   | 400          | Edits the venue with the given id   |
+| PATCH       | `/api/musician-profile/edit` |                              | 201            | 400          | Show specific element    |
+| PATCH       | `/api/owner-profile/edit`    |                              | 201            | 400          | Show specific element    |
+| DELETE      | `/api/venue/:id`             | (empty)                      | 201            | 400          | Delete venue                                              |
+<!-- | DELETE      | `/api/profile/:id`           | (empty)                      | 201            | 400          | Delete musician profile           | -->
 
-Git
+
+
+## Links
+
+### Trello/Kanban
+
+[Link to your trello board](link) 
+
+### Git
+
 The url to your repository and to your deployed project
 
-Client repository Link
+[Client repository Link](https://github.com/dakockar/band-square-client)
 
-Server repository Link
+[Server repository Link](https://github.com/dakockar/band-square-server)
 
-Deployed App Link
+[Deployed App Link](https://band-square.herokuapp.com/)
 
-Slides
+### Slides
+
 The url to your presentation slides
-Slides Link
+
+[Slides Link](link)
