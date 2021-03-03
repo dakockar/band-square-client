@@ -9,7 +9,7 @@ function LandingPage(props) {
             <h1>Landing Page</h1>
             <SignUp onSignUp={props.onSignUp}/>
             <SignIn onSignIn={props.onSignIn}/>
-            <Button onClick={props.onSignOut}>Sign Out</Button>
+            
         </div>
     )
 }
