@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 
 function MusicianProfile(props) {
 
-
-
-    console.log('props------', props)
+    // console.log('props------', props)
     return (
         <div>
             <img src={props.user.imgUrl} />

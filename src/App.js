@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-// import SignUp from "./components/SignUp";
+import { Spinner } from "react-bootstrap"
 import axios from 'axios'
 import config from './config'
 import Nav from './components/Nav'
@@ -20,10 +20,23 @@ class App extends Component {
   componentDidMount() {
     console.log(this.state.user);
 
+    // if (this.state.user) {
+    //   axios.get(`${config.API_URL}/api/musician-profile/${this.state.user._id}`)
+    //     .then((response) => {
+    //       this.setState({
+    //         user: response.data
+    //       })
+    //     })
+    //     .catch((err) => {
+    //       console.log("error in get user---", err);
+    //     });
+    // }
+
+
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
-          // console.log(response);
+          console.log("logged in user info", response);
           this.setState({
             user: response.data
           })
@@ -43,14 +56,16 @@ class App extends Component {
       firstName,
       instrument
     }
+
     axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser)
-      .then(() => {
+      .then((response) => {
+        console.log("patch-then", response.data);
         this.setState(
           {
-            user: editedUser
+            user: response.data
           },
           () => {
-            this.props.history.push(`/musician-profile`)
+            this.props.history.push(`/musician-profile/edit`)
           }
         )
       })
@@ -119,19 +134,14 @@ class App extends Component {
       });
   }
 
-  // handleOnSubmit = (event) => {
-  //   event.preventDefault();
-  //   const firstName = event.target.firstName.value;
-  //   const instrument = event.target.instrument.value;
 
-  //   axios.post(`${}`)
-  // }
 
   render() {
-    console.log(this.state.user)
+    // console.log(this.state.user)
 
     if (!this.state.user) return (
       <>
+        {/* <Spinner animation="grow" /> */}
         <Nav
           onSignUp={this.handleSignUp}
           onSignIn={this.handleSignIn}
@@ -139,6 +149,8 @@ class App extends Component {
         <LandingPage />
       </>
     )
+
+
     console.log(this.state.user)
 
 
@@ -154,7 +166,8 @@ class App extends Component {
 
           <Route exact path='/' render={(routeProps) => {
             return (
-              <LandingPage {...routeProps} />
+              // <LandingPage {...routeProps} />
+              <Redirect to="/home" />
             )
           }} />
 
@@ -176,15 +189,12 @@ class App extends Component {
               <VenueSearch {...routeProps} />
             )
           }} />
-          {!this.state.user ? null : (
-            <Route exact path='/musician-profile' render={(routeProps) => {
-              return (
-                <MusicianProfile user={this.state.user} {...routeProps} />
-              )
-            }} />
+          <Route exact path='/musician-profile' render={(routeProps) => {
+            return (
+              <MusicianProfile user={this.state.user} {...routeProps} />
+            )
+          }} />
 
-          )
-          }
           <Route exact path='/musician-profile/edit' render={(routeProps) => {
             return (
               <MusicianProfileEdit user={this.state.user} {...routeProps} onEdit={this.handleEditUser} />

@@ -8,29 +8,23 @@ class MusicianProfileEdit extends Component {
     user: {},
   };
 
-  componentDidMount() {
-    let userId = this.props.match.params.userId;
-    axios
-      .get(`${config.API_URL}/api/musician-profile/${userId}`)
-      .then((response) => {
-        this.setState({
-          user: response.data,
-        });
-      })
-      .catch(() => {
-        console.log("editform failed----");
-      });
-  }
+  // componentDidMount() {
+  //   // let userId = this.props.user._id;
 
-//   handleNameChange = (event) => {
-//     let text = event.target.value;
-//     let clonedUser = JSON.parse(JSON.stringify(this.state.todo));
-//     clonedUser.firstName = text;
+  //   // console.log(this.props);
+  //   // console.log(this.props.user._id);
 
-//     this.setState({
-//       user: clonedUser,
-//     });
-//   };
+  //   // axios
+  //   //   .get(`${config.API_URL}/api/musician-profile/${userId}`)
+  //   //   .then((response) => {
+  //   //     this.setState({
+  //   //       user: response.data,
+  //   //     });
+  //   //   })
+  //   //   .catch(() => {
+  //   //     console.log("editform failed----");
+  //   //   });
+  // }
 
   render() {
     return (
@@ -47,15 +41,6 @@ class MusicianProfileEdit extends Component {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-        {/* <label>Name</label>
-        <input name="name" type="text" onChange={this.handleNameChange} />
-        <button
-          onClick={() => {
-            onEdit(this.state.user);
-          }}
-        >
-          Submit
-        </button> */}
       </Form>
     );
   }

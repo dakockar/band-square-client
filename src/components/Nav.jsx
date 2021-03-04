@@ -3,7 +3,6 @@ import { Navbar, Button, NavDropdown, Dropdown, NavItem, NavLink } from 'react-b
 import { Link, Redirect } from "react-router-dom";
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-// import { Dropdown } from "bootstrap";
 
 function Nav(props) {
   return (
