@@ -9,6 +9,7 @@ import Home from './components/Home'
 import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
+import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
 
 class App extends Component {
 
@@ -33,7 +34,30 @@ class App extends Component {
     }
   }
 
-
+  handleEditUser = (event) => {
+    event.preventDefault()
+    const { user } = this.state
+    const firstName = event.target.firstName.value;
+    const instrument = event.target.instrument.value
+    let editedUser = {
+      firstName,
+      instrument
+    }
+    axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser)
+      .then(() => {
+        this.setState(
+          {
+            user: editedUser
+          },
+          () => {
+            this.props.history.push(`/musician-profile`)
+          }
+        )
+      })
+      .catch((err) => {
+        console.log('Edit failed', err)
+      })
+  }
 
   handleSignUp = (event) => {
     event.preventDefault();
@@ -95,6 +119,14 @@ class App extends Component {
       });
   }
 
+  // handleOnSubmit = (event) => {
+  //   event.preventDefault();
+  //   const firstName = event.target.firstName.value;
+  //   const instrument = event.target.instrument.value;
+
+  //   axios.post(`${}`)
+  // }
+
   render() {
     console.log(this.state.user)
 
@@ -131,7 +163,7 @@ class App extends Component {
 
           <Route path='/home' render={(routeProps) => {
             return (
-              <Home {...routeProps} />
+              <Home {...routeProps} user={this.state.user} />
             )
           }} />
           <Route path='/search/musicians' render={(routeProps) => {
@@ -144,9 +176,18 @@ class App extends Component {
               <VenueSearch {...routeProps} />
             )
           }} />
-          <Route path='/musician-profile' render={(routeProps) => {
+          {!this.state.user ? null : (
+            <Route exact path='/musician-profile' render={(routeProps) => {
+              return (
+                <MusicianProfile user={this.state.user} {...routeProps} />
+              )
+            }} />
+
+          )
+          }
+          <Route exact path='/musician-profile/edit' render={(routeProps) => {
             return (
-              <MusicianProfile user={this.state.user} {...routeProps} />
+              <MusicianProfileEdit user={this.state.user} {...routeProps} onEdit={this.handleEditUser} />
             )
           }} />
 
