@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Switch, Route, withRouter, useHistory } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import SignUp from "./components/SignUp";
+// import SignUp from "./components/SignUp";
 import axios from 'axios'
 import config from './config'
-import Home from './components/Home.jsx'
+import Nav from './components/Nav'
+import Home from './components/Home'
 import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
@@ -22,7 +23,6 @@ class App extends Component {
       email: event.target.email.value,
       password: event.target.password.value,
       type: event.target.type.value
-      // type: event.target.
     }
 
     axios.post(`${config.API_URL}/api/signup`, newUser)
@@ -75,6 +75,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Nav user={this.state.user} />
 
         <Switch>
           <Route exact path='/' render={(routeProps) => {
@@ -105,7 +106,6 @@ class App extends Component {
             }} />
           )
           }
-
 
         </Switch>
 
