@@ -9,6 +9,7 @@ import Home from './components/Home'
 import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
+import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
 
 class App extends Component {
 
@@ -35,7 +36,29 @@ class App extends Component {
 
   }
 
-
+  handleEditUser = (event) => {
+    event.preventDefault()
+    const{user}= this.state
+    const firstName = event.target.firstName.value;
+    const instrument = event.target.instrument.value
+    let editedUser = {
+      firstName,
+      instrument
+    }
+    axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser)
+    .then(() => {
+      this.setState(
+        {
+          user: editedUser
+        }, 
+        () => {
+          this.props.history.push(`/musician-profile`)
+        }
+    )})
+    .catch((err) => {
+      console.log('Edit failed', err)
+    })
+  }
 
   handleSignUp = (event) => {
     event.preventDefault();
@@ -93,6 +116,14 @@ class App extends Component {
       })
   }
 
+  // handleOnSubmit = (event) => {
+  //   event.preventDefault();
+  //   const firstName = event.target.firstName.value;
+  //   const instrument = event.target.instrument.value;
+
+  //   axios.post(`${}`)
+  // }
+
   render() {
     return (
       <div className="App">
@@ -106,27 +137,33 @@ class App extends Component {
           }} />
           <Route path='/home' render={(routeProps) => {
             return (
-              <Home {...routeProps} onSignOut={this.handleSignOut} />
+              <Home {...routeProps} user={this.state.user}/>
             )
           }} />
           <Route path='/search/musicians' render={(routeProps) => {
             return (
-              <MusicianSearch {...routeProps} onSignOut={this.handleSignOut} />
+              <MusicianSearch {...routeProps}  />
             )
           }} />
           <Route path='/search/venues' render={(routeProps) => {
             return (
-              <VenueSearch {...routeProps} onSignOut={this.handleSignOut} />
+              <VenueSearch {...routeProps}  />
             )
           }} />
           {!this.state.user ? null : (
-            <Route path='/musician-profile' render={(routeProps) => {
+            <Route exact path='/musician-profile' render={(routeProps) => {
               return (
-                <MusicianProfile user={this.state.user} {...routeProps} onSignOut={this.handleSignOut} />
+                <MusicianProfile user={this.state.user} {...routeProps} />
               )
             }} />
+            
           )
           }
+          <Route exact path='/musician-profile/edit' render={(routeProps) => {
+            return (
+              <MusicianProfileEdit user={this.state.user} {...routeProps} onEdit={this.handleEditUser}/>
+            )
+          }} />
 
         </Switch>
 
