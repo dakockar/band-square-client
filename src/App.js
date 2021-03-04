@@ -13,8 +13,29 @@ import MusicianProfile from "./components/MusicianProfile";
 class App extends Component {
 
   state = {
-    user: {}
+    user: {},
+    loggedInUser: null
   }
+
+  componentDidMount() {
+
+    if (!this.state.loggedInUser) {
+      axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
+        .then((response) => {
+          // console.log(response);
+          this.setState({
+            loggedInUser: response.data,
+            user: response.data
+          })
+        })
+        .catch((err) => {
+          console.log("error gettin logged in user-----", err);
+        });
+    }
+
+  }
+
+
 
   handleSignUp = (event) => {
     event.preventDefault();
@@ -75,7 +96,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav user={this.state.user} />
+        <Nav user={this.state.user} onSignOut={this.handleSignOut} />
 
         <Switch>
           <Route exact path='/' render={(routeProps) => {
