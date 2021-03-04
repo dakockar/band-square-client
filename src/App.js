@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, withRouter, useHistory } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 // import SignUp from "./components/SignUp";
 import axios from 'axios'
@@ -13,18 +13,17 @@ import MusicianProfile from "./components/MusicianProfile";
 class App extends Component {
 
   state = {
-    user: {},
-    loggedInUser: null
+    user: null
   }
 
   componentDidMount() {
+    console.log(this.state.user);
 
-    if (!this.state.loggedInUser) {
+    if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
           // console.log(response);
           this.setState({
-            loggedInUser: response.data,
             user: response.data
           })
         })
@@ -32,7 +31,6 @@ class App extends Component {
           console.log("error gettin logged in user-----", err);
         });
     }
-
   }
 
 
@@ -69,7 +67,7 @@ class App extends Component {
       .then((response) => {
         console.log('Succesfully signed in --------', response.data)
         this.setState({
-          user: response.data
+          user: response.data,
         }, () => {
           this.props.history.push('/home')
         })
@@ -85,48 +83,72 @@ class App extends Component {
       .then(() => {
         console.log('LOGOUT_____')
         this.setState({
-          user: null
+          user: null,
         }, () => {
           this.props.history.push('/')
         })
 
       })
+      .catch((err) => {
+        // 
+        console.log(error);
+      });
   }
 
   render() {
+    console.log(this.state.user)
+
+    if (!this.state.user) return (
+      <>
+        <Nav
+          onSignUp={this.handleSignUp}
+          onSignIn={this.handleSignIn}
+          onSignOut={this.handleSignOut} />
+        <LandingPage />
+      </>
+    )
+    console.log(this.state.user)
+
+
     return (
       <div className="App">
-        <Nav user={this.state.user} onSignOut={this.handleSignOut} />
+        <Nav
+          user={this.state.user}
+          onSignUp={this.handleSignUp}
+          onSignIn={this.handleSignIn}
+          onSignOut={this.handleSignOut} />
 
         <Switch>
+
           <Route exact path='/' render={(routeProps) => {
             return (
-              <LandingPage onSignUp={this.handleSignUp} onSignIn={this.handleSignIn} {...routeProps} />
+              <LandingPage {...routeProps} />
             )
           }} />
+
+
+          {/* authorized routes */}
+
           <Route path='/home' render={(routeProps) => {
             return (
-              <Home {...routeProps} onSignOut={this.handleSignOut} />
+              <Home {...routeProps} />
             )
           }} />
           <Route path='/search/musicians' render={(routeProps) => {
             return (
-              <MusicianSearch {...routeProps} onSignOut={this.handleSignOut} />
+              <MusicianSearch {...routeProps} />
             )
           }} />
           <Route path='/search/venues' render={(routeProps) => {
             return (
-              <VenueSearch {...routeProps} onSignOut={this.handleSignOut} />
+              <VenueSearch {...routeProps} />
             )
           }} />
-          {!this.state.user ? null : (
-            <Route path='/musician-profile' render={(routeProps) => {
-              return (
-                <MusicianProfile user={this.state.user} {...routeProps} onSignOut={this.handleSignOut} />
-              )
-            }} />
-          )
-          }
+          <Route path='/musician-profile' render={(routeProps) => {
+            return (
+              <MusicianProfile user={this.state.user} {...routeProps} />
+            )
+          }} />
 
         </Switch>
 

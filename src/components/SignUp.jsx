@@ -8,7 +8,7 @@ function SignUp(props) {
   const handleShow = () => setShow(true);
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="link" onClick={handleShow}>
         Sign Up
       </Button>
 
@@ -38,27 +38,27 @@ function SignUp(props) {
                 placeholder="Password"
               />
             </Form.Group>
-              <Form.Group as={Row}>
-                <Form.Label as="legend" column sm={2}>
-                  I'm a 
+            <Form.Group as={Row}>
+              <Form.Label as="legend" column sm={2}>
+                I'm a
                 </Form.Label>
-                <Col sm={10}>
-                  <Form.Check
-                    type="radio"
-                    label="Musician"
-                    name="type"
-                    id="formHorizontalRadios1"
-                    value='musician'
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="Owner"
-                    name="type"
-                    id="formHorizontalRadios2"
-                    value='owner'
-                  />
-                </Col>
-              </Form.Group>
+              <Col sm={10}>
+                <Form.Check
+                  type="radio"
+                  label="Musician"
+                  name="type"
+                  id="formHorizontalRadios1"
+                  value='musician'
+                />
+                <Form.Check
+                  type="radio"
+                  label="Owner"
+                  name="type"
+                  id="formHorizontalRadios2"
+                  value='owner'
+                />
+              </Col>
+            </Form.Group>
             <Button variant="primary" type="submit">
               Submit
             </Button>
