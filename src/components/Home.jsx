@@ -15,7 +15,7 @@ function Home(props) {
             {/* <Button onClick={props.onSignOut}>Sign Out</Button> */}
             <Link to='/search/musicians'>Search musicians</Link>
             <Link to='/search/venues'>Search Venues</Link>
-            <Link to={`/musician-profile/`}>musician profile</Link>
+            <Link to='/musician-profile'>musician profile</Link>
         </div>
     )
 }

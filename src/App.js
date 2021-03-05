@@ -14,11 +14,20 @@ import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
 class App extends Component {
 
   state = {
-    user: null
+    user: null,
+    filteredUsers: []
   }
 
   componentDidMount() {
     console.log(this.state.user);
+    axios.get(`${config.API_URL}/api/musician-profile`)
+      .then((response) => {
+        console.log('what is this-----',response.data)
+        this.setState({user: response.data})
+      })
+      .catch(() => {
+        console.log('fetching failed')
+      })
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -38,16 +47,27 @@ class App extends Component {
     event.preventDefault()
     const { user } = this.state
     const firstName = event.target.firstName.value;
-    const instrument = event.target.instrument.value
+    const lastName = event.target.lastName.value;
+    const instrument = event.target.instrument.value;
+    const genre = event.target.genre.value;
+    const location = event.target.location.value;
+    const bandName = event.target.bandName.value;
+    const aboutMe = event.target.aboutMe.value;
     let editedUser = {
       firstName,
-      instrument
+      lastName,
+      instrument,
+      genre,
+      location,
+      bandName,
+      aboutMe
     }
-    axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser)
-      .then(() => {
+    axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser, {withCredentials: true})
+      .then((response) => {
+        console.log('-----edit----', response.data)
         this.setState(
           {
-            user: editedUser
+            user: response.data
           },
           () => {
             this.props.history.push(`/musician-profile`)
@@ -117,6 +137,16 @@ class App extends Component {
         // 
         console.log(error);
       });
+  }
+
+  handleChange = (event) => {
+    let searchText = event.target.value
+    let filterList = this.state.users.filter((singleUser) => {
+      return singleUser.instrument.toLowerCase().includes(searchText)
+    })
+    this.setState({
+      filteredUsers: filterList
+    })
   }
 
   // handleOnSubmit = (event) => {
