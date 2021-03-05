@@ -40,8 +40,19 @@ class App extends Component {
         })
       })
       .catch(() => {
-        console.log('fetching failed')
+        console.log('fetching users failed')
       })
+
+    axios.get(`${config.API_URL}/api/venues`)
+      .then((response) => {
+        this.setState({
+          venues: response.data,
+          filteredVenues: response.data
+        })
+      })
+      .catch(() => {
+        console.log('fetching venues failed')
+      }) 
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -189,11 +200,13 @@ class App extends Component {
     let filteredVenueList = this.state.venues.filter((singleVenue) => {
       {
         for (let i = 0; i < searchText.length; i++) {
+          console.log(searchText.length)
           if (searchText.length === 1) {
-            return singleVenue.size[0].toLowerCase().includes(searchText[i]) || singleVenue.location[0].toLowerCase().includes(searchText[i])
+            return singleVenue.location.toLowerCase().includes(searchText[i]) || singleVenue.size >= Number(searchText[i])
           }
           else {
-            return singleVenue.size[0].toLowerCase().includes(searchText[0]) && singleVenue.location[0].toLowerCase().includes(searchText[1]) || singleVenue.size[0].toLowerCase().includes(searchText[1]) && singleVenue.location[0].toLowerCase().includes(searchText[0])
+            console.log(singleVenue.size.toString())
+            return singleVenue.size >= Number(searchText[0]) && singleVenue.location.toLowerCase().includes(searchText[1]) || singleVenue.size >= Number(searchText[1]) && singleVenue.location.toLowerCase().includes(searchText[0])
           }
         }
       }
@@ -259,7 +272,7 @@ class App extends Component {
 
 
   render() {
-    const { user, users, filteredUsers, venues } = this.state
+    const { user, users, filteredUsers, venues, filteredVenues } = this.state
     // console.log(this.state.user)
     // console.log(this.state.isMounted);
 
@@ -320,8 +333,7 @@ class App extends Component {
 
           <Route path='/search/venues' render={(routeProps) => {
             return (
-              <VenueSearch user={user} venueChange={this.handleVenueChange} {...routeProps} />
-              // filteredVenues={filteredVenues}
+              <VenueSearch user={user} filteredVenues={filteredVenues} venueChange={this.handleVenueChange} {...routeProps} />
             )
           }} />
 
