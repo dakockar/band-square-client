@@ -8,7 +8,6 @@ import config from '../config';
 
 export default class OwnerProfile extends Component {
 
-
     state = {
         venues: []
     }
@@ -28,29 +27,6 @@ export default class OwnerProfile extends Component {
                 console.log("error while fetching venues", err);
             });
     }
-
-    // handleAddVenue = (event) => {
-    //     event.preventDefault();
-
-    //     const { user } = this.state;
-    //     const { title, location, size } = event.target;
-
-    //     let newVenue = {
-    //         title: title.value,
-    //         location: location.value,
-    //         size: size.value,
-    //         ownerId: user._id
-    //     }
-
-    //     axios.post(`${config.API_URL}/api/add-venue`, newVenue)
-    //         .then((response) => {
-    //             console.log(response.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-
-    // }
 
 
 
@@ -93,40 +69,3 @@ export default class OwnerProfile extends Component {
         )
     }
 }
-
-
-
-
-// export default function OwnerProfile(props) {
-
-//     // if (!props.user) return null;
-//     const { user } = props;
-
-//     return (
-//         <div>
-//             <img src={user.imgUrl} />
-//             <h5>Name: {user.firstName} {user.lastName}</h5>
-//             <h5>Venues:
-//             {
-//                     user.venues.length
-//                         ?
-//                         <span>
-//                             {
-//                                 user.venues.map(venue => {
-//                                     return (
-//                                         venue
-//                                     )
-//                                 })
-//                             }
-//                         </span>
-//                         :
-//                         <span>no venues yet</span>
-//                 }
-//             </h5>
-
-//             <Button as={Link} to={`/owner-profile/edit`}>Edit Profile</Button>
-//             <Button variant="dark" as={Link} to="/add-venue">Add Venue</Button>
-
-//         </div>
-//     )
-// }
