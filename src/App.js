@@ -155,10 +155,21 @@ class App extends Component {
   }
 
   handleChange = (event) => {
-    let searchText = event.target.value
+    let searchText = event.target.value.split(' ')
     let filterList = this.state.users.filter((singleUser) => {
-      console.log('singleUser-----',singleUser)
-       return (singleUser.instrument[0].toLowerCase().includes(searchText) || singleUser.genre[0].toLowerCase().includes(searchText))
+      {
+        for(let i=0;i<searchText.length;i++){
+          console.log(searchText.length)
+           if(searchText.length === 1){
+            return singleUser.instrument[0].toLowerCase().includes(searchText[i]) || singleUser.genre[0].toLowerCase().includes(searchText[i])
+          }
+          else {
+            return singleUser.instrument[0].toLowerCase().includes(searchText[0]) && singleUser.genre[0].toLowerCase().includes(searchText[1]) || singleUser.instrument[0].toLowerCase().includes(searchText[1]) && singleUser.genre[0].toLowerCase().includes(searchText[0])
+          }
+        }
+      }
+      //console.log('singleUser-----',singleUser)
+       return 
     })
     this.setState({
       filteredUsers: filterList
