@@ -1,6 +1,8 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
+
+
 function MusicianSearch(props) {
   return (
     <div>
@@ -27,6 +29,12 @@ function MusicianSearch(props) {
       <p>{props.user.genre}</p>
       <p>{props.user.instrument}</p>
       <p>{props.user.location}</p> */}
+      {
+          props.filteredUsers.map((singleUser) => {
+            return <div>{singleUser.email}</div>
+          })
+      }
+
     </div>
   );
 }

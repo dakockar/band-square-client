@@ -17,7 +17,8 @@ class App extends Component {
   state = {
     user: null,
     isMounted: false,
-    filteredUsers: []
+    filteredUsers: [],
+    users: []
   }
 
 
@@ -25,14 +26,17 @@ class App extends Component {
   componentDidMount() {
     console.log(this.state.user);
 
-    // axios.get(`${config.API_URL}/api/musician-profile`)
-    //   .then((response) => {
-    //     console.log('what is this-----',response.data)
-    //     this.setState({user: response.data})
-    //   })
-    //   .catch(() => {
-    //     console.log('fetching failed')
-    //   })
+    axios.get(`${config.API_URL}/api/users`)
+      .then((response) => {
+        console.log('what is this-----',response.data)
+        this.setState({
+          users: response.data,
+          filteredUsers: response.data
+        })
+      })
+      .catch(() => {
+        console.log('fetching failed')
+      })
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -145,14 +149,15 @@ class App extends Component {
       })
       .catch((err) => {
         // 
-        console.log(error);
+        console.log(err);
       });
   }
 
   handleChange = (event) => {
     let searchText = event.target.value
     let filterList = this.state.users.filter((singleUser) => {
-      return singleUser.instrument.toLowerCase().includes(searchText)
+      console.log('singleUser-----',singleUser)
+       return singleUser.email.toLowerCase().includes(searchText)
     })
     this.setState({
       filteredUsers: filterList
@@ -162,6 +167,7 @@ class App extends Component {
 
 
   render() {
+    const {user, users, filteredUsers} = this.state
     // console.log(this.state.user)
     // console.log(this.state.isMounted);
 
@@ -192,7 +198,7 @@ class App extends Component {
     return (
       <div className="App">
         <Nav
-          user={this.state.user}
+          user={user}
           onSignUp={this.handleSignUp}
           onSignIn={this.handleSignIn}
           onSignOut={this.handleSignOut} />
@@ -210,12 +216,12 @@ class App extends Component {
 
           <Route path='/home' render={(routeProps) => {
             return (
-              <Home {...routeProps} user={this.state.user} />
+              <Home {...routeProps} user={user} />
             )
           }} />
           <Route path='/search/musicians' render={(routeProps) => {
             return (
-              <MusicianSearch {...routeProps} />
+              <MusicianSearch filteredUsers={filteredUsers} myChange={this.handleChange} {...routeProps} />
             )
           }} />
           <Route path='/search/venues' render={(routeProps) => {
@@ -225,13 +231,13 @@ class App extends Component {
           }} />
           <Route exact path='/musician-profile' render={(routeProps) => {
             return (
-              <MusicianProfile user={this.state.user} {...routeProps} />
+              <MusicianProfile user={user} {...routeProps} />
             )
           }} />
 
           <Route exact path='/musician-profile/edit' render={(routeProps) => {
             return (
-              <MusicianProfileEdit user={this.state.user} {...routeProps} onEdit={this.handleEditUser} />
+              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditUser} />
             )
           }} />
 
