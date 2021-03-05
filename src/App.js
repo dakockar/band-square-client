@@ -11,7 +11,9 @@ import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
 import Profile from "./components/Profile";
 import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
+import OwnerProfileEdit from './components/OwnerProfileEdit.jsx'
 import "./App.css"
+import AddVenueForm from "./components/AddVenueForm";
 
 class App extends Component {
 
@@ -19,7 +21,8 @@ class App extends Component {
     user: null,
     isMounted: false,
     filteredUsers: [],
-    users: []
+    users: [],
+    venues: []
   }
 
 
@@ -27,17 +30,17 @@ class App extends Component {
   componentDidMount() {
     console.log(this.state.user);
 
-    axios.get(`${config.API_URL}/api/users`)
-      .then((response) => {
-        console.log('what is this-----',response.data)
-        this.setState({
-          users: response.data,
-          filteredUsers: response.data
-        })
-      })
-      .catch(() => {
-        console.log('fetching failed')
-      })
+    // axios.get(`${config.API_URL}/api/users`)
+    //   .then((response) => {
+    //     console.log('what is this-----', response.data)
+    //     this.setState({
+    //       users: response.data,
+    //       filteredUsers: response.data
+    //     })
+    //   })
+    //   .catch(() => {
+    //     console.log('fetching failed')
+    //   })
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -58,7 +61,7 @@ class App extends Component {
   }
 
 
-  handleEditUser = (event) => {
+  handleEditMusician = (event) => {
     event.preventDefault()
     const { user } = this.state
     const firstName = event.target.firstName.value;
@@ -90,8 +93,34 @@ class App extends Component {
         )
       })
       .catch((err) => {
-        console.log('Edit failed', err)
+        console.log('Edit musician failed', err)
       })
+  }
+
+
+  handleEditOwner = (event) => {
+    event.preventDefault();
+    const { user } = this.state;
+
+    const firstName = event.target.firstName.value;
+    const lastName = event.target.lastName.value;
+
+    let editedOwner = {
+      firstName,
+      lastName
+    }
+
+    axios.patch(`${config.API_URL}/api/owner-profile/${user._id}`, editedOwner, { withCredentials: true })
+      .then((response) => {
+        this.setState({
+          user: response.data
+        }, () => {
+          this.props.history.push(`/profile`)
+        })
+      })
+      .catch((err) => {
+        console.log("edit owner failed", err);
+      });
   }
 
   handleSignUp = (event) => {
@@ -157,18 +186,47 @@ class App extends Component {
   handleChange = (event) => {
     let searchText = event.target.value
     let filterList = this.state.users.filter((singleUser) => {
-      console.log('singleUser-----',singleUser)
-       return singleUser.email.toLowerCase().includes(searchText)
+      console.log('singleUser-----', singleUser)
+      return singleUser.email.toLowerCase().includes(searchText)
     })
     this.setState({
       filteredUsers: filterList
     })
   }
 
+  handleAddVenue = (event) => {
+    event.preventDefault();
+
+    const { user } = this.state;
+    const { title, location, size } = event.target;
+
+    let newVenue = {
+      title: title.value,
+      location: location.value,
+      size: size.value,
+      ownerId: user._id
+    }
+
+    axios.post(`${config.API_URL}/api/add-venue`, newVenue)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          venues: [...this.state.venues, response.data]
+        }, () => {
+          this.props.history.push('/profile')
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  }
+
+
 
 
   render() {
-    const {user, users, filteredUsers} = this.state
+    const { user, users, filteredUsers, venues } = this.state
     // console.log(this.state.user)
     // console.log(this.state.isMounted);
 
@@ -238,19 +296,31 @@ class App extends Component {
 
           <Route exact path='/musician-profile/edit' render={(routeProps) => {
             return (
-              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditUser} />
+              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditMusician} />
             )
           }} /> */}
 
           <Route exact path="/profile" render={(routeProps) => {
             return (
-              <Profile user={user} {...routeProps} />
+              <Profile user={user} venues={venues} {...routeProps} />
             )
           }} />
 
           <Route exact path='/musician-profile/edit' render={(routeProps) => {
             return (
-              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditUser} />
+              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditMusician} />
+            )
+          }} />
+
+          <Route exact path='/owner-profile/edit' render={(routeProps) => {
+            return (
+              <OwnerProfileEdit user={user} {...routeProps} onEdit={this.handleEditOwner} />
+            )
+          }} />
+
+          <Route path='/add-venue' render={routeProps => {
+            return (
+              <AddVenueForm {...routeProps} onAdd={this.handleAddVenue} />
             )
           }} />
 

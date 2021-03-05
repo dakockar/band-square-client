@@ -27,41 +27,48 @@ class MusicianProfileEdit extends Component {
 
 
   render() {
-    return (
-      <Form onSubmit={this.props.onEdit}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control name='firstName' type="text" placeholder="Enter Name" defaultValue={this.props.user.firstName} />
-        </Form.Group>
+    const { user } = this.props
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control name="lastName" type="text" placeholder="Last Name" defaultValue={this.props.user.lastName} />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Genre</Form.Label>
-          <Form.Control name="genre" type="text" placeholder="genre" defaultValue={this.props.user.genre} />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Instrument</Form.Label>
-          <Form.Control name="instrument" type="text" placeholder="Instrument" defaultValue={this.props.user.instrument} />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>location</Form.Label>
-          <Form.Control name="location" type="text" placeholder="Location" defaultValue={this.props.user.location} />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Band</Form.Label>
-          <Form.Control name="bandName" type="text" placeholder="Band" defaultValue={this.props.user.bandName} />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>About Me</Form.Label>
-          <Form.Control name="aboutMe" type="text" placeholder="About me" defaultValue={this.props.user.aboutMe} />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
+    if (!user) return null;
+
+    return (
+      <div>
+        <h1>Edit Musician Profile</h1>
+
+        <Form onSubmit={this.props.onEdit}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control name='firstName' type="text" placeholder="Enter Name" defaultValue={this.props.user.firstName} />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control name="lastName" type="text" placeholder="Last Name" defaultValue={this.props.user.lastName} />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Genre</Form.Label>
+            <Form.Control name="genre" type="text" placeholder="genre" defaultValue={this.props.user.genre} />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Instrument</Form.Label>
+            <Form.Control name="instrument" type="text" placeholder="Instrument" defaultValue={this.props.user.instrument} />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>location</Form.Label>
+            <Form.Control name="location" type="text" placeholder="Location" defaultValue={this.props.user.location} />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Band</Form.Label>
+            <Form.Control name="bandName" type="text" placeholder="Band" defaultValue={this.props.user.bandName} />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>About Me</Form.Label>
+            <Form.Control name="aboutMe" type="text" placeholder="About me" defaultValue={this.props.user.aboutMe} />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
         </Button>
-      </Form>
+        </Form>
+      </div>
     );
   }
 }

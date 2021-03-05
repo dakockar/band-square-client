@@ -5,6 +5,9 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 
 function Nav(props) {
+
+  const { user } = props;
+
   return (
     <Navbar>
       {
@@ -19,7 +22,7 @@ function Nav(props) {
                 <Navbar.Text>
                   <Dropdown as={NavItem} alignRight>
                     <Dropdown.Toggle as={NavLink}>
-                      {props.user.email}
+                      {user.firstName || user.email}
                     </Dropdown.Toggle>
                     <Dropdown.Menu >
                       <Dropdown.Item as={Link} to='/profile'>
@@ -53,7 +56,7 @@ function Nav(props) {
             </>
           )
       }
-    </Navbar >
+    </Navbar>
   );
 }
 
