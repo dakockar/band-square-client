@@ -31,7 +31,14 @@ function MusicianSearch(props) {
       <p>{props.user.location}</p> */}
       {
           props.filteredUsers.map((singleUser) => {
-            return <div>{singleUser.email}</div>
+            return (
+                <div>
+                    <h4>{singleUser.firstName} {singleUser.lastName}</h4>
+                    <p>{singleUser.instrument}</p>
+                    <p>{singleUser.genre}</p>
+                </div>
+
+            )
           })
       }
 

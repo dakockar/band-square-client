@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom'
 
 export default function OwnerProfile(props) {
 
-    // if (!props.user) return null;
+     //if (!props.user) return null;
 
 
     return (

@@ -158,7 +158,7 @@ class App extends Component {
     let searchText = event.target.value
     let filterList = this.state.users.filter((singleUser) => {
       console.log('singleUser-----',singleUser)
-       return singleUser.email.toLowerCase().includes(searchText)
+       return (singleUser.instrument[0].toLowerCase().includes(searchText) || singleUser.genre[0].toLowerCase().includes(searchText))
     })
     this.setState({
       filteredUsers: filterList
