@@ -31,17 +31,17 @@ class App extends Component {
   componentDidMount() {
     console.log(this.state.user);
 
-    // axios.get(`${config.API_URL}/api/users`)
-    //   .then((response) => {
-    //     console.log('what is this-----', response.data)
-    //     this.setState({
-    //       users: response.data,
-    //       filteredUsers: response.data
-    //     })
-    //   })
-    //   .catch(() => {
-    //     console.log('fetching failed')
-    //   })
+    axios.get(`${config.API_URL}/api/users`)
+      .then((response) => {
+        console.log('what is this-----', response.data)
+        this.setState({
+          users: response.data,
+          filteredUsers: response.data
+        })
+      })
+      .catch(() => {
+        console.log('fetching failed')
+      })
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -311,28 +311,19 @@ class App extends Component {
               <Home {...routeProps} user={user} />
             )
           }} />
+
           <Route path='/search/musicians' render={(routeProps) => {
             return (
-              <MusicianSearch filteredUsers={filteredUsers} myChange={this.handleChange} {...routeProps} />
-            )
-          }} />
-          <Route path='/search/venues' render={(routeProps) => {
-            return (
-              <VenueSearch venueChange={this.handleVenueChange} {...routeProps} />
-              // filteredVenues={filteredVenues}
-            )
-          }} />
-          {/* <Route exact path='/musician-profile' render={(routeProps) => {
-            return (
-              <MusicianProfile user={user} {...routeProps} />
+              <MusicianSearch user={user} filteredUsers={filteredUsers} myChange={this.handleChange} {...routeProps} />
             )
           }} />
 
-          <Route exact path='/musician-profile/edit' render={(routeProps) => {
+          <Route path='/search/venues' render={(routeProps) => {
             return (
-              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditMusician} />
+              <VenueSearch user={user} venueChange={this.handleVenueChange} {...routeProps} />
+              // filteredVenues={filteredVenues}
             )
-          }} /> */}
+          }} />
 
           <Route exact path="/profile" render={(routeProps) => {
             return (

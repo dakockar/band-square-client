@@ -1,21 +1,29 @@
-import React from "react";
-import { Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap';
+import React, { Component } from 'react';
+import ErrorPage from "./ErrorPage";
 
+class VenueSearch extends Component {
+  render() {
+    const { user } = this.props;
+    if (!user) return null;
 
-function VenueSearch(props) {
-  return (
-    <div>
-      <h1>Venue search</h1>
-      <Form.Group>
-        <Form.Control
-          onChange={props.myChange}
-          type="text"
-          placeholder="Search"
-        />
-      </Form.Group>
-
-    </div>
-  );
+    return (
+      user.type === "owner"
+        ? (<ErrorPage />)
+        : (
+          <div>
+            <h1>Venue search</h1>
+            <Form.Group>
+              <Form.Control
+                onChange={this.props.myChange}
+                type="text"
+                placeholder="Search"
+              />
+            </Form.Group>
+          </div>
+        )
+    )
+  }
 }
 
 export default VenueSearch;
