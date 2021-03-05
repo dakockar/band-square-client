@@ -19,15 +19,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.user);
-    axios.get(`${config.API_URL}/api/musician-profile`)
-      .then((response) => {
-        console.log('what is this-----',response.data)
-        this.setState({user: response.data})
-      })
-      .catch(() => {
-        console.log('fetching failed')
-      })
+    // console.log(this.state.user);
+    // axios.get(`${config.API_URL}/api/musician-profile`)
+    //   .then((response) => {
+    //     console.log('what is this-----',response.data)
+    //     this.setState({user: response.data})
+    //   })
+    //   .catch(() => {
+    //     console.log('fetching failed')
+    //   })
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
