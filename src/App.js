@@ -31,17 +31,17 @@ class App extends Component {
   componentDidMount() {
     console.log(this.state.user);
 
-    // axios.get(`${config.API_URL}/api/users`)
-    //   .then((response) => {
-    //     console.log('what is this-----', response.data)
-    //     this.setState({
-    //       users: response.data,
-    //       filteredUsers: response.data
-    //     })
-    //   })
-    //   .catch(() => {
-    //     console.log('fetching failed')
-    //   })
+    axios.get(`${config.API_URL}/api/users`)
+      .then((response) => {
+        console.log('what is this-----', response.data)
+        this.setState({
+          users: response.data,
+          filteredUsers: response.data
+        })
+      })
+      .catch(() => {
+        console.log('fetching failed')
+      })
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
