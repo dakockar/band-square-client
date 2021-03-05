@@ -1,5 +1,81 @@
 .App {
-  /* text-align: center; */
+/* height: 100vh; */
+  letter-spacing: 0.1em;
 }
 
+a {
+  color: rgba(53, 53, 77, 0.877)
+}
 
+img {
+  width: 150px;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* Add a dark background color with a little bit see-through */
+.navbar {
+  margin-bottom: 0;
+  background-color: rgba(45, 45, 48, 0.9);
+  border: 0;
+  font-size: 12px;
+  position: fixed;
+  width: 100%;
+  height: 70px;
+  letter-spacing: 0.2em;
+}
+
+.navbar, .grey-text {
+  color: #d5d5d5 !important;
+  letter-spacing: 0.1em;
+}
+
+.logo {
+  margin: 0;
+  width: 40px;
+}
+
+.dropdown-box {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* container for all pages */
+.page {
+  height: 100vh;
+  /* padding top must be greater than 70px because of the navbar */
+  padding: 70px 20px 20px;
+  background-color: rgba(37, 58, 58, 0.5);
+  color:rgba(255, 255, 255, 0.8);
+}
+
+/* ------------ */
+
+
+/* this is a default class of the modal boxes, so it's not on JSX */
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+}
+
+/* owner profile page */
+
+.venue-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid black; */
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  background-color: rgba(45, 45, 48, 0.5);
+  border-radius: 5px;
+}
+
+.venues-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

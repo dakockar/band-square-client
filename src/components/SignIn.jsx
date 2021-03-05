@@ -10,17 +10,17 @@ function SignIn(props) {
 
   return (
     <div>
-      <Button variant="link" onClick={handleShow}>
+      <Button className="grey-text" variant="link" onClick={handleShow}>
         Sign In
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Sign In</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.onSignIn}>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>
               <Form.Control name='email' type="email" placeholder="Enter email" />
               <Form.Text className="text-muted">
@@ -28,12 +28,12 @@ function SignIn(props) {
               </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control name='password' type="password" placeholder="Password" />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleClose}>
-              Submit
+            <Button variant="dark" type="submit" onClick={handleClose}>
+              Sign In!
             </Button>
           </Form>
         </Modal.Body>

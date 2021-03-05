@@ -40,29 +40,26 @@ export default class OwnerProfile extends Component {
             <div>
                 <img src={user.imgUrl} />
                 <h5>Name: {user.firstName} {user.lastName}</h5>
-                <h5>Venues:
-            {
+                <h5>Venues:</h5>
+                <div className="venues-wrapper">
+                    {
                         venues.length
-                            ?
-                            <ul>
-                                {
-                                    venues.map(venue => {
-                                        return (
-                                            <li key={venue._id}>
-                                                <div>{venue.title}</div>
-                                                <div>{venue.location}</div>
-                                                <div>{venue.size}</div>
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
+                            ? (
+                                venues.map(venue => {
+                                    return (
+                                        <div className="venue-box" key={venue._id}>
+                                            <div>Title: {venue.title}</div>
+                                            <div>Location: {venue.location}</div>
+                                            <div>Size: {venue.size}m<sup>2</sup></div>
+                                        </div>
+                                    )
+                                })
+                            )
                             :
                             <span>no venues yet</span>
                     }
-                </h5>
-
-                <Button as={Link} to={`/owner-profile/edit`}>Edit Profile</Button>
+                </div>
+                <Button variant="dark" as={Link} to={`/owner-profile/edit`}>Edit Profile</Button>
                 <Button variant="dark" as={Link} to="/add-venue">Add Venue</Button>
 
             </div>

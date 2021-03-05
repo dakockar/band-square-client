@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
 import { Spinner } from "react-bootstrap"
-import axios from 'axios'
-import config from './config'
-import Nav from './components/Nav'
-import Home from './components/Home'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import config from './config';
+import Nav from './components/Nav';
+import LandingPage from "./components/LandingPage";
+import Home from './components/Home';
 import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
-import MusicianProfile from "./components/MusicianProfile";
 import Profile from "./components/Profile";
-import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
-import OwnerProfileEdit from './components/OwnerProfileEdit.jsx'
-import "./App.css"
+import MusicianProfileEdit from './components/MusicianProfileEdit';
+import OwnerProfileEdit from './components/OwnerProfileEdit';
 import AddVenueForm from "./components/AddVenueForm";
+import "./App.css";
 
 class App extends Component {
 
@@ -295,63 +295,66 @@ class App extends Component {
           onSignIn={this.handleSignIn}
           onSignOut={this.handleSignOut} />
 
-        <Switch>
 
-          <Route exact path='/' render={(routeProps) => {
-            return (
-              <LandingPage {...routeProps} />
-            )
-          }} />
+        <div className="page">
 
-
-          {/* authorized routes */}
-
-          <Route path='/home' render={(routeProps) => {
-            return (
-              <Home {...routeProps} user={user} />
-            )
-          }} />
-
-          <Route path='/search/musicians' render={(routeProps) => {
-            return (
-              <MusicianSearch user={user} filteredUsers={filteredUsers} myChange={this.handleChange} {...routeProps} />
-            )
-          }} />
-
-          <Route path='/search/venues' render={(routeProps) => {
-            return (
-              <VenueSearch user={user} venueChange={this.handleVenueChange} {...routeProps} />
-              // filteredVenues={filteredVenues}
-            )
-          }} />
-
-          <Route exact path="/profile" render={(routeProps) => {
-            return (
-              <Profile user={user} venues={venues} {...routeProps} />
-            )
-          }} />
-
-          <Route exact path='/musician-profile/edit' render={(routeProps) => {
-            return (
-              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditMusician} />
-            )
-          }} />
-
-          <Route exact path='/owner-profile/edit' render={(routeProps) => {
-            return (
-              <OwnerProfileEdit user={user} {...routeProps} onEdit={this.handleEditOwner} />
-            )
-          }} />
-
-          <Route path='/add-venue' render={routeProps => {
-            return (
-              <AddVenueForm {...routeProps} onAdd={this.handleAddVenue} />
-            )
-          }} />
+          <Switch>
+            <Route exact path='/' render={(routeProps) => {
+              return (
+                <LandingPage {...routeProps} />
+              )
+            }} />
 
 
-        </Switch>
+            {/* authorized routes */}
 
+            <Route path='/home' render={(routeProps) => {
+              return (
+                <Home {...routeProps} user={user} />
+              )
+            }} />
+
+            <Route path='/search/musicians' render={(routeProps) => {
+              return (
+                <MusicianSearch user={user} filteredUsers={filteredUsers} myChange={this.handleChange} {...routeProps} />
+              )
+            }} />
+
+            <Route path='/search/venues' render={(routeProps) => {
+              return (
+                <VenueSearch user={user} venueChange={this.handleVenueChange} {...routeProps} />
+                // filteredVenues={filteredVenues}
+              )
+            }} />
+
+            <Route exact path="/profile" render={(routeProps) => {
+              return (
+                <Profile user={user} venues={venues} {...routeProps} />
+              )
+            }} />
+
+            <Route exact path='/musician-profile/edit' render={(routeProps) => {
+              return (
+                <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditMusician} />
+              )
+            }} />
+
+            <Route exact path='/owner-profile/edit' render={(routeProps) => {
+              return (
+                <OwnerProfileEdit user={user} {...routeProps} onEdit={this.handleEditOwner} />
+              )
+            }} />
+
+            <Route path='/add-venue' render={routeProps => {
+              return (
+                <AddVenueForm {...routeProps} onAdd={this.handleAddVenue} />
+              )
+            }} />
+
+
+          </Switch>
+
+        </div>
       </div>
     );
   }
