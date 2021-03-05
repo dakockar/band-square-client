@@ -9,6 +9,7 @@ import Home from './components/Home'
 import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
+import Profile from "./components/Profile";
 import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
 import "./App.css"
 
@@ -84,7 +85,7 @@ class App extends Component {
         this.setState(
           { user: response.data },
           () => {
-            this.props.history.push(`/musician-profile`)
+            this.props.history.push(`/profile`)
           }
         )
       })
@@ -229,7 +230,7 @@ class App extends Component {
               <VenueSearch {...routeProps} />
             )
           }} />
-          <Route exact path='/musician-profile' render={(routeProps) => {
+          {/* <Route exact path='/musician-profile' render={(routeProps) => {
             return (
               <MusicianProfile user={user} {...routeProps} />
             )
@@ -239,7 +240,20 @@ class App extends Component {
             return (
               <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditUser} />
             )
+          }} /> */}
+
+          <Route exact path="/profile" render={(routeProps) => {
+            return (
+              <Profile user={user} {...routeProps} />
+            )
           }} />
+
+          <Route exact path='/musician-profile/edit' render={(routeProps) => {
+            return (
+              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditUser} />
+            )
+          }} />
+
 
         </Switch>
 

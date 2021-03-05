@@ -11,7 +11,7 @@ function Home(props) {
             <h1>Home page</h1>
             <Link to='/search/musicians'>Search musicians</Link>
             <Link to='/search/venues'>Search Venues</Link>
-            <Link to='/musician-profile'>musician profile</Link>
+            <Link to='/profile'>profile</Link>
         </div>
     )
 }
