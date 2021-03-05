@@ -10,15 +10,19 @@ import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
 import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
+import "./App.css"
 
 class App extends Component {
 
   state = {
-    user: null
+    user: null,
+    isMounted: false
   }
 
   componentDidMount() {
-    console.log(this.state.user);
+    // console.log(this.state.user);
+
+
 
     // if (this.state.user) {
     //   axios.get(`${config.API_URL}/api/musician-profile/${this.state.user._id}`)
@@ -45,6 +49,10 @@ class App extends Component {
           console.log("error gettin logged in user-----", err);
         });
     }
+
+    this.setState({
+      isMounted: true
+    })
   }
 
   handleEditUser = (event) => {
@@ -138,20 +146,30 @@ class App extends Component {
 
   render() {
     // console.log(this.state.user)
+    // console.log(this.state.isMounted);
 
-    if (!this.state.user) return (
-      <>
-        {/* <Spinner animation="grow" /> */}
-        <Nav
-          onSignUp={this.handleSignUp}
-          onSignIn={this.handleSignIn}
-          onSignOut={this.handleSignOut} />
-        <LandingPage />
-      </>
-    )
+    if (!this.state.isMounted) {
+      // <Spinner animation="grow" />
+      // return <Spinner animation="border" role="status">
+      //   <span className="sr-only">Loading...</span>
+      // </Spinner>
+      return null
+    }
 
 
-    console.log(this.state.user)
+    // if (!this.state.user) return (
+    //   <>
+    //     {/* <Nav
+    //       onSignUp={this.handleSignUp}
+    //       onSignIn={this.handleSignIn}
+    //       onSignOut={this.handleSignOut} />
+    //     <LandingPage /> */}
+    //     {/* <Redirect to="/" /> */}
+    //   </>
+    // )
+
+
+    // console.log(this.state.user)
 
 
     return (
@@ -166,8 +184,7 @@ class App extends Component {
 
           <Route exact path='/' render={(routeProps) => {
             return (
-              // <LandingPage {...routeProps} />
-              <Redirect to="/home" />
+              <LandingPage {...routeProps} />
             )
           }} />
 

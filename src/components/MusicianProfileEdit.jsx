@@ -4,9 +4,9 @@ import { Form, Button } from "react-bootstrap";
 import config from "../config";
 
 class MusicianProfileEdit extends Component {
-  state = {
-    user: {},
-  };
+  // state = {
+  //   user: {},
+  // };
 
   // componentDidMount() {
   //   // let userId = this.props.user._id;

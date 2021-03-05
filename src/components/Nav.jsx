@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Button, NavDropdown, Dropdown, NavItem, NavLink } from 'react-bootstrap';
+import { Navbar, Dropdown, NavItem, NavLink } from 'react-bootstrap';
 import { Link, Redirect } from "react-router-dom";
 import SignUp from './SignUp';
 import SignIn from './SignIn';
@@ -12,28 +12,20 @@ function Nav(props) {
           ? (
             <>
               <Navbar.Brand>
-                <Link to="/home">Home</Link>
+                <Link to="/home">Logo</Link>
               </Navbar.Brand>
               <Navbar.Toggle />
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                  {/* <NavDropdown title={props.user.email} id="basic-nav-dropdown">
-                    <NavDropdown.Item>
-                      <Link to='/musician-profile'>profile</Link>
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={props.onSignOut}>
-                      Sign Out
-                    </NavDropdown.Item>
-                  </NavDropdown> */}
-                  <Dropdown as={NavItem} >
+                  <Dropdown as={NavItem} alignRight>
                     <Dropdown.Toggle as={NavLink}>
                       {props.user.email}
                     </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item>
-                        <Link to='/musician-profile'>Profile</Link>
+                    <Dropdown.Menu >
+                      <Dropdown.Item as={Link} to='/musician-profile'>
+                        Profile
                       </Dropdown.Item>
+                      <Dropdown.Divider />
                       <Dropdown.Item onClick={props.onSignOut}>
                         Sign Out
                       </Dropdown.Item>
@@ -57,11 +49,11 @@ function Nav(props) {
                   <SignUp onSignUp={props.onSignUp} />
                 </Navbar.Text>
               </Navbar.Collapse>
-              <Redirect to="/" />
+              {/* <Redirect to="/" /> */}
             </>
           )
       }
-    </Navbar>
+    </Navbar >
   );
 }
 
