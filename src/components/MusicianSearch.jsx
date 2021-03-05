@@ -1,47 +1,66 @@
-import React from "react";
-import { Form } from "react-bootstrap";
-
-
+import React, { Component } from "react";
+import { Form, Row, Col } from "react-bootstrap";
 
 function MusicianSearch(props) {
+    
+//     state ={
+//         selectedOption: {}
+//     }
+
+//   onValueChange = (event) =>{
+//       this.setState({
+//           selectedOption: event.target.value
+//       })
+//   }  
+  
+  
+
+  
   return (
     <div>
       <h1>musician search</h1>
       <Form>
-        <div key="default-checkbox" className="mb-3">
-          <Form.Check
-            type="checkbox"
-            id="band-check"
-            label="I'm looking for a band"
-          />
-          <Form.Check
-            type="checkbox"
-            id="music-check"
-            label="I'm looking for musicians"
-          />
-        </div>
+        <fieldset>
+          <Form.Group as={Row}>
+            <Col sm={10}>
+              <Form.Check
+                type="radio"
+                label="I'm looking for musicians"
+                value='musicianSearch'
+                name="formHorizontalRadios"
+                id="formHorizontalRadios1"
+                //onChange={this.onValueChange}
+              />
+              <Form.Check
+                type="radio"
+                label="I'm looking for bands"
+                value="bandSearch"
+                name="formHorizontalRadios"
+                id="formHorizontalRadios2"
+                //onChange={this.onValueChange}
+              />
+            </Col>
+          </Form.Group>
+        </fieldset>
       </Form>
       <Form.Group>
-        <Form.Control onChange={props.myChange} type="text" placeholder="Search" />
+        <Form.Control
+          onChange={props.myChange}
+          type="text"
+          placeholder="Search"
+        />
       </Form.Group>
-
-      {/* <p>{props.user.firstName}</p>
-      <p>{props.user.genre}</p>
-      <p>{props.user.instrument}</p>
-      <p>{props.user.location}</p> */}
-      {
-          props.filteredUsers.map((singleUser) => {
-            return (
-                <div>
-                    <h4>{singleUser.firstName} {singleUser.lastName}</h4>
-                    <p>{singleUser.instrument}</p>
-                    <p>{singleUser.genre}</p>
-                </div>
-
-            )
-          })
-      }
-
+      {props.filteredUsers.map((singleUser) => {
+        return (
+          <div>
+            <h4>
+              {singleUser.firstName} {singleUser.lastName}
+            </h4>
+            <p>{singleUser.instrument}</p>
+            <p>{singleUser.genre}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }

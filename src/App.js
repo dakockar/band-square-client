@@ -19,7 +19,9 @@ class App extends Component {
     user: null,
     isMounted: false,
     filteredUsers: [],
-    users: []
+    users: [],
+    venues: [],
+    filteredVenues: []
   }
 
 
@@ -154,6 +156,27 @@ class App extends Component {
       });
   }
 
+  handleVenueChange = (event) => {
+    let searchText = event.target.value.split(' ')
+    let filteredVenueList = this.state.venues.filter((singleVenue) => {
+      {
+        for(let i=0; i< searchText.length;i++){
+          if(searchText.length === 1){
+            return singleVenue.size[0].toLowerCase().includes(searchText[i]) || singleVenue.location[0].toLowerCase().includes(searchText[i])
+          }
+          else {
+            return singleVenue.size[0].toLowerCase().includes(searchText[0]) && singleVenue.location[0].toLowerCase().includes(searchText[1]) || singleVenue.size[0].toLowerCase().includes(searchText[1]) && singleVenue.location[0].toLowerCase().includes(searchText[0])
+          }
+        }
+      }
+      return
+    })
+    this.setState({
+      filteredVenues: filteredVenueList
+    })
+  }
+
+
   handleChange = (event) => {
     let searchText = event.target.value.split(' ')
     let filterList = this.state.users.filter((singleUser) => {
@@ -238,7 +261,8 @@ class App extends Component {
           }} />
           <Route path='/search/venues' render={(routeProps) => {
             return (
-              <VenueSearch {...routeProps} />
+              <VenueSearch  venueChange={this.handleVenueChange} {...routeProps} />
+              // filteredVenues={filteredVenues}
             )
           }} />
           {/* <Route exact path='/musician-profile' render={(routeProps) => {
