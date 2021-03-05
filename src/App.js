@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-// import SignUp from "./components/SignUp";
+import { Spinner } from "react-bootstrap"
 import axios from 'axios'
 import config from './config'
 import Nav from './components/Nav'
@@ -10,16 +10,21 @@ import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
 import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
+import "./App.css"
 
 class App extends Component {
 
   state = {
     user: null,
+    isMounted: false,
     filteredUsers: []
   }
 
+
+
   componentDidMount() {
-    // console.log(this.state.user);
+    console.log(this.state.user);
+
     // axios.get(`${config.API_URL}/api/musician-profile`)
     //   .then((response) => {
     //     console.log('what is this-----',response.data)
@@ -32,7 +37,7 @@ class App extends Component {
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
-          // console.log(response);
+          console.log("logged in user info", response);
           this.setState({
             user: response.data
           })
@@ -41,7 +46,12 @@ class App extends Component {
           console.log("error gettin logged in user-----", err);
         });
     }
+
+    this.setState({
+      isMounted: true
+    })
   }
+
 
   handleEditUser = (event) => {
     event.preventDefault()
@@ -62,13 +72,13 @@ class App extends Component {
       bandName,
       aboutMe
     }
-    axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser, {withCredentials: true})
+
+
+    axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser, { withCredentials: true })
       .then((response) => {
         console.log('-----edit----', response.data)
         this.setState(
-          {
-            user: response.data
-          },
+          { user: response.data },
           () => {
             this.props.history.push(`/musician-profile`)
           }
@@ -149,27 +159,34 @@ class App extends Component {
     })
   }
 
-  // handleOnSubmit = (event) => {
-  //   event.preventDefault();
-  //   const firstName = event.target.firstName.value;
-  //   const instrument = event.target.instrument.value;
 
-  //   axios.post(`${}`)
-  // }
 
   render() {
-    console.log(this.state.user)
+    // console.log(this.state.user)
+    // console.log(this.state.isMounted);
 
-    if (!this.state.user) return (
-      <>
-        <Nav
-          onSignUp={this.handleSignUp}
-          onSignIn={this.handleSignIn}
-          onSignOut={this.handleSignOut} />
-        <LandingPage />
-      </>
-    )
-    console.log(this.state.user)
+    if (!this.state.isMounted) {
+      // <Spinner animation="grow" />
+      // return <Spinner animation="border" role="status">
+      //   <span className="sr-only">Loading...</span>
+      // </Spinner>
+      return null
+    }
+
+
+    // if (!this.state.user) return (
+    //   <>
+    //     {/* <Nav
+    //       onSignUp={this.handleSignUp}
+    //       onSignIn={this.handleSignIn}
+    //       onSignOut={this.handleSignOut} />
+    //     <LandingPage /> */}
+    //     {/* <Redirect to="/" /> */}
+    //   </>
+    // )
+
+
+    // console.log(this.state.user)
 
 
     return (
@@ -206,15 +223,12 @@ class App extends Component {
               <VenueSearch {...routeProps} />
             )
           }} />
-          {!this.state.user ? null : (
-            <Route exact path='/musician-profile' render={(routeProps) => {
-              return (
-                <MusicianProfile user={this.state.user} {...routeProps} />
-              )
-            }} />
+          <Route exact path='/musician-profile' render={(routeProps) => {
+            return (
+              <MusicianProfile user={this.state.user} {...routeProps} />
+            )
+          }} />
 
-          )
-          }
           <Route exact path='/musician-profile/edit' render={(routeProps) => {
             return (
               <MusicianProfileEdit user={this.state.user} {...routeProps} onEdit={this.handleEditUser} />
