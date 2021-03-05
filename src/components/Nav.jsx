@@ -22,7 +22,7 @@ function Nav(props) {
                       {props.user.email}
                     </Dropdown.Toggle>
                     <Dropdown.Menu >
-                      <Dropdown.Item as={Link} to='/musician-profile'>
+                      <Dropdown.Item as={Link} to='/profile'>
                         Profile
                       </Dropdown.Item>
                       <Dropdown.Divider />

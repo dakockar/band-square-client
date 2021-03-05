@@ -9,6 +9,7 @@ import Home from './components/Home'
 import MusicianSearch from "./components/MusicianSearch";
 import VenueSearch from "./components/VenueSearch";
 import MusicianProfile from "./components/MusicianProfile";
+import Profile from "./components/Profile";
 import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
 import "./App.css"
 
@@ -81,7 +82,7 @@ class App extends Component {
         this.setState(
           { user: response.data },
           () => {
-            this.props.history.push(`/musician-profile`)
+            this.props.history.push(`/profile`)
           }
         )
       })
@@ -146,7 +147,7 @@ class App extends Component {
       })
       .catch((err) => {
         // 
-        console.log(error);
+        console.log(err);
       });
   }
 
@@ -163,6 +164,9 @@ class App extends Component {
 
 
   render() {
+
+    const { user } = this.state;
+
     // console.log(this.state.user)
     // console.log(this.state.isMounted);
 
@@ -193,7 +197,7 @@ class App extends Component {
     return (
       <div className="App">
         <Nav
-          user={this.state.user}
+          user={user}
           onSignUp={this.handleSignUp}
           onSignIn={this.handleSignIn}
           onSignOut={this.handleSignOut} />
@@ -211,7 +215,7 @@ class App extends Component {
 
           <Route path='/home' render={(routeProps) => {
             return (
-              <Home {...routeProps} user={this.state.user} />
+              <Home {...routeProps} user={user} />
             )
           }} />
           <Route path='/search/musicians' render={(routeProps) => {
@@ -224,7 +228,7 @@ class App extends Component {
               <VenueSearch {...routeProps} />
             )
           }} />
-          <Route exact path='/musician-profile' render={(routeProps) => {
+          {/* <Route exact path='/musician-profile' render={(routeProps) => {
             return (
               <MusicianProfile user={this.state.user} {...routeProps} />
             )
@@ -234,7 +238,20 @@ class App extends Component {
             return (
               <MusicianProfileEdit user={this.state.user} {...routeProps} onEdit={this.handleEditUser} />
             )
+          }} /> */}
+
+          <Route exact path="/profile" render={(routeProps) => {
+            return (
+              <Profile user={user} {...routeProps} />
+            )
           }} />
+
+          <Route exact path='/musician-profile/edit' render={(routeProps) => {
+            return (
+              <MusicianProfileEdit user={user} {...routeProps} onEdit={this.handleEditUser} />
+            )
+          }} />
+
 
         </Switch>
 

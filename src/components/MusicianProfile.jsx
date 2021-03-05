@@ -15,7 +15,7 @@ function MusicianProfile(props) {
             <h5>Name: {props.user.firstName} {props.user.lastName}</h5>
             <h5>Genre: {props.user.genre}</h5>
             <h5>Instrument: {props.user.instrument}</h5>
-            
+
             <h5>Location: {props.user.location}</h5>
             <h5>Band: {props.user.bandName}</h5>
             <h5>About Me: {props.user.aboutMe}</h5>
