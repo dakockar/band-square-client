@@ -9,18 +9,15 @@ function MusicianProfile(props) {
     // if (!props.user) return null;
 
     return (
-
-        <div>
+        <div className="profile-page">
             <img src={props.user.imgUrl} />
-            <h5>Name: {props.user.firstName} {props.user.lastName}</h5>
-            <h5>Genre: {props.user.genre}</h5>
-            <h5>Instrument: {props.user.instrument}</h5>
-
-            <h5>Location: {props.user.location}</h5>
-            <h5>Band: {props.user.bandName}</h5>
-            <h5>About Me: {props.user.aboutMe}</h5>
-            <Button as={Link} to={`/musician-profile/edit`}>Edit</Button>
-
+            <h5>Name: </h5><span>{props.user.firstName} {props.user.lastName}</span>
+            <h5>Genre: </h5><span>{props.user.genre}</span>
+            <h5>Instrument: </h5><span>{props.user.instrument}</span>
+            <h5>Location: </h5><span>{props.user.location}</span>
+            <h5>Band: </h5><span>{props.user.bandName}</span>
+            <h5>About Me: </h5><span>{props.user.aboutMe}</span>
+            <Button className="button" as={Link} to={`/musician-profile/edit`}>Edit Profile</Button>
         </div>
     )
 }

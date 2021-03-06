@@ -1,14 +1,24 @@
+html, body {
+  height: 100%;
+  min-height: 100vh;
+}
+
 .App {
-/* height: 100vh; */
   letter-spacing: 0.1em;
 }
 
 a {
-  color: rgba(53, 53, 77, 0.877)
+  color: rgba(255, 255, 255, 0.7)
+}
+
+a:hover, a:active {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
 }
 
 img {
-  width: 150px;
+  /* width: 150px; */
+  /* height: auto; */
 }
 
 li {
@@ -17,8 +27,8 @@ li {
 
 /* Add a dark background color with a little bit see-through */
 .navbar {
-  margin-bottom: 0;
-  background-color: rgba(45, 45, 48, 0.9);
+  /* margin-bottom: 0; */
+  background-color: rgba(20, 20, 20, 0.7);
   border: 0;
   font-size: 12px;
   position: fixed;
@@ -43,11 +53,20 @@ li {
 
 /* container for all pages */
 .page {
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   /* padding top must be greater than 70px because of the navbar */
   padding: 70px 20px 20px;
-  background-color: rgba(37, 58, 58, 0.5);
+  /* background-image: url("../src/images/rock-bg.jpg"); */
+  /* background-size: cover;
+  background-color: rgba(27, 53, 53, 0.8); */
+  background: radial-gradient(circle, rgba(27,53,53,0.9) 0%, rgba(8,17,17,0.85) 75%);
   color:rgba(255, 255, 255, 0.8);
+}
+
+.page h2 {
+  margin: 20px;
+  font-size: 1.7em;
 }
 
 /* ------------ */
@@ -78,4 +97,56 @@ li {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+
+/* ------------------ */
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
+}
+
+.search-link {
+  display: flex;
+  /* text-align: center; */
+  width: 300px;
+  padding: 60px 40px;
+  margin: 50px auto;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: 0.2s ease-in;
+}
+
+.search-link:hover, .search-link:active {
+  transform: scale(1.1);
+}
+
+
+/* profile pages */
+
+.profile-page {
+display: flex;
+flex-direction: column;
+}
+
+.profile-page h5 {
+  margin: 15px 0 5px;
+  /* display: inline; */
+}
+
+.profile-page img {
+  border-radius: 5%;
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: block;
+  align-self: flex-end;
+  border: none;
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-size: 1em;
+  margin: 10px 0;
 }

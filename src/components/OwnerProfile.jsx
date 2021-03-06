@@ -37,9 +37,9 @@ export default class OwnerProfile extends Component {
         if (!user) return null;
 
         return (
-            <div>
+            <div className="profile-page">
                 <img src={user.imgUrl} />
-                <h5>Name: {user.firstName} {user.lastName}</h5>
+                <h5>Name: </h5><span>{user.firstName} {user.lastName}</span>
                 <h5>Venues:</h5>
                 <div className="venues-wrapper">
                     {
@@ -59,9 +59,8 @@ export default class OwnerProfile extends Component {
                             <span>no venues yet</span>
                     }
                 </div>
-                <Button variant="dark" as={Link} to={`/owner-profile/edit`}>Edit Profile</Button>
-                <Button variant="dark" as={Link} to="/add-venue">Add Venue</Button>
-
+                <Button className="button" as={Link} to={`/owner-profile/edit`}>Edit Profile</Button>
+                <Button className="button" as={Link} to="/add-venue">Add Venue</Button>
             </div>
         )
     }
