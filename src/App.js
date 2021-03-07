@@ -22,10 +22,14 @@ class App extends Component {
   state = {
     user: null,
     isMounted: false,
-    filteredUsers: [],
     users: [],
+    filteredUsers: [],
     venues: [],
-    filteredVenues: []
+    filteredVenues: [],
+    // for keeping search terms
+    size: 0,
+    location: [],
+    title: []
   }
 
 
@@ -80,7 +84,7 @@ class App extends Component {
 
   handleEditMusician = (event) => {
     event.preventDefault()
-    const { user } = this.state
+    const { user, users } = this.state
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
     const instrument = event.target.instrument.value;
@@ -102,8 +106,20 @@ class App extends Component {
     axios.patch(`${config.API_URL}/api/musician-profile/${user._id}`, editedUser, { withCredentials: true })
       .then((response) => {
         console.log('-----edit----', response.data)
-        this.setState(
-          { user: response.data },
+
+        // update the users and filteredUsers states
+        let editedUsersList = users.map(singleUser => {
+          if (user._id === singleUser._id) {
+            singleUser = response.data;
+          }
+          return singleUser;
+        })
+
+        this.setState({
+          user: response.data,
+          users: editedUsersList,
+          filteredUsers: editedUsersList
+        },
           () => {
             this.props.history.push(`/profile`)
           }
@@ -200,47 +216,89 @@ class App extends Component {
       });
   }
 
-  handleVenueChange = (event) => {
-    let searchText = event.target.value.split(' ')
-    let filteredVenueList = this.state.venues.filter((singleVenue) => {
-      {
-        for (let i = 0; i < searchText.length; i++) {
-          console.log(searchText.length)
-          if (searchText.length === 1) {
-            return singleVenue.location.toLowerCase().includes(searchText[i]) || singleVenue.size >= Number(searchText[i])
-          }
-          else {
-            console.log(singleVenue.size.toString())
-            return singleVenue.size >= Number(searchText[0]) && singleVenue.location.toLowerCase().includes(searchText[1]) || singleVenue.size >= Number(searchText[1]) && singleVenue.location.toLowerCase().includes(searchText[0])
-          }
-        }
-      }
-      return
-    })
-    this.setState({
-      filteredVenues: filteredVenueList
-    })
-  }
+  handleMusicianSearch = (event) => {
+    // console.log(event.target.searchType);
 
-  handleChange = (event) => {
-    let searchText = event.target.value.split(' ')
-    let filterList = this.state.users.filter((singleUser) => {
-      {
-        for (let i = 0; i < searchText.length; i++) {
-          console.log(searchText.length)
-          if (searchText.length === 1) {
-            return singleUser.instrument[0].toLowerCase().includes(searchText[i]) || singleUser.genre[0].toLowerCase().includes(searchText[i])
-          }
-          else {
-            return singleUser.instrument[0].toLowerCase().includes(searchText[0]) && singleUser.genre[0].toLowerCase().includes(searchText[1]) || singleUser.instrument[0].toLowerCase().includes(searchText[1]) && singleUser.genre[0].toLowerCase().includes(searchText[0])
-          }
-        }
+    let searchArray = event.target.value.split(' ');
+    console.log(searchArray);
+
+    let clonedUsers = JSON.parse(JSON.stringify(this.state.users));
+
+    let filterList = clonedUsers.filter((singleUser) => {
+
+      // for (let i = 0; i < searchArray.length; i++) {
+      //   console.log(searchArray.length)
+      //   if (searchArray.length === 1) {
+      //     return singleUser.instrument[0].toLowerCase().includes(searchArray[i]) || singleUser.genre[0].toLowerCase().includes(searchArray[i])
+      //   }
+      //   else {
+      //     return singleUser.instrument[0].toLowerCase().includes(searchArray[0]) && singleUser.genre[0].toLowerCase().includes(searchArray[1]) || singleUser.instrument[0].toLowerCase().includes(searchArray[1]) && singleUser.genre[0].toLowerCase().includes(searchArray[0])
+      //   }
+      // }
+
+      for (let i = 0; i < searchArray.length; i++) {
+        if (i > 0 && !searchArray[i]) return false;
+
+        if (singleUser.instrument[0].toLowerCase().includes(searchArray[i].toLowerCase())
+          || singleUser.genre[0].toLowerCase().includes(searchArray[i].toLowerCase())) {
+          return true;
+        };
       }
+
       //console.log('singleUser-----',singleUser)
-      return
+      return;
     })
     this.setState({
       filteredUsers: filterList
+    })
+  }
+
+  onVenueSearch = (event) => {
+    let name = event.target.name;
+    let value = event.target.value.split(' ');
+
+    switch (name) {
+      case 'size': this.setState({ size: value[0] }, this.handleVenueSearch);
+        break;
+      case 'location': this.setState({ location: value }, this.handleVenueSearch)
+        break;
+      case 'title': this.setState({ title: value }, this.handleVenueSearch)
+        break;
+    }
+  }
+
+
+  handleVenueSearch = () => {
+    let clonedVenues = JSON.parse(JSON.stringify(this.state.venues));
+
+    const { size, location, title } = this.state;
+
+    let filterList = clonedVenues.filter(venue => {
+      if (!Number(size)) return true;
+      return Number(size) && venue.size <= size
+    })
+    // console.log(filterList);
+
+    filterList = filterList.filter(venue => {
+      if (!location.length) return true;
+      for (let i = 0; i < location.length; i++) {
+        if (i > 0 && !location[i]) return false;
+        if (venue.location.toLowerCase().includes(location[i].toLowerCase())) return true;
+      }
+    })
+    // console.log(filterList);
+
+    filterList = filterList.filter(venue => {
+      if (!title.length) return true;
+      for (let i = 0; i < title.length; i++) {
+        if (i > 0 && !title[i]) return false;
+        if (venue.title.toLowerCase().includes(title[i].toLowerCase())) return true;
+      }
+    })
+    // console.log(filterList);
+
+    this.setState({
+      filteredVenues: filterList
     })
   }
 
@@ -294,9 +352,7 @@ class App extends Component {
 
         let editedVenuesList = venues.map(venue => {
           if (venue._id === venueId) {
-            venue.title = title.value;
-            venue.location = location.value;
-            venue.title = size.value;
+            venue = response.data;
           }
           return venue;
         })
@@ -318,17 +374,19 @@ class App extends Component {
   handleDeleteVenue = (venueId) => {
     const { venues } = this.state;
 
+    const clonedVenues = JSON.parse(JSON.stringify(venues));
+
     // console.log("venue to be deleted: ", venueId);
 
     axios.delete(`${config.API_URL}/api/venue/${venueId}`)
       .then((response) => {
         // console.log(response);
 
-        let venueList = venues.filter(venue => venue._id !== venueId)
+        let venuesList = clonedVenues.filter(venue => venue._id !== venueId)
 
         this.setState({
-          venues: venueList,
-          filteredVenues: venueList
+          venues: venuesList,
+          filteredVenues: venuesList
         }, () => {
           this.props.history.push("/profile");
         })
@@ -344,7 +402,7 @@ class App extends Component {
     const { user, users, filteredUsers, venues, filteredVenues } = this.state;
 
 
-    console.log("render venues", this.state.venues);
+    // console.log("render venues", this.state.venues);
     // console.log(this.state.isMounted);
 
     if (!this.state.isMounted) {
@@ -400,13 +458,13 @@ class App extends Component {
 
             <Route path='/search/musicians' render={(routeProps) => {
               return (
-                <MusicianSearch user={user} filteredUsers={filteredUsers} myChange={this.handleChange} {...routeProps} />
+                <MusicianSearch user={user} filteredUsers={filteredUsers} myChange={this.handleMusicianSearch} {...routeProps} />
               )
             }} />
 
             <Route path='/search/venues' render={(routeProps) => {
               return (
-                <VenueSearch user={user} filteredVenues={filteredVenues} venueChange={this.handleVenueChange} {...routeProps} />
+                <VenueSearch user={user} filteredVenues={filteredVenues} onSearch={this.onVenueSearch} {...routeProps} />
               )
             }} />
 
