@@ -13,7 +13,9 @@ import Profile from "./components/Profile";
 import MusicianProfileEdit from './components/MusicianProfileEdit';
 import OwnerProfileEdit from './components/OwnerProfileEdit';
 import AddVenueForm from "./components/AddVenueForm";
+import EditVenueForm from "./components/EditVenueForm";
 import "./App.css";
+import VenueDetails from "./components/VenueDetails";
 
 class App extends Component {
 
@@ -27,10 +29,11 @@ class App extends Component {
   }
 
 
-
   componentDidMount() {
     console.log(this.state.user);
 
+
+    // get all users
     axios.get(`${config.API_URL}/api/users`)
       .then((response) => {
         console.log('what is this-----', response.data)
@@ -43,6 +46,7 @@ class App extends Component {
         console.log('fetching users failed')
       })
 
+    // get all venues
     axios.get(`${config.API_URL}/api/venues`)
       .then((response) => {
         this.setState({
@@ -53,6 +57,7 @@ class App extends Component {
       .catch(() => {
         console.log('fetching venues failed')
       })
+
 
     if (!this.state.user) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
@@ -217,7 +222,6 @@ class App extends Component {
     })
   }
 
-
   handleChange = (event) => {
     let searchText = event.target.value.split(' ')
     let filterList = this.state.users.filter((singleUser) => {
@@ -257,7 +261,8 @@ class App extends Component {
       .then((response) => {
         console.log(response.data);
         this.setState({
-          venues: [...this.state.venues, response.data]
+          venues: [...this.state.venues, response.data],
+          filteredVenues: [...this.state.venues, response.data]
         }, () => {
           this.props.history.push('/profile')
         })
@@ -268,12 +273,78 @@ class App extends Component {
 
   }
 
+  handleEditVenue = (event, venueId) => {
+    event.preventDefault();
+    const { venues } = this.state;
 
+    // console.log(event.target.title.value);
+    // console.log(venueId);
+
+    const { title, location, size } = event.target;
+
+    let editedVenue = {
+      title: title.value,
+      location: location.value,
+      size: size.value
+    }
+
+    axios.patch(`${config.API_URL}/api/venue/${venueId}`, editedVenue, { withCredentials: true })
+      .then((response) => {
+        console.log("venue edited: ", response.data);
+
+        let editedVenuesList = venues.map(venue => {
+          if (venue._id === venueId) {
+            venue.title = title.value;
+            venue.location = location.value;
+            venue.title = size.value;
+          }
+          return venue;
+        })
+
+        // console.log(editedVenuesList);
+
+        this.setState({
+          venues: editedVenuesList,
+          filteredVenues: editedVenuesList
+        }, () => {
+          this.props.history.push(`/profile`)
+        })
+      })
+      .catch((err) => {
+        console.log("venue edit failed", err);
+      });
+  }
+
+  handleDeleteVenue = (venueId) => {
+    const { venues } = this.state;
+
+    // console.log("venue to be deleted: ", venueId);
+
+    axios.delete(`${config.API_URL}/api/venue/${venueId}`)
+      .then((response) => {
+        // console.log(response);
+
+        let venueList = venues.filter(venue => venue._id !== venueId)
+
+        this.setState({
+          venues: venueList,
+          filteredVenues: venueList
+        }, () => {
+          this.props.history.push("/profile");
+        })
+      })
+      .catch((err) => {
+        console.log("venue deletion failed", err);
+      });
+
+  }
 
 
   render() {
-    const { user, users, filteredUsers, venues, filteredVenues } = this.state
-    // console.log(this.state.user)
+    const { user, users, filteredUsers, venues, filteredVenues } = this.state;
+
+
+    console.log("render venues", this.state.venues);
     // console.log(this.state.isMounted);
 
     if (!this.state.isMounted) {
@@ -360,6 +431,19 @@ class App extends Component {
             <Route path='/add-venue' render={routeProps => {
               return (
                 <AddVenueForm {...routeProps} onAdd={this.handleAddVenue} />
+              )
+            }} />
+
+
+            <Route exact path='/venue/:venueId' render={routeProps => {
+              return (
+                <VenueDetails {...routeProps} onDelete={this.handleDeleteVenue} />
+              )
+            }} />
+
+            <Route path='/venue/:venueId/edit' render={routeProps => {
+              return (
+                <EditVenueForm {...routeProps} onEdit={this.handleEditVenue} />
               )
             }} />
 

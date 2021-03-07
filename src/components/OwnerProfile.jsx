@@ -16,9 +16,10 @@ export default class OwnerProfile extends Component {
     componentDidMount() {
         const { user } = this.props;
 
+        // get logged in user's venues 
         axios.get(`${config.API_URL}/api/venues/${user._id}`)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({
                     venues: response.data
                 })
@@ -44,23 +45,24 @@ export default class OwnerProfile extends Component {
                 <div className="venues-wrapper">
                     {
                         venues.length
-                            ? (
+                            ? (<ol> {
                                 venues.map(venue => {
                                     return (
-                                        <div className="venue-box" key={venue._id}>
-                                            <div>Title: {venue.title}</div>
-                                            <div>Location: {venue.location}</div>
-                                            <div>Size: {venue.size}m<sup>2</sup></div>
-                                        </div>
+                                        <li key={venue._id}>
+                                            <Link to={`/venue/${venue._id}`}>
+                                                {venue.title}
+                                            </Link>
+                                        </li>
                                     )
                                 })
+                            }</ol>
                             )
                             :
                             <span>no venues yet</span>
                     }
                 </div>
-                <Button className="button" as={Link} to={`/owner-profile/edit`}>Edit Profile</Button>
-                <Button className="button" as={Link} to="/add-venue">Add Venue</Button>
+                <Button className='button' as={Link} to='/owner-profile/edit'>Edit Profile</Button>
+                <Button className='button' as={Link} to='/add-venue'>Add Venue</Button>
             </div>
         )
     }
