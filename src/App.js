@@ -14,6 +14,8 @@ import MusicianProfileEdit from './components/MusicianProfileEdit.jsx'
 import OwnerProfileEdit from './components/OwnerProfileEdit.jsx'
 import "./App.css"
 import AddVenueForm from "./components/AddVenueForm";
+import Chat from './components/Chat'
+import Join from './components/Join'
 
 class App extends Component {
 
@@ -360,6 +362,8 @@ class App extends Component {
               <AddVenueForm {...routeProps} onAdd={this.handleAddVenue} />
             )
           }} />
+          <Route path='/chat' component={Chat} />
+          <Route path='/join' component={Join} />
 
 
         </Switch>
