@@ -7,7 +7,7 @@ import ErrorPage from "./ErrorPage";
 class MusicianSearch extends Component {
 
   render() {
-    const { user, filteredUsers, myChange } = this.props;
+    const { user, filteredUsers, onSearch } = this.props;
     if (!user) return null;
 
     return (
@@ -43,9 +43,18 @@ class MusicianSearch extends Component {
             </Form>
             <Form.Group>
               <Form.Control
-                onChange={myChange}
+                onChange={onSearch}
                 type="text"
-                placeholder="Search"
+                name="instrument"
+                placeholder="Instrument"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Control
+                onChange={onSearch}
+                type="text"
+                name="genre"
+                placeholder="Genre"
               />
             </Form.Group>
             <h3>Results:</h3>

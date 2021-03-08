@@ -27,6 +27,8 @@ class App extends Component {
     venues: [],
     filteredVenues: [],
     // for keeping search terms
+    instrument: [],
+    genre: [],
     size: 0,
     location: [],
     title: []
@@ -216,38 +218,52 @@ class App extends Component {
       });
   }
 
-  handleMusicianSearch = (event) => {
-    // console.log(event.target.searchType);
+  onMusicianSearch = (event) => {
+    let name = event.target.name;
+    let value = event.target.value.split(' ');
 
-    let searchArray = event.target.value.split(' ');
-    console.log(searchArray);
+    switch (name) {
+      case 'instrument': this.setState({ instrument: value }, this.handleMusicianSearch);
+        break;
+      case 'genre': this.setState({ genre: value }, this.handleMusicianSearch)
+        break;
+    }
+  }
+
+
+  handleMusicianSearch = () => {
+    const { instrument, genre } = this.state;
+    // console.log(instrument, genre)
 
     let clonedUsers = JSON.parse(JSON.stringify(this.state.users));
+    // console.log(clonedUsers);
 
-    let filterList = clonedUsers.filter((singleUser) => {
+    // filter by instrument
+    let filterList = clonedUsers.filter(singleUser => {
+      if (!instrument.length) return true;
+      for (let i = 0; i < instrument.length; i++) {
+        if (i > 0 && !instrument[i]) return false;
 
-      // for (let i = 0; i < searchArray.length; i++) {
-      //   console.log(searchArray.length)
-      //   if (searchArray.length === 1) {
-      //     return singleUser.instrument[0].toLowerCase().includes(searchArray[i]) || singleUser.genre[0].toLowerCase().includes(searchArray[i])
-      //   }
-      //   else {
-      //     return singleUser.instrument[0].toLowerCase().includes(searchArray[0]) && singleUser.genre[0].toLowerCase().includes(searchArray[1]) || singleUser.instrument[0].toLowerCase().includes(searchArray[1]) && singleUser.genre[0].toLowerCase().includes(searchArray[0])
-      //   }
-      // }
-
-      for (let i = 0; i < searchArray.length; i++) {
-        if (i > 0 && !searchArray[i]) return false;
-
-        if (singleUser.instrument[0].toLowerCase().includes(searchArray[i].toLowerCase())
-          || singleUser.genre[0].toLowerCase().includes(searchArray[i].toLowerCase())) {
-          return true;
-        };
+        for (let inst of singleUser.instrument) {
+          if (inst.toLowerCase().includes(instrument[i].toLowerCase())) return true;
+        }
       }
-
-      //console.log('singleUser-----',singleUser)
-      return;
     })
+    // console.log(filterList);
+
+    // filter by genre
+    filterList = filterList.filter(singleUser => {
+      if (!genre.length) return true;
+      for (let i = 0; i < genre.length; i++) {
+        if (i > 0 && !genre[i]) return false;
+
+        for (let gen of singleUser.genre) {
+          if (gen.toLowerCase().includes(genre[i].toLowerCase())) return true;
+        }
+      }
+    })
+    // console.log(filterList)
+
     this.setState({
       filteredUsers: filterList
     })
@@ -273,26 +289,29 @@ class App extends Component {
 
     const { size, location, title } = this.state;
 
-    let filterList = clonedVenues.filter(venue => {
+    // filter by size
+    let filterList = clonedVenues.filter(singleVenue => {
       if (!Number(size)) return true;
-      return Number(size) && venue.size <= size
+      return Number(size) && singleVenue.size <= size
     })
     // console.log(filterList);
 
-    filterList = filterList.filter(venue => {
+    // filter by location
+    filterList = filterList.filter(singleVenue => {
       if (!location.length) return true;
       for (let i = 0; i < location.length; i++) {
         if (i > 0 && !location[i]) return false;
-        if (venue.location.toLowerCase().includes(location[i].toLowerCase())) return true;
+        if (singleVenue.location.toLowerCase().includes(location[i].toLowerCase())) return true;
       }
     })
     // console.log(filterList);
 
-    filterList = filterList.filter(venue => {
+    // filter by title
+    filterList = filterList.filter(singleVenue => {
       if (!title.length) return true;
       for (let i = 0; i < title.length; i++) {
         if (i > 0 && !title[i]) return false;
-        if (venue.title.toLowerCase().includes(title[i].toLowerCase())) return true;
+        if (singleVenue.title.toLowerCase().includes(title[i].toLowerCase())) return true;
       }
     })
     // console.log(filterList);
@@ -458,7 +477,7 @@ class App extends Component {
 
             <Route path='/search/musicians' render={(routeProps) => {
               return (
-                <MusicianSearch user={user} filteredUsers={filteredUsers} myChange={this.handleMusicianSearch} {...routeProps} />
+                <MusicianSearch user={user} filteredUsers={filteredUsers} onSearch={this.onMusicianSearch} {...routeProps} />
               )
             }} />
 
