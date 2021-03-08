@@ -402,13 +402,18 @@ class App extends Component {
     event.preventDefault();
 
     const { user } = this.state;
-    const { title, location, size } = event.target;
+    const { title, location, size, imgUrl } = event.target;
+    
+    
+    
+    // imgArr.push
 
     let newVenue = {
       title: title.value,
       location: location.value,
       size: size.value,
       ownerId: user._id,
+      imgUrl: []
     };
 
     axios
@@ -430,19 +435,21 @@ class App extends Component {
       });
   };
 
-  handleEditVenue = (event, venueId) => {
+  handleEditVenue = (event, venueId, imageArr) => {
     event.preventDefault();
     const { venues } = this.state;
 
     // console.log(event.target.title.value);
     // console.log(venueId);
-
+    
     const { title, location, size } = event.target;
+
 
     let editedVenue = {
       title: title.value,
       location: location.value,
       size: size.value,
+      imgUrl: imageArr
     };
 
     axios

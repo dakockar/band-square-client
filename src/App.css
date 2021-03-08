@@ -90,7 +90,7 @@ li {
   justify-content: space-evenly;
   /* border: 1px solid black; */
   width: 300;
-  height: 300px;
+  height: 500px;
   margin: 10px;
   background-color: rgba(45, 45, 48, 0.5);
   border-radius: 5px;
@@ -190,4 +190,9 @@ margin: 20px;
   margin: 230px 0 0 230px;
   color:rgba(255, 255, 255, 0.5);
   font-size: 1.4em;
+}
+
+.carousel {
+  width: 300px;
+  height: 200px;
 }
