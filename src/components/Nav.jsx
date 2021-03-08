@@ -9,22 +9,22 @@ function Nav(props) {
   const { user } = props;
 
   return (
-    <Navbar>
+    <Navbar className="navbar">
       {
         props.user
           ? (
             <>
-              <Navbar.Brand>
-                <Link to="/home">Logo</Link>
+              <Navbar.Brand as={Link} to='/home'>
+                <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScRBWD7JSDeIT0D7Jy0qS4gbkIYN_vqGsr2Q&usqp=CAU" alt="logo" />
               </Navbar.Brand>
               <Navbar.Toggle />
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
                   <Dropdown as={NavItem} alignRight>
-                    <Dropdown.Toggle as={NavLink}>
+                    <Dropdown.Toggle className="grey-text" as={NavLink}>
                       {user.firstName || user.email}
                     </Dropdown.Toggle>
-                    <Dropdown.Menu >
+                    <Dropdown.Menu className="dropdown-box">
                       <Dropdown.Item as={Link} to='/profile'>
                         Profile
                       </Dropdown.Item>
@@ -41,7 +41,7 @@ function Nav(props) {
           : (
             <>
               <Navbar.Brand>
-                Logo
+                <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScRBWD7JSDeIT0D7Jy0qS4gbkIYN_vqGsr2Q&usqp=CAU" alt="logo" />
               </Navbar.Brand>
               <Navbar.Toggle />
               <Navbar.Collapse className="justify-content-end">

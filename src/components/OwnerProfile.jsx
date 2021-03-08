@@ -16,9 +16,10 @@ export default class OwnerProfile extends Component {
     componentDidMount() {
         const { user } = this.props;
 
+        // get logged in user's venues 
         axios.get(`${config.API_URL}/api/venues/${user._id}`)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({
                     venues: response.data
                 })
@@ -37,34 +38,31 @@ export default class OwnerProfile extends Component {
         if (!user) return null;
 
         return (
-            <div>
+            <div className="profile-page">
                 <img src={user.imgUrl} />
-                <h5>Name: {user.firstName} {user.lastName}</h5>
-                <h5>Venues:
-            {
+                <h5>Name: </h5><span>{user.firstName} {user.lastName}</span>
+                <h5>Venues:</h5>
+                <div className="venues-wrapper">
+                    {
                         venues.length
-                            ?
-                            <ul>
-                                {
-                                    venues.map(venue => {
-                                        return (
-                                            <li key={venue._id}>
-                                                <div>{venue.title}</div>
-                                                <div>{venue.location}</div>
-                                                <div>{venue.size}</div>
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
+                            ? (<ol> {
+                                venues.map(venue => {
+                                    return (
+                                        <li key={venue._id}>
+                                            <Link to={`/venue/${venue._id}`}>
+                                                {venue.title}
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                            }</ol>
+                            )
                             :
                             <span>no venues yet</span>
                     }
-                </h5>
-
-                <Button as={Link} to={`/owner-profile/edit`}>Edit Profile</Button>
-                <Button variant="dark" as={Link} to="/add-venue">Add Venue</Button>
-
+                </div>
+                <Button className='button' as={Link} to='/owner-profile/edit'>Edit Profile</Button>
+                <Button className='button' as={Link} to='/add-venue'>Add Venue</Button>
             </div>
         )
     }

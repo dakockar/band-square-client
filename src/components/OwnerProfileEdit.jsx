@@ -14,15 +14,15 @@ export default class OwnerProfileEdit extends Component {
                 <h1>Edit Owner Profile</h1>
 
                 <Form onSubmit={this.props.onEdit}>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="firstName">
                         <Form.Label>First Name</Form.Label>
                         <Form.Control name='firstName' type="text" placeholder="Enter Name" defaultValue={user.firstName} />
                     </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group controlId="lastName">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control name="lastName" type="text" placeholder="Last Name" defaultValue={user.lastName} />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button className="button" type="submit">
                         Submit
                     </Button>
                 </Form>

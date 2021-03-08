@@ -9,17 +9,17 @@ function SignUp(props) {
 
   return (
     <div>
-      <Button variant="link" onClick={handleShow}>
+      <Button className="grey-text" variant="link" onClick={handleShow}>
         Sign Up
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal className="modal-box" show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.onSignUp}>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 name="email"
@@ -31,7 +31,7 @@ function SignUp(props) {
               </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 name="password"
@@ -41,8 +41,8 @@ function SignUp(props) {
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label as="legend" column sm={2}>
-                I'm a
-                </Form.Label>
+                <span>Sign me up as:</span>
+              </Form.Label>
               <Col sm={10}>
                 <Form.Check
                   type="radio"
@@ -60,8 +60,8 @@ function SignUp(props) {
                 />
               </Col>
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
+            <Button variant="dark" type="submit">
+              Sign Up!
             </Button>
           </Form>
         </Modal.Body>

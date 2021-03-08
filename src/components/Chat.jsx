@@ -1,134 +1,107 @@
-import axios from 'axios';
-import React, { Component } from 'react'
+// import axios from 'axios';
+// import React, { Component } from 'react'
 // import config from '../config';
 // import ChatMessage from './ChatMessage'
 // import ChatInput from './ChatInput'
 // import io from 'socket.io-client'
 
+// import React, { useState, useEffect } from "react";
+// import io from "socket.io-client";
 
-function Chat(){
-    return (
-        <h1>Chat</h1>
-    )
-}
+// let socket;
+// const CONNECTION_PORT = "localhost:3002/";
 
-export default Chat
+// function Chat() {
+//   // Before Login
+//   const [loggedIn, setLoggedIn] = useState(false);
+//   const [room, setRoom] = useState("");
+//   const [userName, setUserName] = useState("");
 
+//   // After Login
+//   const [message, setMessage] = useState("");
+//   const [messageList, setMessageList] = useState([]);
 
-// class Chat extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//             chat: [],
-//             content: "",
-//             name: this.props.loggedInUser.email,
-//             band: '',
-//             imageUrl: this.props.loggedInUser.imgUrl
-//         }
-//     }
+//   useEffect(() => {
+//     socket = io(CONNECTION_PORT);
+//   }, [CONNECTION_PORT]);
 
-//     socket = io.connect((config.SOCKET_URL));
+//   useEffect(() => {
+//     socket.on("receive_message", (data) => {
+//       setMessageList([...messageList, data]);
+//     });
+//   });
+//   const connectToRoom = () => {
+//     setLoggedIn(true);
+//     socket.emit("join_room", room);
+//   };
 
-//     componentDidMount(){
-//         const room = this.props.bandId;
+//   const sendMessage = async () => {
+//     let messageContent = {
+//       room: room,
+//       content: {
+//         author: userName,
+//         message: message,
+//       },
+//     };
 
-//         this.socket.on('connect', () => {
-//             this.socket.emit('room', room);
-//         })
+//     await socket.emit("send_message", messageContent);
+//     setMessageList([...messageList, messageContent.content]);
+//     setMessage("");
+//   };
 
-//         let id = this.props.bandId;
-//         axios
-//             .get(`${config.API_URL}/band-messages/${id}`, { withCredentials: true})
-//             .then((response) => {
-//                 let msg = response.data
-//                 this.setState(
-//                     (state) => ({
-//                         chat: [...state.chat, ...msg.reverse()]
-//                     }),
-//                     this.scrollToBottom
-//                 );
-//             })
-//             .catch((err) => {
-//                 console.log('error with chat', err)
-//             })
-
-//             this.socket.on('push', (msg) => {
-//                 this.setState(
-//                     (state) => ({
-//                         chat: [...state.chat, msg]
-//                     }),
-//                     this.scrollToBottom
-//                 )
-//             })
-//     }
-
-//     handleContent= (event) => {
-//         this.setState({
-//             content: event.target.value
-//         })
-//     }
-
-//     handleSumbit = (event) => {
-//         event.preventDefault()
-
-//         this.setState((state) => {
-//             this.socket.emit('message', {
-//                 name: state.name,
-//                 content: state.content,
-//                 band: this.props.bandId,
-//                 imageUrl: state.imgUrl
-//             })
-
-//             return {
-//                 chat: [...state.chat, {
-//                     name:this.props.loggedInUser.email,
-//                     content: state.content,
-//                     band: state.band,
-//                     imageUrl: imgUrl
-//                 }],
-//                 content: ''
-//             }
-//         }, this.scrollToBottom)
-//     }
-
-//     scrollToBottom(){
-//         const chat = document.getElementById('chat');
-//         chat.scrollTop = chat.scrollHeight
-//     }
-
-
-//     render(){
-//         if(!this.props.loggedInUser){
-//             return <Redirect to='/' />
-//         }
-
-//         return(
-//             <div>
-//                 <label>
-//                     Hello
-//                 </label>
-//                 <div className="meddages-container" id="chat" elevation={3}>
-//                     {this.state.chat.map((message, index) => (
-//                         <ChatMessage 
-//                             key={index}
-//                             message={message.content}
-//                             name={message.name}
-//                             loggedInUser={this.props.loggedInUser}
-//                             imageUrl={message.imageUrl}
-//                             />
-//                     ))}
+//   return (
+//     <div className="App">
+//       {!loggedIn ? (
+//         <div className="logIn">
+//           <div className="inputs">
+//             <input
+//               type="text"
+//               placeholder="Name..."
+//               onChange={(e) => {
+//                 setUserName(e.target.value);
+//               }}
+//             />
+//             <input
+//               type="text"
+//               placeholder="Room..."
+//               onChange={(e) => {
+//                 setRoom(e.target.value);
+//               }}
+//             />
+//           </div>
+//           <button onClick={connectToRoom}>Enter Chat</button>
+//         </div>
+//       ) : (
+//         <div className="chatContainer">
+//           <div className="messages">
+//             {messageList.map((val, key) => {
+//               return (
+//                 <div
+//                   className="messageContainer"
+//                   id={val.author == userName ? "You" : "Other"}
+//                 >
+//                   <div className="messageIndividual">
+//                     {val.author}: {val.message}
+//                   </div>
 //                 </div>
-//                 <div className="chat-input">
-//                     <ChatInput 
-//                         ws={this.socket}
-//                         content={this.state.content}
-//                         handleContent={this.handleContent.bind(this)}
-//                         onSubmitMessage={this.handleSumbit.bind(this)}
-//                     />
-//                 </div>
-//             </div>
-//         )
-//     }
+//               );
+//             })}
+//           </div>
+
+//           <div className="messageInputs">
+//             <input
+//               type="text"
+//               placeholder="Message..."
+//               onChange={(e) => {
+//                 setMessage(e.target.value);
+//               }}
+//             />
+//             <button onClick={sendMessage}>Send</button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
 // }
 
-// export default Chat
+// export default Chat;

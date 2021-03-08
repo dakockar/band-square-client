@@ -10,19 +10,16 @@ class Home extends Component {
         if (!user) return null;
 
         return (
-            <div>
+            <div className="home-page">
 
-                <h1>Home page</h1>
+                {/* <h2>Welcome, {user.firstName}</h2> */}
+                <div>Home page</div>
                 {
                     user.type === "musician"
                         ? (
                             <>
-                                <div>
-                                    <Link to='/search/musicians'>Search musicians</Link>
-                                </div>
-                                <div>
-                                    <Link to='/search/venues'>Search Venues</Link>
-                                </div>
+                                <Link className="search-link" to='/search/musicians'>looking for <br /> musicians/bands</Link>
+                                <Link className="search-link" to='/search/venues'>looking for <br /> rehearsal rooms/venues</Link>
                             </>
                         )
                         : (

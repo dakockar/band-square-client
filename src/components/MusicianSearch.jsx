@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 
 
@@ -49,6 +50,7 @@ class MusicianSearch extends Component {
             </Form.Group>
             {filteredUsers.map((singleUser) => {
               return (
+                <Link to={`musician/${singleUser._id}`}>
                 <div key={singleUser._id}>
                   <h4>
                     {singleUser.firstName} {singleUser.lastName}
@@ -56,6 +58,7 @@ class MusicianSearch extends Component {
                   <p>{singleUser.instrument}</p>
                   <p>{singleUser.genre}</p>
                 </div>
+                </Link>
               );
             })}
           </div>

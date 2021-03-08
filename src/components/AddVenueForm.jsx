@@ -22,7 +22,7 @@ export default class AddVenueForm extends Component {
                         <Form.Label>Size</Form.Label>
                         <Form.Control name="size" type="text" placeholder="Size (m^2)" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button className="button" type="submit">
                         Submit
                     </Button>
                 </Form>
