@@ -9,7 +9,7 @@ function MusicianProfile(props) {
 
   return (
     <div className="profile-page">
-      <Card style={{ width: "18rem" }}>
+      <Card className='card-style' style={{ width: "18rem" }}>
         <Card.Img variant="top" src={props.user.imgUrl} />
         <Card.Body>
           <Card.Title>

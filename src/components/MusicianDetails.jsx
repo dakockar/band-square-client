@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import config from "../config";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Route, Link } from "react-router-dom";
 import EditVenueForm from "./EditVenueForm";
 
@@ -16,7 +16,7 @@ class MusicianDetails extends Component {
     console.log(musicianId);
 
     axios
-      .get(`${config.API_URL}/api/search/musician/${musicianId}`)
+      .get(`${config.API_URL}/api/musician/${musicianId}`)
       .then((response) => {
         console.log("musician id-----", response.data);
         this.setState({
@@ -36,7 +36,7 @@ class MusicianDetails extends Component {
 
     return (
       <div className="profile-page">
-        <img className='profilePic' src={user.imgUrl} />
+        {/* <img className='profilePic' src={user.imgUrl} />
 
         <span>
           {user.firstName} {user.lastName}
@@ -50,8 +50,27 @@ class MusicianDetails extends Component {
         <h5>Band: </h5>
         <span>{user.bandName}</span>
         <h5>About Me: </h5>
-        <span>{user.aboutMe}</span>
-        <a href='/chat' className="message-btn">Send a message</a>
+        <span>{user.aboutMe}</span> */}
+        <Card className='card-style' style={{ width: "18rem" }}>
+        <Card.Img variant="top" src={user.imgUrl} />
+        <Card.Body>
+          <Card.Title>
+            {user.firstName} {user.lastName}
+          </Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            {user.location}
+          </Card.Subtitle>
+          <Card.Text>
+            <p>{user.aboutMe}</p>
+            <p>{user.genre}</p>
+            <p>{user.instrument}</p>
+            <p>{user.bandName}</p>
+          </Card.Text>
+          <Card.Link className="edit-btn" href="/Chat">
+            Send a message
+          </Card.Link>
+        </Card.Body>
+      </Card>
       </div>
     );
   }

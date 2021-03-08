@@ -61,7 +61,7 @@ class MusicianSearch extends Component {
             <h3>Results:</h3>
             {filteredUsers.map((singleUser) => {
               return (
-                <Link to={`musician/${singleUser._id}`}>
+                <Link to={`/musician/${singleUser._id}`}>
                 <div key={singleUser._id}>
                   <h4>
                     {singleUser.firstName} {singleUser.lastName}

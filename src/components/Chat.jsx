@@ -1,107 +1,106 @@
 // import axios from 'axios';
-// import React, { Component } from 'react'
 // import config from '../config';
 // import ChatMessage from './ChatMessage'
 // import ChatInput from './ChatInput'
-// import io from 'socket.io-client'
 
-// import React, { useState, useEffect } from "react";
-// import io from "socket.io-client";
 
-// let socket;
-// const CONNECTION_PORT = "localhost:3002/";
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
 
-// function Chat() {
-//   // Before Login
-//   const [loggedIn, setLoggedIn] = useState(false);
-//   const [room, setRoom] = useState("");
-//   const [userName, setUserName] = useState("");
+let socket;
+const CONNECTION_PORT = "localhost:3002/";
 
-//   // After Login
-//   const [message, setMessage] = useState("");
-//   const [messageList, setMessageList] = useState([]);
+function Chat() {
+  // Before Login
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [room, setRoom] = useState("");
+  const [userName, setUserName] = useState("");
 
-//   useEffect(() => {
-//     socket = io(CONNECTION_PORT);
-//   }, [CONNECTION_PORT]);
+  // After Login
+  const [message, setMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
 
-//   useEffect(() => {
-//     socket.on("receive_message", (data) => {
-//       setMessageList([...messageList, data]);
-//     });
-//   });
-//   const connectToRoom = () => {
-//     setLoggedIn(true);
-//     socket.emit("join_room", room);
-//   };
+  useEffect(() => {
+    socket = io(CONNECTION_PORT);
+  }, [CONNECTION_PORT]);
 
-//   const sendMessage = async () => {
-//     let messageContent = {
-//       room: room,
-//       content: {
-//         author: userName,
-//         message: message,
-//       },
-//     };
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessageList([...messageList, data]);
+    });
+  });
+  const connectToRoom = () => {
+    setLoggedIn(true);
+    socket.emit("join_room", room);
+  };
 
-//     await socket.emit("send_message", messageContent);
-//     setMessageList([...messageList, messageContent.content]);
-//     setMessage("");
-//   };
+  const sendMessage = async () => {
+    let messageContent = {
+      room: room,
+      content: {
+        author: userName,
+        message: message,
+      },
+    };
 
-//   return (
-//     <div className="App">
-//       {!loggedIn ? (
-//         <div className="logIn">
-//           <div className="inputs">
-//             <input
-//               type="text"
-//               placeholder="Name..."
-//               onChange={(e) => {
-//                 setUserName(e.target.value);
-//               }}
-//             />
-//             <input
-//               type="text"
-//               placeholder="Room..."
-//               onChange={(e) => {
-//                 setRoom(e.target.value);
-//               }}
-//             />
-//           </div>
-//           <button onClick={connectToRoom}>Enter Chat</button>
-//         </div>
-//       ) : (
-//         <div className="chatContainer">
-//           <div className="messages">
-//             {messageList.map((val, key) => {
-//               return (
-//                 <div
-//                   className="messageContainer"
-//                   id={val.author == userName ? "You" : "Other"}
-//                 >
-//                   <div className="messageIndividual">
-//                     {val.author}: {val.message}
-//                   </div>
-//                 </div>
-//               );
-//             })}
-//           </div>
+    await socket.emit("send_message", messageContent);
+    setMessageList([...messageList, messageContent.content]);
+    setMessage("");
+  };
 
-//           <div className="messageInputs">
-//             <input
-//               type="text"
-//               placeholder="Message..."
-//               onChange={(e) => {
-//                 setMessage(e.target.value);
-//               }}
-//             />
-//             <button onClick={sendMessage}>Send</button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
+  return (
+    <div className="App">
+      {!loggedIn ? (
+        <div className="logIn">
+          <div className="inputs">
+            <input
+              type="text"
+              placeholder="Name..."
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Room..."
+              onChange={(e) => {
+                setRoom(e.target.value);
+              }}
+            />
+          </div>
+          <button onClick={connectToRoom}>Enter Chat</button>
+        </div>
+      ) : (
+        <div className="chatContainer">
+          <div className="messages">
+            {messageList.map((val, key) => {
+              return (
+                <div
+                  className="messageContainer"
+                  id={val.author == userName ? "You" : "Other"}
+                >
+                  <div className="messageIndividual">
+                    {val.author}: {val.message}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-// export default Chat;
+          <div className="messageInputs">
+            <input
+              type="text"
+              placeholder="Message..."
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+            />
+            <button onClick={sendMessage}>Send</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Chat;

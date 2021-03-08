@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap";
 import React, { Component } from "react";
 import ErrorPage from "./ErrorPage";
+import { Link } from 'react-router-dom'
 
 class VenueSearch extends Component {
   render() {
@@ -41,11 +42,13 @@ class VenueSearch extends Component {
           <h3>Results:</h3>
           {filteredVenues.map((singleVenue) => {
             return (
+              <Link to={`/venuesDetails/${singleVenue._id}`}>
               <div key={singleVenue._id}>
                 <h4>{singleVenue.title}</h4>
                 <p>{singleVenue.size}</p>
                 <p>{singleVenue.location}</p>
               </div>
+              </Link>
             );
           })}
         </div>

@@ -14,11 +14,12 @@ import MusicianProfileEdit from "./components/MusicianProfileEdit";
 import OwnerProfileEdit from "./components/OwnerProfileEdit";
 import AddVenueForm from "./components/AddVenueForm";
 import Chat from "./components/Chat";
-import Join from "./components/Join";
+import socketIndex from "./components/socketIndex";
 import EditVenueForm from "./components/EditVenueForm";
 import "./App.css";
 import VenueDetails from "./components/VenueDetails";
 import MusicianDetails from "./components/MusicianDetails.jsx";
+import VenueSearchDet from './components/VenueSearchDet'
 
 class App extends Component {
   state = {
@@ -43,7 +44,7 @@ class App extends Component {
     axios
       .get(`${config.API_URL}/api/users`)
       .then((response) => {
-        console.log("what is this-----", response.data);
+        //console.log("what is this-----", response.data);
         this.setState({
           users: response.data,
           filteredUsers: response.data,
@@ -70,7 +71,7 @@ class App extends Component {
       axios
         .get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
-          console.log("logged in user info", response);
+          //console.log("logged in user info", response);
           this.setState({
             user: response.data,
           });
@@ -100,7 +101,7 @@ class App extends Component {
     let uploadForm = new FormData();
     uploadForm.append("imageUrl", image);
 
-    axios.post(`${config.API_URL}/api/upload`, uploadForm).then((response) => {
+    axios.patch(`${config.API_URL}/api/upload`, uploadForm).then((response) => {
       let editedUser = {
         firstName,
         lastName,
@@ -482,6 +483,10 @@ class App extends Component {
       });
   };
 
+  handleMusicianImageSubmit = () => {
+
+  }
+
   render() {
     const { user, users, filteredUsers, venues, filteredVenues } = this.state;
 
@@ -586,7 +591,7 @@ class App extends Component {
             />
             <Route
               exact
-              path="/search/musician/:musicianId"
+              path="/musician/:musicianId"
               render={(routeProps) => {
                 return <MusicianDetails {...routeProps} />;
               }}
@@ -628,7 +633,7 @@ class App extends Component {
               }}
             />
             <Route path="/chat" component={Chat} />
-            <Route path="/join" component={Join} />
+            <Route path="/join" component={socketIndex} />
             <Route
               path="/venue/:venueId/edit"
               render={(routeProps) => {
@@ -640,6 +645,9 @@ class App extends Component {
                 );
               }}
             />
+            <Route exact path='/venuesDetails/:venueId' render={(routeProps) => {
+              return (<VenueSearchDet {...routeProps} />)
+            }} />
           </Switch>
         </div>
       </div>
