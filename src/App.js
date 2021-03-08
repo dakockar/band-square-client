@@ -230,7 +230,6 @@ class App extends Component {
     }
   }
 
-
   handleMusicianSearch = () => {
     const { instrument, genre } = this.state;
     // console.log(instrument, genre)
@@ -282,7 +281,6 @@ class App extends Component {
         break;
     }
   }
-
 
   handleVenueSearch = () => {
     let clonedVenues = JSON.parse(JSON.stringify(this.state.venues));
