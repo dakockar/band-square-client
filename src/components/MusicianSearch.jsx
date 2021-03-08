@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Card } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
@@ -15,7 +15,7 @@ class MusicianSearch extends Component {
       user.type === "owner"
         ? (<ErrorPage />)
         : (
-          <div>
+          <div className="search-results">
             <h1>musician search</h1>
             <Form>
               <fieldset>
@@ -61,14 +61,14 @@ class MusicianSearch extends Component {
             <h3>Results:</h3>
             {filteredUsers.map((singleUser) => {
               return (
-                <Link to={`/musician/${singleUser._id}`}>
-                <div key={singleUser._id}>
-                  <h4>
-                    {singleUser.firstName} {singleUser.lastName}
-                  </h4>
-                  <p>{singleUser.instrument}</p>
-                  <p>{singleUser.genre}</p>
-                </div>
+                <Link key={singleUser._id} to={`/musician/${singleUser._id}`}>
+                  <Card className="card-style">
+                    <Card.Body>
+                      <Card.Title>{singleUser.firstName} {singleUser.lastName}</Card.Title>
+                      <Card.Text>{singleUser.instrument}</Card.Text>
+                      <Card.Text>{singleUser.genre}</Card.Text>
+                    </Card.Body>
+                  </Card>
                 </Link>
               );
             })}

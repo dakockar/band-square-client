@@ -43,8 +43,8 @@ export default class VenueDetails extends Component {
                 <div>Location: {venue.location}</div>
                 <div>Size: {venue.size}m<sup>2</sup></div>
                 <div className="buttons">
-                    <Button className="btn-edit-delete" as={Link} to={`/venue/${venue._id}/edit`}>Edit</Button>
-                    <Button className="btn-edit-delete" onClick={() => { this.props.onDelete(venue._id) }} >Delete</Button>
+                    <Button className="button" as={Link} to={`/venue/${venue._id}/edit`}>Edit</Button>
+                    <Button className="button" onClick={() => { this.props.onDelete(venue._id) }} >Delete</Button>
                 </div>
             </div>
         )

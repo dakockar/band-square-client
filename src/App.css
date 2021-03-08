@@ -89,10 +89,10 @@ li {
   align-items: center;
   justify-content: space-evenly;
   /* border: 1px solid black; */
-  width: 300;
-  height: 300px;
+  width: 20em;
+  min-height: 20em;
   margin: 10px;
-  background-color: rgba(45, 45, 48, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
 
@@ -141,25 +141,41 @@ margin: 20px;
 }
 
 .profile-page img {
-  border-radius: 5%;
-  /* width: 200px; */
-  margin-bottom: 20px;
+  border-radius: 8px;
+  max-width: 20em;
+}
+
+.card-style {
+  /* padding: 10px; */
+  width: 20rem;
+  color:rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(255, 255, 255, 0.5); */
+}
+.card-img-overlay {
+  height: 20px;
+  margin: 11.5em 0 0 11.5em;
+  color:rgba(255, 255, 255, 0.5);
+  font-size: 1.4em;
 }
 
 .button {
-  display: block;
-  align-self: flex-end;
+  /* display: block; */
+  /* align-self: flex-end; */
   border: none;
-  /* width: 140px; */
+  width: 140px;
   padding: 10px 20px;
   background-color: rgba(255, 255, 255, 0.2);
   font-size: 1em;
   margin: 10px 0;
+  border-radius: 3px;
 }
 
 .button:hover, .button:active, .button:focus  {
-  background-color: rgba(255, 255, 255, 0.5);
-  color: black;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: black !important;
+  outline: 0 !important;
 }
 
 .buttons {
@@ -170,24 +186,20 @@ margin: 20px;
   margin: 50px 0 0;
 }
 
-.btn-edit-delete {
-  border: none;
-  width: 80px;
+/* .edit-btn {
   background-color: rgba(255, 255, 255, 0.2);
-  font-size: 1em;
+  padding: 10px 20px;
+  border-radius: 3px;
 }
 
-.profilePic {
-  height: 150px;
-}
+.edit-btn:hover, .edit-btn:active {
+  color: white;
+} */
 
-.edit-btn {
-  color: black;
-}
 
-.card-img-overlay {
-  height: 20px;
-  margin: 230px 0 0 230px;
-  color:rgba(255, 255, 255, 0.5);
-  font-size: 1.4em;
+/* upload image form */
+
+.upload-form {
+  /* display:flex; */
+  margin-top: 50px;
 }

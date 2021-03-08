@@ -97,7 +97,6 @@ class App extends Component {
     const location = event.target.location.value;
     const bandName = event.target.bandName.value;
     const aboutMe = event.target.aboutMe.value;
-    // const image = event.target.musicianImg.files[0];
 
     let editedUser = {
       firstName,
@@ -107,7 +106,6 @@ class App extends Component {
       location,
       bandName,
       aboutMe,
-      // imgUrl: response.data.image,
     };
 
 
@@ -177,7 +175,7 @@ class App extends Component {
     event.preventDefault();
 
     const { user, users } = this.state;
-    const image = event.target.musicianImg.files[0];
+    const image = event.target.userImg.files[0];
     // console.log(image);
 
     let uploadForm = new FormData();
@@ -187,8 +185,9 @@ class App extends Component {
       .then((response) => {
         // console.log(response.data.image);
         let imgUrl = response.data.image;
+        let type = user.type;
 
-        axios.patch(`${config.API_URL}/api/upload/${user._id}`, { imgUrl }, { withCredentials: true })
+        axios.patch(`${config.API_URL}/api/upload/${user._id}`, { imgUrl, type }, { withCredentials: true })
           .then((response) => {
             console.log(response.data);
             let editedUsersList = users.map((singleUser) => {
@@ -218,7 +217,6 @@ class App extends Component {
       });
 
   }
-
 
 
   handleSignUp = (event) => {
@@ -505,36 +503,15 @@ class App extends Component {
       });
   };
 
-  handleMusicianImageSubmit = () => {
-
-  }
 
   render() {
     const { user, users, filteredUsers, venues, filteredVenues } = this.state;
 
     // console.log("render venues", this.state.venues);
-    // console.log(this.state.isMounted);
 
     if (!this.state.isMounted) {
-      // <Spinner animation="grow" />
-      // return <Spinner animation="border" role="status">
-      //   <span className="sr-only">Loading...</span>
-      // </Spinner>
       return null;
     }
-
-    // if (!this.state.user) return (
-    //   <>
-    //     {/* <Nav
-    //       onSignUp={this.handleSignUp}
-    //       onSignIn={this.handleSignIn}
-    //       onSignOut={this.handleSignOut} />
-    //     <LandingPage /> */}
-    //     {/* <Redirect to="/" /> */}
-    //   </>
-    // )
-
-    // console.log(this.state.user)
 
     return (
       <div className="App">

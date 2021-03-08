@@ -36,41 +36,24 @@ class MusicianDetails extends Component {
 
     return (
       <div className="profile-page">
-        {/* <img className='profilePic' src={user.imgUrl} />
-
-        <span>
-          {user.firstName} {user.lastName}
-        </span>
-        <h5>Genres: </h5>
-        <span>{user.genre}</span>
-        <h5>Instrument: </h5>
-        <span>{user.instrument}</span>
-        <h5>Location: </h5>
-        <span>{user.location}</span>
-        <h5>Band: </h5>
-        <span>{user.bandName}</span>
-        <h5>About Me: </h5>
-        <span>{user.aboutMe}</span> */}
         <Card className='card-style' style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={user.imgUrl} />
-        <Card.Body>
-          <Card.Title>
-            {user.firstName} {user.lastName}
-          </Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            {user.location}
-          </Card.Subtitle>
-          <Card.Text>
-            <p>{user.aboutMe}</p>
-            <p>{user.genre}</p>
-            <p>{user.instrument}</p>
-            <p>{user.bandName}</p>
-          </Card.Text>
-          <Card.Link className="edit-btn" href="/Chat">
-            Send a message
+          <Card.Img variant="top" src={user.imgUrl} />
+          <Card.Body>
+            <Card.Title>
+              {user.firstName} {user.lastName}
+            </Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">
+              {user.location}
+            </Card.Subtitle>
+            <Card.Text>{user.aboutMe}</Card.Text>
+            <Card.Text>{user.genre}</Card.Text>
+            <Card.Text>{user.instrument}</Card.Text>
+            <Card.Text>{user.bandName}</Card.Text>
+            <Card.Link as={Link} className="edit-btn" to="/chat">
+              Send a message
           </Card.Link>
-        </Card.Body>
-      </Card>
+          </Card.Body>
+        </Card>
       </div>
     );
   }

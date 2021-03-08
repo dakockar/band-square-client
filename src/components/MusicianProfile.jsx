@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
-import LandingPage from "./LandingPage";
+import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function MusicianProfile(props) {
   // console.log('props------', props)
@@ -9,7 +8,7 @@ function MusicianProfile(props) {
 
   return (
     <div className="profile-page">
-      <Card className='card-style' style={{ width: "18rem" }}>
+      <Card className='card-style' >
         <Card.Img variant="top" src={props.user.imgUrl} />
         <Card.ImgOverlay as={Link} to="/upload-image">+</Card.ImgOverlay>
         <Card.Body>
@@ -23,28 +22,11 @@ function MusicianProfile(props) {
           <Card.Text>{props.user.genre}</Card.Text>
           <Card.Text>{props.user.instrument}</Card.Text>
           <Card.Text>{props.user.bandName}</Card.Text>
-          <Card.Link className="edit-btn" as={Link} to="/musician-profile/edit">
+          <Card.Link className="button" as={Link} to="/musician-profile/edit">
             Edit Profile
           </Card.Link>
         </Card.Body>
       </Card>
-      {/* <img className="profilePic" src={props.user.imgUrl} />
-      <span>
-        {props.user.firstName} {props.user.lastName}
-      </span>
-      <h5>Genre: </h5>
-      <span>{props.user.genre}</span>
-      <h5>Instrument: </h5>
-      <span>{props.user.instrument}</span>
-      <h5>Location: </h5>
-      <span>{props.user.location}</span>
-      <h5>Band: </h5>
-      <span>{props.user.bandName}</span>
-      <h5>About Me: </h5>
-      <span>{props.user.aboutMe}</span>
-      <Button className="button" as={Link} to={`/musician-profile/edit`}>
-        Edit Profile
-      </Button> */}
     </div>
   );
 }
