@@ -11,6 +11,7 @@ function MusicianProfile(props) {
     <div className="profile-page">
       <Card className='card-style' style={{ width: "18rem" }}>
         <Card.Img variant="top" src={props.user.imgUrl} />
+        <Card.ImgOverlay as={Link} to="/upload-image">+</Card.ImgOverlay>
         <Card.Body>
           <Card.Title>
             {props.user.firstName} {props.user.lastName}
@@ -18,13 +19,11 @@ function MusicianProfile(props) {
           <Card.Subtitle className="mb-2 text-muted">
             {props.user.location}
           </Card.Subtitle>
-          <Card.Text>
-            <p>{props.user.aboutMe}</p>
-            <p>{props.user.genre}</p>
-            <p>{props.user.instrument}</p>
-            <p>{props.user.bandName}</p>
-          </Card.Text>
-          <Card.Link className="edit-btn" href="/musician-profile/edit">
+          <Card.Text>{props.user.aboutMe}</Card.Text>
+          <Card.Text>{props.user.genre}</Card.Text>
+          <Card.Text>{props.user.instrument}</Card.Text>
+          <Card.Text>{props.user.bandName}</Card.Text>
+          <Card.Link className="edit-btn" as={Link} to="/musician-profile/edit">
             Edit Profile
           </Card.Link>
         </Card.Body>

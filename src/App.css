@@ -11,10 +11,10 @@ a {
   color: rgba(255, 255, 255, 0.7)
 }
 
-/* a:hover, a:active {
+a:hover, a:active {
   color: rgba(255, 255, 255, 1);
   text-decoration: none;
-} */
+}
 
 img {
   /* width: 150px; */
@@ -183,4 +183,11 @@ margin: 20px;
 
 .edit-btn {
   color: black;
+}
+
+.card-img-overlay {
+  height: 20px;
+  margin: 230px 0 0 230px;
+  color:rgba(255, 255, 255, 0.5);
+  font-size: 1.4em;
 }

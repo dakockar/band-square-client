@@ -20,6 +20,7 @@ import "./App.css";
 import VenueDetails from "./components/VenueDetails";
 import MusicianDetails from "./components/MusicianDetails.jsx";
 import VenueSearchDet from './components/VenueSearchDet'
+import UploadImageForm from "./components/UploadImageForm";
 
 class App extends Component {
   state = {
@@ -96,76 +97,49 @@ class App extends Component {
     const location = event.target.location.value;
     const bandName = event.target.bandName.value;
     const aboutMe = event.target.aboutMe.value;
-    const image = event.target.musicianImg.files[0];
+    // const image = event.target.musicianImg.files[0];
 
-    let uploadForm = new FormData();
-    uploadForm.append("imageUrl", image);
+    let editedUser = {
+      firstName,
+      lastName,
+      instrument,
+      genre,
+      location,
+      bandName,
+      aboutMe,
+      // imgUrl: response.data.image,
+    };
 
-    axios.patch(`${config.API_URL}/api/upload`, uploadForm).then((response) => {
-      let editedUser = {
-        firstName,
-        lastName,
-        instrument,
-        genre,
-        location,
-        bandName,
-        aboutMe,
-        imgUrl: response.data.image,
-      };
 
-      axios
-        .patch(
-          `${config.API_URL}/api/musician-profile/${user._id}`,
-          editedUser,
-          { withCredentials: true }
-        )
-        .then((response) => {
-          console.log("-----edit----", response.data);
-          let editedUsersList = users.map((singleUser) => {
-            if (user._id === singleUser._id) {
-              singleUser = response.data;
-            }
-            return singleUser;
-          });
-          this.setState(
-            {
-              user: response.data,
-              users: editedUsersList,
-              filteredUsers: editedUsersList,
-            },
-            () => {
-              this.props.history.push(`/profile`);
-            }
-          );
-        })
-        .catch((err) => {
-          console.log("Edit musician failed", err);
+
+    axios
+      .patch(
+        `${config.API_URL}/api/musician-profile/${user._id}`,
+        editedUser,
+        { withCredentials: true }
+      )
+      .then((response) => {
+        console.log("-----edit----", response.data);
+        let editedUsersList = users.map((singleUser) => {
+          if (user._id === singleUser._id) {
+            singleUser = response.data;
+          }
+          return singleUser;
         });
-      //   console.log('-----edit----', response.data)
-
-      //   // update the users and filteredUsers states
-      //   let editedUsersList = users.map(singleUser => {
-      //     if (user._id === singleUser._id) {
-      //       singleUser = response.data;
-      //     }
-      //     return singleUser;
-      //   })
-
-      //   this.setState({
-      //     user: response.data,
-      //     users: editedUsersList,
-      //     filteredUsers: editedUsersList
-      //   },
-      //     () => {
-      //       this.props.history.push(`/profile`)
-      //     }
-      //   )
-      // })
-      // .catch((err) => {
-      //   console.log('Edit musician failed', err)
-      // })
-      // .catch(() => {});
-    });
+        this.setState(
+          {
+            user: response.data,
+            users: editedUsersList,
+            filteredUsers: editedUsersList,
+          },
+          () => {
+            this.props.history.push(`/profile`);
+          }
+        );
+      })
+      .catch((err) => {
+        console.log("Edit musician failed", err);
+      });
   };
 
   handleEditOwner = (event) => {
@@ -198,6 +172,54 @@ class App extends Component {
         console.log("edit owner failed", err);
       });
   };
+
+  handleUploadImage = (event) => {
+    event.preventDefault();
+
+    const { user, users } = this.state;
+    const image = event.target.musicianImg.files[0];
+    // console.log(image);
+
+    let uploadForm = new FormData();
+    uploadForm.append("imageUrl", image);
+
+    axios.post(`${config.API_URL}/api/upload`, uploadForm)
+      .then((response) => {
+        // console.log(response.data.image);
+        let imgUrl = response.data.image;
+
+        axios.patch(`${config.API_URL}/api/upload/${user._id}`, { imgUrl }, { withCredentials: true })
+          .then((response) => {
+            console.log(response.data);
+            let editedUsersList = users.map((singleUser) => {
+              if (user._id === singleUser._id) {
+                singleUser = response.data;
+              }
+              return singleUser;
+            });
+
+            this.setState(
+              {
+                user: response.data,
+                users: editedUsersList,
+                filteredUsers: editedUsersList,
+              },
+              () => {
+                this.props.history.push(`/profile`);
+              }
+            );
+          })
+          .catch((err) => {
+            console.log("error uploading musician image ", err);
+          });
+      })
+      .catch((err) => {
+
+      });
+
+  }
+
+
 
   handleSignUp = (event) => {
     event.preventDefault();
@@ -576,6 +598,11 @@ class App extends Component {
                 return <Profile user={user} venues={venues} {...routeProps} />;
               }}
             />
+
+            <Route path="/upload-image" render={routeProps => {
+              return <UploadImageForm {...routeProps} user={user} onUpload={this.handleUploadImage} />
+            }} />
+
             <Route
               exact
               path="/musician-profile/edit"
@@ -583,6 +610,7 @@ class App extends Component {
                 return (
                   <MusicianProfileEdit
                     user={user}
+                    onImageUpload={this.handleUploadImage}
                     {...routeProps}
                     onEdit={this.handleEditMusician}
                   />
@@ -648,6 +676,8 @@ class App extends Component {
             <Route exact path='/venuesDetails/:venueId' render={(routeProps) => {
               return (<VenueSearchDet {...routeProps} />)
             }} />
+            {/* <Route path="/chat" component={Chat} />
+            <Route path="/join" component={Join} /> */}
           </Switch>
         </div>
       </div>
