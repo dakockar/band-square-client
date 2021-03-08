@@ -24,10 +24,16 @@ class App extends Component {
   state = {
     user: null,
     isMounted: false,
-    filteredUsers: [],
     users: [],
+    filteredUsers: [],
     venues: [],
     filteredVenues: [],
+    // for keeping search terms
+    instrument: [],
+    genre: [],
+    size: 0,
+    location: [],
+    title: [],
   };
 
   componentDidMount() {
@@ -81,7 +87,7 @@ class App extends Component {
 
   handleEditMusician = (event) => {
     event.preventDefault();
-    const { user } = this.state;
+    const { user, users } = this.state;
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
     const instrument = event.target.instrument.value;
@@ -90,42 +96,75 @@ class App extends Component {
     const bandName = event.target.bandName.value;
     const aboutMe = event.target.aboutMe.value;
     const image = event.target.musicianImg.files[0];
-  
-  
+
     let uploadForm = new FormData();
     uploadForm.append("imageUrl", image);
 
-    axios
-      .post(`${config.API_URL}/api/upload`, uploadForm)
-      .then((response) => {
-        let editedUser = {
-          firstName,
-          lastName,
-          instrument,
-          genre,
-          location,
-          bandName,
-          aboutMe,
-          imgUrl: response.data.image
-        };
+    axios.post(`${config.API_URL}/api/upload`, uploadForm).then((response) => {
+      let editedUser = {
+        firstName,
+        lastName,
+        instrument,
+        genre,
+        location,
+        bandName,
+        aboutMe,
+        imgUrl: response.data.image,
+      };
 
-        axios
-          .patch(
-            `${config.API_URL}/api/musician-profile/${user._id}`,
-            editedUser,
-            { withCredentials: true }
-          )
-          .then((response) => {
-            console.log("-----edit----", response.data);
-            this.setState({ user: response.data }, () => {
-              this.props.history.push(`/profile`);
-            });
-          })
-          .catch((err) => {
-            console.log("Edit musician failed", err);
+      axios
+        .patch(
+          `${config.API_URL}/api/musician-profile/${user._id}`,
+          editedUser,
+          { withCredentials: true }
+        )
+        .then((response) => {
+          console.log("-----edit----", response.data);
+          let editedUsersList = users.map((singleUser) => {
+            if (user._id === singleUser._id) {
+              singleUser = response.data;
+            }
+            return singleUser;
           });
-      })
-      .catch(() => {});
+          this.setState(
+            {
+              user: response.data,
+              users: editedUsersList,
+              filteredUsers: editedUsersList,
+            },
+            () => {
+              this.props.history.push(`/profile`);
+            }
+          );
+        })
+        .catch((err) => {
+          console.log("Edit musician failed", err);
+        });
+      //   console.log('-----edit----', response.data)
+
+      //   // update the users and filteredUsers states
+      //   let editedUsersList = users.map(singleUser => {
+      //     if (user._id === singleUser._id) {
+      //       singleUser = response.data;
+      //     }
+      //     return singleUser;
+      //   })
+
+      //   this.setState({
+      //     user: response.data,
+      //     users: editedUsersList,
+      //     filteredUsers: editedUsersList
+      //   },
+      //     () => {
+      //       this.props.history.push(`/profile`)
+      //     }
+      //   )
+      // })
+      // .catch((err) => {
+      //   console.log('Edit musician failed', err)
+      // })
+      // .catch(() => {});
+    });
   };
 
   handleEditOwner = (event) => {
@@ -225,61 +264,114 @@ class App extends Component {
       });
   };
 
-  handleVenueChange = (event) => {
-    let searchText = event.target.value.split(" ");
-    let filteredVenueList = this.state.venues.filter((singleVenue) => {
-      {
-        for (let i = 0; i < searchText.length; i++) {
-          console.log(searchText.length);
-          if (searchText.length === 1) {
-            return (
-              singleVenue.location.toLowerCase().includes(searchText[i]) ||
-              singleVenue.size >= Number(searchText[i])
-            );
-          } else {
-            console.log(singleVenue.size.toString());
-            return (
-              (singleVenue.size >= Number(searchText[0]) &&
-                singleVenue.location.toLowerCase().includes(searchText[1])) ||
-              (singleVenue.size >= Number(searchText[1]) &&
-                singleVenue.location.toLowerCase().includes(searchText[0]))
-            );
-          }
+  onMusicianSearch = (event) => {
+    let name = event.target.name;
+    let value = event.target.value.split(" ");
+
+    switch (name) {
+      case "instrument":
+        this.setState({ instrument: value }, this.handleMusicianSearch);
+        break;
+      case "genre":
+        this.setState({ genre: value }, this.handleMusicianSearch);
+        break;
+    }
+  };
+
+  handleMusicianSearch = () => {
+    const { instrument, genre } = this.state;
+    // console.log(instrument, genre)
+
+    let clonedUsers = JSON.parse(JSON.stringify(this.state.users));
+    // console.log(clonedUsers);
+
+    // filter by instrument
+    let filterList = clonedUsers.filter((singleUser) => {
+      if (!instrument.length) return true;
+      for (let i = 0; i < instrument.length; i++) {
+        if (i > 0 && !instrument[i]) return false;
+
+        for (let inst of singleUser.instrument) {
+          if (inst.toLowerCase().includes(instrument[i].toLowerCase()))
+            return true;
         }
       }
-      return;
     });
+    // console.log(filterList);
+
+    // filter by genre
+    filterList = filterList.filter((singleUser) => {
+      if (!genre.length) return true;
+      for (let i = 0; i < genre.length; i++) {
+        if (i > 0 && !genre[i]) return false;
+
+        for (let gen of singleUser.genre) {
+          if (gen.toLowerCase().includes(genre[i].toLowerCase())) return true;
+        }
+      }
+    });
+    // console.log(filterList)
+
     this.setState({
-      filteredVenues: filteredVenueList,
+      filteredUsers: filterList,
     });
   };
 
-  handleChange = (event) => {
-    let searchText = event.target.value.split(" ");
-    let filterList = this.state.users.filter((singleUser) => {
-      {
-        for (let i = 0; i < searchText.length; i++) {
-          console.log(searchText.length);
-          if (searchText.length === 1) {
-            return (
-              singleUser.instrument[0].toLowerCase().includes(searchText[i]) ||
-              singleUser.genre[0].toLowerCase().includes(searchText[i])
-            );
-          } else {
-            return (
-              (singleUser.instrument[0].toLowerCase().includes(searchText[0]) &&
-                singleUser.genre[0].toLowerCase().includes(searchText[1])) ||
-              (singleUser.instrument[0].toLowerCase().includes(searchText[1]) &&
-                singleUser.genre[0].toLowerCase().includes(searchText[0]))
-            );
-          }
-        }
-      }
-      //console.log('singleUser-----',singleUser)
-      return;
+  onVenueSearch = (event) => {
+    let name = event.target.name;
+    let value = event.target.value.split(" ");
+
+    switch (name) {
+      case "size":
+        this.setState({ size: value[0] }, this.handleVenueSearch);
+        break;
+      case "location":
+        this.setState({ location: value }, this.handleVenueSearch);
+        break;
+      case "title":
+        this.setState({ title: value }, this.handleVenueSearch);
+        break;
+    }
+  };
+
+  handleVenueSearch = () => {
+    let clonedVenues = JSON.parse(JSON.stringify(this.state.venues));
+
+    const { size, location, title } = this.state;
+
+    // filter by size
+    let filterList = clonedVenues.filter((singleVenue) => {
+      if (!Number(size)) return true;
+      return Number(size) && singleVenue.size <= size;
     });
+    // console.log(filterList);
+
+    // filter by location
+    filterList = filterList.filter((singleVenue) => {
+      if (!location.length) return true;
+      for (let i = 0; i < location.length; i++) {
+        if (i > 0 && !location[i]) return false;
+        if (
+          singleVenue.location.toLowerCase().includes(location[i].toLowerCase())
+        )
+          return true;
+      }
+    });
+    // console.log(filterList);
+
+    // filter by title
+    filterList = filterList.filter((singleVenue) => {
+      if (!title.length) return true;
+      for (let i = 0; i < title.length; i++) {
+        if (i > 0 && !title[i]) return false;
+        if (singleVenue.title.toLowerCase().includes(title[i].toLowerCase()))
+          return true;
+      }
+    });
+    // console.log(filterList);
+
     this.setState({
-      filteredUsers: filterList,
+      filteredVenues: filterList,
     });
   };
 
@@ -339,9 +431,7 @@ class App extends Component {
 
         let editedVenuesList = venues.map((venue) => {
           if (venue._id === venueId) {
-            venue.title = title.value;
-            venue.location = location.value;
-            venue.title = size.value;
+            venue = response.data;
           }
           return venue;
         });
@@ -366,6 +456,8 @@ class App extends Component {
   handleDeleteVenue = (venueId) => {
     const { venues } = this.state;
 
+    const clonedVenues = JSON.parse(JSON.stringify(venues));
+
     // console.log("venue to be deleted: ", venueId);
 
     axios
@@ -373,12 +465,12 @@ class App extends Component {
       .then((response) => {
         // console.log(response);
 
-        let venueList = venues.filter((venue) => venue._id !== venueId);
+        let venuesList = clonedVenues.filter((venue) => venue._id !== venueId);
 
         this.setState(
           {
-            venues: venueList,
-            filteredVenues: venueList,
+            venues: venuesList,
+            filteredVenues: venuesList,
           },
           () => {
             this.props.history.push("/profile");
@@ -393,7 +485,7 @@ class App extends Component {
   render() {
     const { user, users, filteredUsers, venues, filteredVenues } = this.state;
 
-    //console.log("render venues", this.state.venues);
+    // console.log("render venues", this.state.venues);
     // console.log(this.state.isMounted);
 
     if (!this.state.isMounted) {
@@ -452,7 +544,7 @@ class App extends Component {
                   <MusicianSearch
                     user={user}
                     filteredUsers={filteredUsers}
-                    myChange={this.handleChange}
+                    onSearch={this.onMusicianSearch}
                     {...routeProps}
                   />
                 );
@@ -466,13 +558,12 @@ class App extends Component {
                   <VenueSearch
                     user={user}
                     filteredVenues={filteredVenues}
-                    venueChange={this.handleVenueChange}
+                    onSearch={this.onVenueSearch}
                     {...routeProps}
                   />
                 );
               }}
             />
-
             <Route
               exact
               path="/profile"
@@ -480,7 +571,6 @@ class App extends Component {
                 return <Profile user={user} venues={venues} {...routeProps} />;
               }}
             />
-
             <Route
               exact
               path="/musician-profile/edit"
@@ -492,6 +582,13 @@ class App extends Component {
                     onEdit={this.handleEditMusician}
                   />
                 );
+              }}
+            />
+            <Route
+              exact
+              path="/search/musician/:musicianId"
+              render={(routeProps) => {
+                return <MusicianDetails {...routeProps} />;
               }}
             />
 
@@ -530,15 +627,6 @@ class App extends Component {
                 );
               }}
             />
-
-            <Route
-              path="/add-venue"
-              render={(routeProps) => {
-                return (
-                  <AddVenueForm {...routeProps} onAdd={this.handleAddVenue} />
-                );
-              }}
-            />
             <Route path="/chat" component={Chat} />
             <Route path="/join" component={Join} />
             <Route
@@ -550,13 +638,6 @@ class App extends Component {
                     onEdit={this.handleEditVenue}
                   />
                 );
-              }}
-            />
-            <Route
-              exact
-              path="/search/musician/:musicianId"
-              render={(routeProps) => {
-                return <MusicianDetails {...routeProps} />;
               }}
             />
           </Switch>
