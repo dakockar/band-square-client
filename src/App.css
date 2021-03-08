@@ -197,9 +197,7 @@ margin: 20px;
 } */
 
 
-/* upload image form */
-
-.upload-form {
-  /* display:flex; */
-  margin-top: 50px;
+.carousel {
+  width: 300px;
+  height: 200px;
 }
