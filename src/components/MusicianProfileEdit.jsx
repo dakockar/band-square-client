@@ -64,12 +64,12 @@ class MusicianProfileEdit extends Component {
             <Form.Label>About Me</Form.Label>
             <Form.Control name="aboutMe" type="text" placeholder="About me" defaultValue={this.props.user.aboutMe} />
           </Form.Group>
-          <Form.Group controlId="musicianImg">
-            <Form.Control name="musicianImg" type="file"/>
-          </Form.Group>
+          {/* <Form.Group controlId="musicianImg">
+            <Form.Control name="musicianImg" type="file" />
+          </Form.Group> */}
           <Button className="button" type="submit">
             Submit
-        </Button>
+          </Button>
         </Form>
       </div>
     );
