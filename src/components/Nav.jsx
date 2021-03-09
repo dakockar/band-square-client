@@ -3,6 +3,7 @@ import { Navbar, Dropdown, NavItem, NavLink } from 'react-bootstrap';
 import { Link, Redirect } from "react-router-dom";
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import logo from '../images/bandsquare-logo.png';
 
 function Nav(props) {
 
@@ -15,7 +16,7 @@ function Nav(props) {
           ? (
             <>
               <Navbar.Brand as={Link} to='/home'>
-                <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScRBWD7JSDeIT0D7Jy0qS4gbkIYN_vqGsr2Q&usqp=CAU" alt="logo" />
+                <img className="logo" src={logo} alt="logo" />
               </Navbar.Brand>
               <Navbar.Toggle />
               <Navbar.Collapse className="justify-content-end">
@@ -27,6 +28,9 @@ function Nav(props) {
                     <Dropdown.Menu className="dropdown-box">
                       <Dropdown.Item as={Link} to='/profile'>
                         Profile
+                      </Dropdown.Item>
+                      <Dropdown.Item as={Link} to='/chat'>
+                        Chat
                       </Dropdown.Item>
                       <Dropdown.Divider />
                       <Dropdown.Item onClick={props.onSignOut}>
@@ -41,7 +45,7 @@ function Nav(props) {
           : (
             <>
               <Navbar.Brand>
-                <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScRBWD7JSDeIT0D7Jy0qS4gbkIYN_vqGsr2Q&usqp=CAU" alt="logo" />
+                <img className="logo" src={logo} alt="logo" />
               </Navbar.Brand>
               <Navbar.Toggle />
               <Navbar.Collapse className="justify-content-end">

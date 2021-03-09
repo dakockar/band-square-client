@@ -10,7 +10,8 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 
 let socket;
-const CONNECTION_PORT = "localhost:3002/";
+// const CONNECTION_PORT = "localhost:3002/";
+const CONNECTION_PORT = "localhost:5005/";
 
 function Chat() {
   // Before Login
@@ -31,6 +32,7 @@ function Chat() {
       setMessageList([...messageList, data]);
     });
   });
+
   const connectToRoom = () => {
     setLoggedIn(true);
     socket.emit("join_room", room);
@@ -75,11 +77,12 @@ function Chat() {
       ) : (
         <div className="chatContainer">
           <div className="messages">
-            {messageList.map((val, key) => {
+            {messageList.map((val, index) => {
               return (
                 <div
+                  key={index}
                   className="messageContainer"
-                  id={val.author == userName ? "You" : "Other"}
+                  id={val.author === userName ? "You" : "Other"}
                 >
                   <div className="messageIndividual">
                     {val.author}: {val.message}
@@ -93,6 +96,7 @@ function Chat() {
             <input
               type="text"
               placeholder="Message..."
+              value={message}
               onChange={(e) => {
                 setMessage(e.target.value);
               }}
