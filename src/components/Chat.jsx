@@ -4,6 +4,8 @@
 // import ChatInput from './ChatInput'
 
 
+//npm i socket.io@2.3.0
+
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 

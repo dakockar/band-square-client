@@ -207,3 +207,23 @@ margin: 20px;
   width: 300px;
   height: 200px;
 }
+
+.landing-page-about{
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0 10px 10px 0;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.landing-page{
+  min-height: 100vh;
+  height: 100%;
+  background-image: url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin:0;
+  color:rgba(255, 255, 255, 0.8);
+  padding-top: 70px;
+  display: flex;
+  justify-content: center;
+}
