@@ -58,7 +58,7 @@ li {
   min-height: 100vh;
   height: 100%;
   /* padding top must be greater than 70px because of the navbar */
-  padding: 70px 20px 20px;
+  padding: 70px 0 0;
   /* background-image: url("../src/images/rock-bg.jpg"); */
   /* background-size: cover;
   background-color: rgba(27, 53, 53, 0.8); */
@@ -221,7 +221,9 @@ margin: 20px;
 .landing-page{
   min-height: 100vh;
   height: 100%;
+  width: 100%;
   background-image: url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
+  background-color: black;
   background-size: cover;
   background-repeat: no-repeat;
   margin:0;

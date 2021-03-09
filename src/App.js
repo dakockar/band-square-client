@@ -531,7 +531,7 @@ class App extends Component {
           onSignOut={this.handleSignOut}
         />
 
-        <div >
+        <div className="page">
           <Switch>
             <Route
               exact
