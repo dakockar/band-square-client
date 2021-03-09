@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import io from "socket.io-client";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,6 +22,7 @@ import VenueDetails from "./components/VenueDetails";
 import MusicianDetails from "./components/MusicianDetails.jsx";
 import VenueSearchDet from './components/VenueSearchDet'
 import UploadImageForm from "./components/UploadImageForm";
+
 
 class App extends Component {
   state = {
@@ -86,6 +88,7 @@ class App extends Component {
       isMounted: true,
     });
   }
+
 
   handleEditMusician = (event) => {
     event.preventDefault();
@@ -217,7 +220,6 @@ class App extends Component {
       });
 
   }
-
 
   handleSignUp = (event) => {
     event.preventDefault();
@@ -401,9 +403,9 @@ class App extends Component {
 
     const { user } = this.state;
     const { title, location, size, imgUrl } = event.target;
-    
-    
-    
+
+
+
     // imgArr.push
 
     let newVenue = {
@@ -439,7 +441,7 @@ class App extends Component {
 
     // console.log(event.target.title.value);
     // console.log(venueId);
-    
+
     const { title, location, size } = event.target;
 
 
@@ -660,8 +662,8 @@ class App extends Component {
             <Route exact path='/venuesDetails/:venueId' render={(routeProps) => {
               return (<VenueSearchDet {...routeProps} />)
             }} />
-            {/* <Route path="/chat" component={Chat} />
-            <Route path="/join" component={Join} /> */}
+            <Route path="/chat" component={Chat} />
+            {/* <Route path="/join" component={Join} /> */}
           </Switch>
         </div>
       </div>
