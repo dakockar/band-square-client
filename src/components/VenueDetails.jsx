@@ -36,24 +36,18 @@ export default class VenueDetails extends Component {
         return (
             <div className="venue-box">
                 <Carousel>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={venue.imgUrl[0]}
-                            alt="First slide"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={venue.imgUrl[1]}
-                            alt="Second slide"
-                        />
-                    </Carousel.Item>
+                    {
+                        venue.imgUrl.map(img => {
+                            return (
+                                <Carousel.Item>
+                                    <img
+                                        src={img}
+                                        alt={`slide ${venue.imgUrl.indexOf(img)}`} />
+                                </Carousel.Item>
+                            )
+                        })
+                    }
                 </Carousel>
-                {/* add images here */}
-                {/* <h1>Image</h1>
-        <img src={venue.imgUrl} /> */}
                 <div>{venue.title}</div>
                 <div>Location: {venue.location}</div>
                 <div>
@@ -61,20 +55,18 @@ export default class VenueDetails extends Component {
                 </div>
                 <div className="buttons">
                     <Button
-                        className="btn-edit-delete"
+                        className="button"
                         as={Link}
-                        to={`/venue/${venue._id}/edit`}
-                    >
+                        to={`/venue/${venue._id}/edit`}>
                         Edit
-          </Button>
+                    </Button>
                     <Button
-                        className="btn-edit-delete"
+                        className="button"
                         onClick={() => {
                             this.props.onDelete(venue._id);
-                        }}
-                    >
+                        }}>
                         Delete
-          </Button>
+                    </Button>
                 </div>
             </div>
         );

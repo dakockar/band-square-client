@@ -9,7 +9,7 @@ export default class EditVenueForm extends Component {
     showButton1: false,
     showButton2: false,
     showButton3: false,
-    image:[],
+    image: [],
     imgUrl: null
   };
 
@@ -33,19 +33,19 @@ export default class EditVenueForm extends Component {
 
   handleAddImg = (event) => {
     event.preventDefault();
-    if(!this.state.imgUrl){
-        return
+    if (!this.state.imgUrl) {
+      return
     }
     this.setState({
-        image: [ ...this.state.image, this.state.imgUrl]
+      image: [...this.state.image, this.state.imgUrl]
     })
   };
 
   handleImgChange = (event) => {
-      const imgUrl = event.target.value
-      this.setState({
-          imgUrl: imgUrl
-      })
+    const imgUrl = event.target.value
+    this.setState({
+      imgUrl: imgUrl
+    })
   }
 
   render() {
@@ -98,7 +98,7 @@ export default class EditVenueForm extends Component {
               defaultValue={venue.imgUrl}
             />
           </Form.Group> */}
-          
+
           {/* <Form.Group controlId="imgUrl">
                         <Form.Label>Image Url</Form.Label>
                         <Form.Control name="imgUrl" type="text" placeholder="image url" defaultValue={venue.imgUrl} />
@@ -114,10 +114,9 @@ export default class EditVenueForm extends Component {
                     </Form.Group> */}
           <Form.Label>Image Url</Form.Label>
           <InputGroup className="mb-3">
-          
             <FormControl
               placeholder="image url"
-              aria-label="Recipient's username"
+              // aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               name='imgUrl'
               onChange={this.handleImgChange}
@@ -126,29 +125,6 @@ export default class EditVenueForm extends Component {
               <Button onClick={this.handleAddImg} variant="outline-secondary">Add image</Button>
             </InputGroup.Append>
           </InputGroup>
-
-          {/* <Accordion defaultActiveKey="0">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                  Add more images
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-              <Form.Group controlId="imgUrl">
-            <Form.Label>Image Url</Form.Label>
-            <Form.Control
-              name="imgUrl2"
-              type="text"
-              placeholder="image url"
-              defaultValue={venue.imgUrl}
-            />
-          </Form.Group>
-          
-              </Accordion.Collapse>
-            </Card>
-          </Accordion> */}
-
           <Button className="button" type="submit">
             Submit
           </Button>
