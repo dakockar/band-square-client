@@ -531,7 +531,7 @@ class App extends Component {
           onSignOut={this.handleSignOut}
         />
 
-        <div className="page">
+        <div className='page'>
           <Switch>
             <Route
               exact
@@ -646,8 +646,6 @@ class App extends Component {
                 );
               }}
             />
-            <Route path="/chat" component={Chat} />
-            <Route path="/join" component={socketIndex} />
             <Route
               path="/venue/:venueId/edit"
               render={(routeProps) => {
@@ -662,7 +660,9 @@ class App extends Component {
             <Route exact path='/venuesDetails/:venueId' render={(routeProps) => {
               return (<VenueSearchDet {...routeProps} />)
             }} />
-            <Route path="/chat" component={Chat} />
+            <Route path="/chat/:userId" render={(routeProps) => {
+              return (<Chat {...routeProps} user={user} />)
+            }} />
             {/* <Route path="/join" component={Join} /> */}
           </Switch>
         </div>

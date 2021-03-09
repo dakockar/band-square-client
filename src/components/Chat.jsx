@@ -1,30 +1,41 @@
 // import axios from 'axios';
-// import config from '../config';
+
 // import ChatMessage from './ChatMessage'
 // import ChatInput from './ChatInput'
 
 
 //npm i socket.io@2.3.0
 
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
+import config from '../config';
 
 let socket;
 // const CONNECTION_PORT = "localhost:3002/";
 const CONNECTION_PORT = "localhost:5005/";
 
-function Chat() {
+function Chat(props) {
   // Before Login
   const [loggedIn, setLoggedIn] = useState(false);
   const [room, setRoom] = useState("");
-  const [userName, setUserName] = useState("");
+  const [user, setUser] = useState("");
+  const [otherUserId, setOtherUserId] = useState('');
+
+
 
   // After Login
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
+
   useEffect(() => {
     socket = io(CONNECTION_PORT);
+    setOtherUserId(props.match.params.userId)
+    setUser(props.user)
+    
+    
+
   }, [CONNECTION_PORT]);
 
   useEffect(() => {
@@ -34,15 +45,50 @@ function Chat() {
   });
 
   const connectToRoom = () => {
-    setLoggedIn(true);
-    socket.emit("join_room", room);
+    axios.get(`${config.API_URL}/api/chat/${user._id}`)
+      .then((response) => {
+         console.log('----data----',response.data)
+        setMessageList(response.data)
+        
+      })
+      .catch(() => {
+
+      })
+
+      console.log('--getblock---', messageList)
+        const rooms = messageList.map((message) => {
+          return message.room
+        })
+        if(rooms.includes((otherUserId).toString() + user._id.toString())){
+          setRoom((otherUserId.toString() + user._id.toString()))
+        }
+        else{
+          setRoom(user._id.toString() + otherUserId.toString())
+        } 
+    
+        // axios.get(`${config.API_URL}/api/chats/${room}`)
+        //   .then((response) => {
+      
+        //     setMessageList(response.data)
+        //     console.log('--room chat---', response, messageList)
+        //   })
+        //   .catch(() => {
+    
+        //   })
+    
+        console.log('rooms',rooms)
+        setLoggedIn(true);
+        socket.emit("join_room", room);
+    
   };
 
   const sendMessage = async () => {
     let messageContent = {
       room: room,
+      to: otherUserId,
+      from: user._id,
       content: {
-        author: userName,
+        author: user.firstName,
         message: message,
       },
     };
@@ -56,22 +102,6 @@ function Chat() {
     <div className="App">
       {!loggedIn ? (
         <div className="logIn">
-          <div className="inputs">
-            <input
-              type="text"
-              placeholder="Name..."
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Room..."
-              onChange={(e) => {
-                setRoom(e.target.value);
-              }}
-            />
-          </div>
           <button onClick={connectToRoom}>Enter Chat</button>
         </div>
       ) : (
@@ -80,9 +110,9 @@ function Chat() {
             {messageList.map((val, index) => {
               return (
                 <div
-                  key={index}
+                  // key={index}
                   className="messageContainer"
-                  id={val.author === userName ? "You" : "Other"}
+                  id={val.author === user.firstName ? "You" : "Other"}
                 >
                   <div className="messageIndividual">
                     {val.author}: {val.message}
