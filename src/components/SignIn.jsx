@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "reactstrap";
 
 function SignIn(props) {
 
@@ -10,7 +11,7 @@ function SignIn(props) {
 
   return (
     <div>
-      <Button className="grey-text" variant="link" onClick={handleShow}>
+      <Button className="grey-text" color="link" onClick={handleShow}>
         Sign In
       </Button>
 
@@ -19,6 +20,33 @@ function SignIn(props) {
           <Modal.Title>Sign In</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
+          <Form onSubmit={props.onSignIn}>
+            <FormGroup>
+              <Label for="email">Email</Label>
+              <Input onChange={validateEmail}
+                valid={email === 'has-success'}
+                invalid={email === 'has-danger'}
+                type="email" name="email" id="email" placeholder="email" />
+              <FormFeedback valid>Sweet! That email is valid.</FormFeedback>
+              <FormFeedback invalid="true">Please enter a valid email.</FormFeedback>
+            </FormGroup>
+            <FormGroup>
+              <Label for="password">Password</Label>
+              <Input
+                // onChange={validatePassword}
+                // valid={password === 'has-success'}
+                // invalid={password === 'has-danger'}
+                type="password" name="password" id="password" placeholder="password" />
+              {/* <FormFeedback valid>strong password!</FormFeedback>
+              <FormFeedback invalid="true">Your password is not strong enough</FormFeedback> */}
+            </FormGroup>
+            <Button variant="dark">Sign In!</Button>
+          </Form>
+
+
+
+
           <Form onSubmit={props.onSignIn}>
             <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>
