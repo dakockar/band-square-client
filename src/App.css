@@ -169,9 +169,9 @@ margin: 20px;
 
 .profile-page img {
   border-radius: 8px;
-  max-width: 20em;
+  width: 20em;
   object-fit: contain;
-  max-height: 12em;
+  height: 12em;
 }
 
 .card-style {
@@ -185,7 +185,7 @@ margin: 20px;
 }
 .card-img-overlay {
   height: 25px;
-  margin: 7.5em 0 0 13em;
+  margin: 7em 0 0 13em;
   color:rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.2);
   padding: 0;
@@ -299,7 +299,7 @@ margin: 20px;
   .card-style {
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 700px;
     height: 500px;
     justify-content: space-around;
@@ -307,5 +307,19 @@ margin: 20px;
   }
   .card-title {
     font-size: 50px;
+  }
+  .pic-and-text{
+    display: flex;
+    flex-direction: row;
+  }
+  .card-img-overlay {
+    height: 25px;
+    width: 25px;
+    margin: 7.5em 0 0 14em;
+    color:rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0;
+    font-size: 1.4em;
+    display: inline;
   }
 }
