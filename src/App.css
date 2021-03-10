@@ -296,6 +296,14 @@ margin: 20px;
   justify-content: space-between;
 }
 
+.card-style-search {
+  width: 20rem;
+  color:rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
 @media only screen and (min-width: 780px) {
   .card-style {
     background-color: rgba(0, 0, 0, 0.5);
@@ -322,5 +330,16 @@ margin: 20px;
     padding: 0;
     font-size: 1.4em;
     display: inline;
+  }
+  .card-title-search {
+    font-size: 30px;
+  }
+  
+  .card-style-search {
+    width: 30rem;
+    color:rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
   }
 }

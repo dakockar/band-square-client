@@ -4,46 +4,46 @@ import { Form, FormGroup, Input, Label, FormFeedback, FormText } from "reactstra
 
 
 function SignUp(props) {
-  const [show, setShow] = useState(false);
-  const [email, setEmailState] = useState(false);
-  const [password, setPasswordState] = useState(false);
+  // const [show, setShow] = useState(false);
+  // const [email, setEmailState] = useState(false);
+  // const [password, setPasswordState] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
-  const validateEmail = (e) => {
-    // regex for email validation
-    const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let emailState = ""
+  // const validateEmail = (e) => {
+  //   // regex for email validation
+  //   const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   let emailState = ""
 
-    if (!e.target.value.length) {
-      setEmailState(false);
-      return;
-    }
+  //   if (!e.target.value.length) {
+  //     setEmailState(false);
+  //     return;
+  //   }
 
-    emailRegEx.test(e.target.value) ? emailState = "has-success" : emailState = "has-danger";
+  //   emailRegEx.test(e.target.value) ? emailState = "has-success" : emailState = "has-danger";
 
-    setEmailState(emailState);
-  }
+  //   setEmailState(emailState);
+  // }
 
-  const validatePassword = (e) => {
-    const passRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    let passwordState = "";
+  // const validatePassword = (e) => {
+  //   const passRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  //   let passwordState = "";
 
-    if (!e.target.value.length) {
-      setPasswordState(false);
-      return;
-    }
+  //   if (!e.target.value.length) {
+  //     setPasswordState(false);
+  //     return;
+  //   }
 
-    passRegEx.test(e.target.value) ? passwordState = "has-success" : passwordState = "has-danger";
+  //   passRegEx.test(e.target.value) ? passwordState = "has-success" : passwordState = "has-danger";
 
-    setPasswordState(passwordState);
-  }
+  //   setPasswordState(passwordState);
+  // }
 
 
   return (
     <div>
-      <Button className="grey-text" variant="link" onClick={handleShow}>
+      {/* <Button className="grey-text" variant="link" onClick={handleShow}>
         Sign Up
       </Button>
 
@@ -51,8 +51,8 @@ function SignUp(props) {
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-
+        <Modal.Body> */}
+{/* 
           <Form onSubmit={props.onSignUp}>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -87,7 +87,7 @@ function SignUp(props) {
             </FormGroup>
 
             <Button variant="dark">Sign Up!</Button>
-          </Form>
+          </Form> */}
 
 
           {/* <Form onSubmit={props.onSignUp}>
@@ -136,8 +136,8 @@ function SignUp(props) {
               Sign Up!
             </Button>
           </Form> */}
-        </Modal.Body>
-      </Modal>
+        {/* </Modal.Body>
+      </Modal> */}
     </div>
   );
 }

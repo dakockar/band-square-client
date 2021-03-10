@@ -40,9 +40,9 @@ class MusicianSearch extends Component {
             {filteredUsers.map((singleUser) => {
               return (
                 <Link key={singleUser._id} to={`/musician/${singleUser._id}`}>
-                  <Card className="card-style">
+                  <Card className="card-style-search">
                     <Card.Body>
-                      <Card.Title>{singleUser.firstName} {singleUser.lastName}</Card.Title>
+                      <Card.Title className='card-title-search'>{singleUser.firstName} {singleUser.lastName}</Card.Title>
                       <Card.Text>{singleUser.instrument}</Card.Text>
                       <Card.Text>{singleUser.genre}</Card.Text>
                     </Card.Body>
