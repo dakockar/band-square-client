@@ -23,16 +23,13 @@ function SignIn(props) {
             <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>
               <Form.Control name='email' type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control name='password' type="password" placeholder="Password" />
             </Form.Group>
-            <Button variant="dark" type="submit" onClick={handleClose}>
+            <Button variant="dark" type="submit">
               Sign In!
             </Button>
           </Form>

@@ -36,7 +36,7 @@ class MusicianDetails extends Component {
 
     return (
       <div className="profile-page">
-        <Card className='card-style' style={{ width: "18rem" }}>
+        <Card className='card-style'>
           <Card.Img variant="top" src={user.imgUrl} />
           <Card.Body>
             <Card.Title>
