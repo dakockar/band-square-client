@@ -1,58 +1,43 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { Form, FormGroup, Input, Label, FormFeedback, FormText } from "reactstrap";
-
-
+import { Modal } from "react-bootstrap";
+import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "reactstrap";
 function SignUp(props) {
   const [show, setShow] = useState(false);
   const [email, setEmailState] = useState(false);
   const [password, setPasswordState] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const validateEmail = (e) => {
     // regex for email validation
     const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let emailState = ""
-
     if (!e.target.value.length) {
       setEmailState(false);
       return;
     }
-
     emailRegEx.test(e.target.value) ? emailState = "has-success" : emailState = "has-danger";
-
     setEmailState(emailState);
   }
-
   const validatePassword = (e) => {
     const passRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     let passwordState = "";
-
     if (!e.target.value.length) {
       setPasswordState(false);
       return;
     }
-
     passRegEx.test(e.target.value) ? passwordState = "has-success" : passwordState = "has-danger";
-
     setPasswordState(passwordState);
   }
-
-
   return (
     <div>
-      <Button className="grey-text" variant="link" onClick={handleShow}>
+      <Button className="grey-text" color="link" onClick={handleShow}>
         Sign Up
       </Button>
-
       <Modal className="modal-box" show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           <Form onSubmit={props.onSignUp}>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -85,61 +70,11 @@ function SignUp(props) {
                 <Label check for="owner">Owner</Label>
               </FormGroup>
             </FormGroup>
-
             <Button variant="dark">Sign Up!</Button>
           </Form>
-
-
-          {/* <Form onSubmit={props.onSignUp}>
-            <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                name="email"
-                type="email"
-                placeholder="Enter email"
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label as="legend" column sm={10}>
-                <span>Sign me up as:</span>
-              </Form.Label>
-              <Col sm={10}>
-                <Form.Check
-                  type="radio"
-                  label="Musician"
-                  name="type"
-                  id="formHorizontalRadios1"
-                  value='musician'
-                />
-                <Form.Check
-                  type="radio"
-                  label="Owner"
-                  name="type"
-                  id="formHorizontalRadios2"
-                  value='owner'
-                />
-              </Col>
-            </Form.Group>
-            <Button variant="dark" type="submit">
-              Sign Up!
-            </Button>
-          </Form> */}
         </Modal.Body>
       </Modal>
     </div>
   );
 }
-
 export default SignUp;
