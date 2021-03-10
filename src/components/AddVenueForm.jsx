@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
+import NotAuthorized from './NotAuthorized';
 
 
 export default class AddVenueForm extends Component {
@@ -40,9 +41,11 @@ export default class AddVenueForm extends Component {
     }
 
     render() {
-        const { onAdd } = this.props;
+        const { onAdd, user } = this.props;
         const { imageList } = this.state;
 
+        if (!user) return null;
+        if (user.type === "musician") return <NotAuthorized />
 
         return (
             <div>

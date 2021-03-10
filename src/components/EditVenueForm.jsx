@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Form, Button, InputGroup, FormControl, ListGroup } from "react-bootstrap";
 import config from "../config";
+import NotAuthorized from "./NotAuthorized";
 
 export default class EditVenueForm extends Component {
   state = {
@@ -59,12 +60,15 @@ export default class EditVenueForm extends Component {
   }
 
   render() {
-    console.log('------', this.state.imageList)
     const { venue, imageList } = this.state;
-    const { onEdit } = this.props;
+    console.log('------', imageList)
+    const { onEdit, user } = this.props;
     // console.log(this.props);
 
     if (!venue) return null;
+    if (!user) return null;
+
+    if (user._id !== venue.ownerId) return <NotAuthorized />
 
     return (
       <div>

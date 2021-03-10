@@ -103,12 +103,6 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  /* border: 1px solid black; */
-  width: 20em;
-  min-height: 20em;
-  margin: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   height: 92vh;
   width: 100%;
@@ -279,8 +273,8 @@ margin: 20px;
 }
 
 .landing-page-about{
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 0 10px 10px 0;
+  background-color: rgba(41, 41, 41, 0.5);
+  padding: 14px;
   margin: 20px;
   border-radius: 10px;
 }
@@ -289,7 +283,10 @@ margin: 20px;
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background-image: url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
+  background: radial-gradient(
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)
+  ), url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
   background-position: center center;
   background-color: black;
   background-size: cover;
