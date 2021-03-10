@@ -5,7 +5,6 @@ import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "r
 function SignIn(props) {
   const [show, setShow] = useState(false);
   const [email, setEmailState] = useState(false);
-  // const [password, setPasswordState] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -24,23 +23,6 @@ function SignIn(props) {
 
     setEmailState(emailState);
   }
-
-  // const validatePassword = (e) => {
-  //   const passRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  //   let passwordState = "";
-
-  //   if (e.target.value.length === 0) {
-  //     setPasswordState(false);
-  //     return;
-  //   }
-
-  //   passRegEx.test(e.target.value) ? passwordState = "has-success" : passwordState = "has-danger";
-
-
-  //   // this.setState({ passwordState });
-  //   setPasswordState(passwordState);
-  // }
-
 
   return (
     <div>
@@ -67,33 +49,11 @@ function SignIn(props) {
             <FormGroup>
               <Label for="password">Password</Label>
               <Input
-                // onChange={validatePassword}
-                // valid={password === 'has-success'}
-                // invalid={password === 'has-danger'}
                 type="password" name="password" id="password" placeholder="password" />
-              {/* <FormFeedback valid>strong password!</FormFeedback>
-              <FormFeedback invalid="true">Your password is not strong enough</FormFeedback> */}
             </FormGroup>
             <Button variant="dark">Sign In!</Button>
           </Form>
 
-
-
-
-          {/* <Form onSubmit={props.onSignIn}>
-            <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control required name='email' type="email" placeholder="Enter email" />
-            </Form.Group>
-
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control name='password' type="password" placeholder="Password" />
-            </Form.Group>
-            <Button variant="dark" type="submit">
-              Sign In!
-            </Button>
-          </Form> */}
         </Modal.Body>
       </Modal>
     </div>
