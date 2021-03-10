@@ -88,54 +88,6 @@ function SignUp(props) {
 
             <Button variant="dark">Sign Up!</Button>
           </Form>
-
-
-          {/* <Form onSubmit={props.onSignUp}>
-            <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                name="email"
-                type="email"
-                placeholder="Enter email"
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label as="legend" column sm={10}>
-                <span>Sign me up as:</span>
-              </Form.Label>
-              <Col sm={10}>
-                <Form.Check
-                  type="radio"
-                  label="Musician"
-                  name="type"
-                  id="formHorizontalRadios1"
-                  value='musician'
-                />
-                <Form.Check
-                  type="radio"
-                  label="Owner"
-                  name="type"
-                  id="formHorizontalRadios2"
-                  value='owner'
-                />
-              </Col>
-            </Form.Group>
-            <Button variant="dark" type="submit">
-              Sign Up!
-            </Button>
-          </Form> */}
         </Modal.Body>
       </Modal>
     </div>
