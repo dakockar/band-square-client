@@ -49,8 +49,6 @@ class App extends Component {
     }
 
 
-
-
     this.setState({
       isMounted: true,
     });
@@ -272,14 +270,16 @@ class App extends Component {
       .post(`${config.API_URL}/api/add-venue`, newVenue)
       .then((response) => {
         console.log(response.data);
-        this.setState(
-          {
-            venues: [...venues, response.data],
-          },
-          () => {
-            this.props.history.push("/profile");
-          }
-        );
+        this.props.history.push("/profile");
+
+        // this.setState(
+        //   {
+        //     venues: [...venues, response.data],
+        //   },
+        //   () => {
+        //     this.props.history.push("/profile");
+        //   }
+        // );
       })
       .catch((err) => {
         console.log('Errow while adding new venue', err);
@@ -431,7 +431,6 @@ class App extends Component {
                   <Profile
                     {...routeProps}
                     user={user}
-                  // venues={venues} 
                   />
                 );
               }}

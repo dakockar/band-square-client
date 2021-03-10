@@ -11,7 +11,7 @@ function MusicianProfile(props) {
     <div className="profile-page">
       <Card className='card-style' >
       <div className='pic-and-text'>
-        <Card.Img variant="top" src={user.imgUrl} />
+        <Card.Img className='profile-picture' variant="top" src={user.imgUrl} />
         <Card.ImgOverlay as={Link} to="/upload-image">+</Card.ImgOverlay>
         <Card.Body>
           <Card.Title>

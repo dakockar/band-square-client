@@ -119,7 +119,7 @@ export default class BandSearch extends Component {
                 {filteredMusiciansLooking.map(musician => {
                     return (
                         <Link key={musician._id} to={`/musician/${musician._id}`}>
-                            <Card className="card-style">
+                            <Card className="card-style-search">
                                 <Card.Body>
                                     <Card.Title>{musician.firstName} {musician.lastName}</Card.Title>
                                     <Card.Text>{musician.instrument}</Card.Text>

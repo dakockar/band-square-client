@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 // import Nav from './Nav'
 
 
@@ -24,7 +24,7 @@ class Home extends Component {
                             </>
                         )
                         : (
-                            <div>owner's home page</div>
+                            <Redirect to='profile'/>
                         )
                 }
 
