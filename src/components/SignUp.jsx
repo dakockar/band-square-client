@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { Form, FormGroup, Input, Label, FormFeedback, FormText } from "reactstrap";
+import { Modal } from "react-bootstrap";
+import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "reactstrap";
 
 
 function SignUp(props) {
