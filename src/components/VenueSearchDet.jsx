@@ -21,7 +21,7 @@ class VenueSearchDet extends Component {
         });
       })
       .catch((err) => {
-        console.log("get venue failed", err);
+        console.log("Get venue failed in search details", err);
       });
   }
 

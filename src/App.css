@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
   min-height: 100vh;
+  font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
 }
 
 .App {
@@ -223,6 +224,7 @@ margin: 20px;
   min-height: 100vh;
   height: 100%;
   background-image: url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   margin:0;
@@ -231,3 +233,26 @@ margin: 20px;
   justify-content: center;
   width: 100%;
 }
+
+.error-page{
+  min-height: 90vh;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+    ), url(./images//music-6062347.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin:0;
+  color:white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 50px;
+  text-align: center;
+  
+}
+
+/* .error-page h2 */

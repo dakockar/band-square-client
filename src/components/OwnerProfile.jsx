@@ -25,7 +25,7 @@ export default class OwnerProfile extends Component {
                 })
             })
             .catch((err) => {
-                console.log("error while fetching venues", err);
+                console.log("Error while fetching venues", err);
             });
     }
 

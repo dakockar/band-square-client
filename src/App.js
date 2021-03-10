@@ -22,6 +22,7 @@ import VenueDetails from "./components/VenueDetails";
 import MusicianDetails from "./components/MusicianDetails.jsx";
 import VenueSearchDet from './components/VenueSearchDet'
 import UploadImageForm from "./components/UploadImageForm";
+import ErrorPage from './components/ErrorPage'
 
 
 class App extends Component {
@@ -53,8 +54,8 @@ class App extends Component {
           filteredUsers: response.data,
         });
       })
-      .catch(() => {
-        console.log("fetching users failed");
+      .catch((err) => {
+        console.log("Fetching users failed", err);
       });
 
     // get all venues
@@ -67,7 +68,7 @@ class App extends Component {
         });
       })
       .catch(() => {
-        console.log("fetching venues failed");
+        console.log("Fetching venues failed");
       });
 
     if (!this.state.user) {
@@ -80,7 +81,7 @@ class App extends Component {
           });
         })
         .catch((err) => {
-          console.log("error gettin logged in user-----", err);
+          console.log("Error gettin logged in user-----", err);
         });
     }
 
@@ -170,7 +171,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        console.log("edit owner failed", err);
+        console.log("Edit owner failed", err);
       });
   };
 
@@ -212,11 +213,11 @@ class App extends Component {
             );
           })
           .catch((err) => {
-            console.log("error uploading musician image ", err);
+            console.log("Error uploading musician image", err);
           });
       })
       .catch((err) => {
-
+        console.log('Error while uploading musician image', err)
       });
 
   }
@@ -238,7 +239,7 @@ class App extends Component {
         this.handleSignIn(event);
       })
       .catch((err) => {
-        console.log("error signUp", err);
+        console.log("Error while signin up", err);
       });
   };
 
@@ -263,7 +264,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        console.log("error signUp", err);
+        console.log("Error while signin in", err);
       });
   };
 
@@ -282,8 +283,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        //
-        console.log(err);
+        console.log('Error while signin out', err);
       });
   };
 
@@ -431,7 +431,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        console.log(err);
+        console.log('Errow while adding new venue',err);
       });
   };
 
@@ -479,7 +479,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        console.log("venue edit failed", err);
+        console.log("Error while editing venue", err);
       });
   };
 
@@ -508,7 +508,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        console.log("venue deletion failed", err);
+        console.log("Error while deleting venue", err);
       });
   };
 
@@ -664,6 +664,7 @@ class App extends Component {
               return (<Chat {...routeProps} user={user}/>)
             }} />
             {/* <Route path="/join" component={Join} /> */}
+            <Route path='*' component={ErrorPage} />
           </Switch>
         </div>
       </div>

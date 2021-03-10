@@ -13,7 +13,7 @@ class Home extends Component {
             <div className="home-page">
 
                 {/* <h2>Welcome, {user.firstName}</h2> */}
-                <div>Home page</div>
+                <h3>Home page</h3>
                 {
                     user.type === "musician"
                         ? (

@@ -27,7 +27,7 @@ export default class EditVenueForm extends Component {
         });
       })
       .catch((err) => {
-        console.log("get venue failed", err);
+        console.log("Get venue failed", err);
       });
   }
 
