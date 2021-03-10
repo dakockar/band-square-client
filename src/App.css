@@ -1,7 +1,6 @@
 html, body {
   height: 100%;
   min-height: 100vh;
-  font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
 }
 
 .App {
@@ -37,6 +36,7 @@ li {
   height: 70px;
   letter-spacing: 0.2em;
   z-index: 200;
+  font-size: 16px;
 }
 
 .navbar, .grey-text {
@@ -133,6 +133,7 @@ li {
 .home-page {
   display: flex;
   flex-direction: column;
+  font-size: clamp(1rem, -0.875rem + 2.333vw, 1.3rem);
   /* justify-content: space-evenly; */
 }
 
@@ -177,6 +178,7 @@ margin: 20px;
   color:rgba(255, 255, 255, 0.8);
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
   /* background-color: rgba(255, 255, 255, 0.5); */
 }
 .card-img-overlay {
@@ -251,6 +253,7 @@ margin: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
+  font-size: clamp(1rem, -0.875rem + 4.333vw, 1.5rem);
 }
 
 .error-page{
@@ -271,7 +274,13 @@ margin: 20px;
   width: 100%;
   padding-top: 50px;
   text-align: center;
-  
+  font-size: clamp(1rem, -0.875rem + 4.333vw, 3.5rem);
 }
 
-/* .error-page h2 */
+.error-page h1 {
+  font-size: clamp(2rem, 0.875rem + 5.333vw, 4.5rem);
+}
+
+/* .card-body {
+  padding-bottom: 10px;
+} */
