@@ -18,8 +18,9 @@ class Home extends Component {
                     user.type === "musician"
                         ? (
                             <>
-                                <Link className="search-link" to='/search/musicians'>looking for <br /> musicians/bands</Link>
-                                <Link className="search-link" to='/search/venues'>looking for <br /> rehearsal rooms/venues</Link>
+                                <Link className="search-link" to='/search/musicians'>find me a<br />talented musician!</Link>
+                                <Link className="search-link" to='/search/bands'>find me an<br /> awesome band!</Link>
+                                <Link className="search-link" to='/search/venues'>need a place for my gigs<br /> or rehearsals!</Link>
                             </>
                         )
                         : (

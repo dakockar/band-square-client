@@ -140,8 +140,8 @@ li {
   display: flex;
   /* text-align: center; */
   width: 300px;
-  padding: 60px 40px;
-  margin: 50px auto;
+  padding: 30px 20px;
+  margin: 30px auto;
   border-radius: 7px;
   background-color: rgba(255, 255, 255, 0.2);
   transition: 0.2s ease-in;

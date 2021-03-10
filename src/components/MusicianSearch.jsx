@@ -18,46 +18,24 @@ class MusicianSearch extends Component {
           <div className="search-results">
             <h1>musician search</h1>
             <Form>
-              <fieldset>
-                <Form.Group as={Row}>
-                  <Col sm={10}>
-                    <Form.Check
-                      type="radio"
-                      label="I'm looking for musicians"
-                      value='musicianSearch'
-                      name="searchType"
-                      id="musicianSearch"
-                      defaultChecked
-                    //onChange={this.onValueChange}
-                    />
-                    <Form.Check
-                      type="radio"
-                      label="I'm looking for bands"
-                      value="bandSearch"
-                      name="searchType"
-                      id="bandSearch"
-                    //onChange={this.onValueChange}
-                    />
-                  </Col>
-                </Form.Group>
-              </fieldset>
+              <Form.Group>
+                <Form.Control
+                  onChange={onSearch}
+                  type="text"
+                  name="instrument"
+                  placeholder="Instrument"
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Control
+                  onChange={onSearch}
+                  type="text"
+                  name="genre"
+                  placeholder="Genre"
+                />
+              </Form.Group>
             </Form>
-            <Form.Group>
-              <Form.Control
-                onChange={onSearch}
-                type="text"
-                name="instrument"
-                placeholder="Instrument"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control
-                onChange={onSearch}
-                type="text"
-                name="genre"
-                placeholder="Genre"
-              />
-            </Form.Group>
+
             <h3>Results:</h3>
             {filteredUsers.map((singleUser) => {
               return (

@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
 import MusicianSearch from "./components/MusicianSearch";
+import BandSearch from "./components/BandSearch";
 import VenueSearch from "./components/VenueSearch";
 import Profile from "./components/Profile";
 import MusicianProfileEdit from "./components/MusicianProfileEdit";
@@ -28,6 +29,8 @@ class App extends Component {
     isMounted: false,
     users: [],
     filteredUsers: [],
+    usersLookingFor: [],
+    filteredUsersLookingFor: [],
     venues: [],
     filteredVenues: [],
     // for keeping search terms
@@ -41,19 +44,28 @@ class App extends Component {
   componentDidMount() {
     console.log(this.state.user);
 
-    // get all users
+    // get all musicians and also filter the ones that are lookingFor a musician
     axios
       .get(`${config.API_URL}/api/users`)
       .then((response) => {
         //console.log("what is this-----", response.data);
+
+        let usersLookingFor = response.data.filter(band => band.lookingFor)
+
         this.setState({
           users: response.data,
           filteredUsers: response.data,
+          usersLookingFor,
+          filteredUsersLookingFor: usersLookingFor
         });
       })
       .catch((err) => {
         console.log("Fetching users failed", err);
       });
+
+
+
+
 
     // get all venues
     axios
@@ -98,6 +110,7 @@ class App extends Component {
     const location = event.target.location.value;
     const bandName = event.target.bandName.value;
     const aboutMe = event.target.aboutMe.value;
+    const lookingFor = event.target.lookingFor.value;
 
     let editedUser = {
       firstName,
@@ -107,9 +120,8 @@ class App extends Component {
       location,
       bandName,
       aboutMe,
+      lookingFor
     };
-
-
 
     axios
       .patch(
@@ -125,11 +137,15 @@ class App extends Component {
           }
           return singleUser;
         });
+
+        let usersLookingFor = editedUsersList.filter(band => band.lookingFor)
         this.setState(
           {
             user: response.data,
             users: editedUsersList,
             filteredUsers: editedUsersList,
+            usersLookingFor,
+            filteredUsersLookingFor: usersLookingFor
           },
           () => {
             this.props.history.push(`/profile`);
@@ -300,7 +316,7 @@ class App extends Component {
 
   handleMusicianSearch = () => {
     const { instrument, genre } = this.state;
-    // console.log(instrument, genre)
+    console.log(instrument, genre)
 
     let clonedUsers = JSON.parse(JSON.stringify(this.state.users));
     // console.log(clonedUsers);
@@ -336,6 +352,52 @@ class App extends Component {
       filteredUsers: filterList,
     });
   };
+
+  onBandSearch = (event) => {
+    let name = event.target.name;
+    let value = event.target.value.split(" ");
+
+    switch (name) {
+      case "instrument":
+        this.setState({ instrument: value }, this.handleBandSearch);
+        break;
+      case "genre":
+        this.setState({ genre: value }, this.handleBandSearch);
+        break;
+    }
+  }
+
+  handleBandSearch = () => {
+    const { instrument, genre } = this.state;
+    console.log(instrument, genre)
+
+    let clonedUsers = JSON.parse(JSON.stringify(this.state.usersLookingFor));
+
+    // filter by instrument
+    let filterList = clonedUsers.filter((singleUser) => {
+      if (!instrument.length) return true;
+      for (let i = 0; i < instrument.length; i++) {
+        if (i > 0 && !instrument[i]) return false;
+        if (singleUser.lookingFor.toLowerCase().includes(instrument[i].toLowerCase())) return true;
+      }
+    });
+
+    // filter by genre
+    filterList = filterList.filter((singleUser) => {
+      if (!genre.length) return true;
+      for (let i = 0; i < genre.length; i++) {
+        if (i > 0 && !genre[i]) return false;
+
+        for (let gen of singleUser.genre) {
+          if (gen.toLowerCase().includes(genre[i].toLowerCase())) return true;
+        }
+      }
+    });
+
+    this.setState({
+      filteredUsersLookingFor: filterList,
+    });
+  }
 
   onVenueSearch = (event) => {
     let name = event.target.name;
@@ -425,7 +487,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        console.log('Errow while adding new venue',err);
+        console.log('Errow while adding new venue', err);
       });
   };
 
@@ -504,7 +566,7 @@ class App extends Component {
 
 
   render() {
-    const { user, users, filteredUsers, venues, filteredVenues } = this.state;
+    const { user, users, filteredUsers, venues, filteredVenues, filteredUsersLookingFor } = this.state;
 
     // console.log("render venues", this.state.venues);
 
@@ -548,6 +610,20 @@ class App extends Component {
                     user={user}
                     filteredUsers={filteredUsers}
                     onSearch={this.onMusicianSearch}
+                    {...routeProps}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/search/bands"
+              render={(routeProps) => {
+                return (
+                  <BandSearch
+                    user={user}
+                    filteredUsers={filteredUsersLookingFor}
+                    onSearch={this.onBandSearch}
                     {...routeProps}
                   />
                 );

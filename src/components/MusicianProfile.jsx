@@ -5,23 +5,27 @@ import { Link } from "react-router-dom";
 function MusicianProfile(props) {
   // console.log('props------', props)
   // if (!props.user) return null;
+  const { user } = props;
 
   return (
     <div className="profile-page">
       <Card className='card-style' >
-        <Card.Img variant="top" src={props.user.imgUrl} />
+        <Card.Img variant="top" src={user.imgUrl} />
         <Card.ImgOverlay as={Link} to="/upload-image">+</Card.ImgOverlay>
         <Card.Body>
           <Card.Title>
-            {props.user.firstName} {props.user.lastName}
+            {user.firstName} {user.lastName}
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {props.user.location}
+            {user.location}
           </Card.Subtitle>
-          <Card.Text>{props.user.aboutMe}</Card.Text>
-          <Card.Text>{props.user.genre}</Card.Text>
-          <Card.Text>{props.user.instrument}</Card.Text>
-          <Card.Text>{props.user.bandName}</Card.Text>
+          <Card.Text>{user.aboutMe}</Card.Text>
+          <Card.Text>{user.genre}</Card.Text>
+          <Card.Text>{user.instrument}</Card.Text>
+          <Card.Text>{user.bandName}</Card.Text>
+          {
+            user.lookingFor && <Card.Text>Looking for: {user.lookingFor}</Card.Text>
+          }
           <Card.Link className="button" as={Link} to="/musician-profile/edit">
             Edit Profile
           </Card.Link>
