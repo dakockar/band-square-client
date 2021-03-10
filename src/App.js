@@ -14,21 +14,21 @@ import Profile from "./components/Profile";
 import MusicianProfileEdit from "./components/MusicianProfileEdit";
 import OwnerProfileEdit from "./components/OwnerProfileEdit";
 import AddVenueForm from "./components/AddVenueForm";
-import Chat from "./components/Chat";
 import EditVenueForm from "./components/EditVenueForm";
 import VenueDetails from "./components/VenueDetails";
 import MusicianDetails from "./components/MusicianDetails.jsx";
 import UploadImageForm from "./components/UploadImageForm";
 import ErrorPage from './components/ErrorPage'
+import Chat from "./components/Chat";
 
 
 class App extends Component {
   state = {
     user: null,
     isMounted: false,
-    isLoggedIn: false,
-    users: [],
-    venues: [],
+    isLoggedIn: false
+    // users: [],
+    // venues: [],
   };
 
   componentDidMount() {
@@ -41,6 +41,7 @@ class App extends Component {
           //console.log("logged in user info", response);
           this.setState({
             user: response.data,
+            isLoggedIn: true
           });
         })
         .catch((err) => {
@@ -89,7 +90,7 @@ class App extends Component {
         this.setState(
           {
             user: response.data,
-            isLoggedIn: true
+            isLoggedIn: false
           },
           () => {
             this.props.history.push("/home");
@@ -152,17 +153,17 @@ class App extends Component {
       )
       .then((response) => {
         console.log("-----edit----", response.data);
-        let editedUsersList = users.map((singleUser) => {
-          if (user._id === singleUser._id) {
-            singleUser = response.data;
-          }
-          return singleUser;
-        });
+        // let editedUsersList = users.map((singleUser) => {
+        //   if (user._id === singleUser._id) {
+        //     singleUser = response.data;
+        //   }
+        //   return singleUser;
+        // });
 
         this.setState(
           {
             user: response.data,
-            users: editedUsersList,
+            // users: editedUsersList,
           },
           () => {
             this.props.history.push(`/profile`);
@@ -224,17 +225,17 @@ class App extends Component {
         axios.patch(`${config.API_URL}/api/upload/${user._id}`, { imgUrl, type }, { withCredentials: true })
           .then((response) => {
             console.log(response.data);
-            let editedUsersList = users.map((singleUser) => {
-              if (user._id === singleUser._id) {
-                singleUser = response.data;
-              }
-              return singleUser;
-            });
+            // let editedUsersList = users.map((singleUser) => {
+            //   if (user._id === singleUser._id) {
+            //     singleUser = response.data;
+            //   }
+            //   return singleUser;
+            // });
 
             this.setState(
               {
                 user: response.data,
-                users: editedUsersList,
+                // users: editedUsersList,
               },
               () => {
                 this.props.history.push(`/profile`);
@@ -305,24 +306,25 @@ class App extends Component {
       })
       .then((response) => {
         console.log("venue edited: ", response.data);
+        this.props.history.push(`/venue/${venueId}`)
 
-        let editedVenuesList = venues.map((venue) => {
-          if (venue._id === venueId) {
-            venue = response.data;
-          }
-          return venue;
-        });
+        // let editedVenuesList = venues.map((venue) => {
+        //   if (venue._id === venueId) {
+        //     venue = response.data;
+        //   }
+        //   return venue;
+        // });
 
         // console.log(editedVenuesList);
 
-        this.setState(
-          {
-            venues: editedVenuesList,
-          },
-          () => {
-            this.props.history.push(`/venue/${venueId}`);
-          }
-        );
+        // this.setState(
+        //   {
+        //     venues: editedVenuesList,
+        //   },
+        //   () => {
+        //     this.props.history.push(`/venue/${venueId}`);
+        //   }
+        // );
       })
       .catch((err) => {
         console.log("Error while editing venue", err);
@@ -330,9 +332,9 @@ class App extends Component {
   };
 
   handleDeleteVenue = (venueId) => {
-    const { venues } = this.state;
+    // const { venues } = this.state;
 
-    const clonedVenues = JSON.parse(JSON.stringify(venues));
+    // const clonedVenues = JSON.parse(JSON.stringify(venues));
 
     // console.log("venue to be deleted: ", venueId);
 
@@ -340,17 +342,19 @@ class App extends Component {
       .delete(`${config.API_URL}/api/venue/${venueId}`)
       .then((response) => {
         // console.log(response);
+        this.props.history.push("/profile");
 
-        let venuesList = clonedVenues.filter((venue) => venue._id !== venueId);
 
-        this.setState(
-          {
-            venues: venuesList,
-          },
-          () => {
-            this.props.history.push("/profile");
-          }
-        );
+        // let venuesList = clonedVenues.filter((venue) => venue._id !== venueId);
+
+        // this.setState(
+        //   {
+        //     venues: venuesList,
+        //   },
+        //   () => {
+        //     this.props.history.push("/profile");
+        //   }
+        // );
       })
       .catch((err) => {
         console.log("Error while deleting venue", err);
@@ -359,11 +363,12 @@ class App extends Component {
 
 
   render() {
-    const { user, venues, isMounted, isLoggedIn } = this.state;
+    const { user, isMounted, isLoggedIn } = this.state;
 
     // console.log("render venues", this.state.venues);
 
     if (!isMounted) return null;
+    // console.log(user);
 
 
     return (
@@ -385,9 +390,14 @@ class App extends Component {
               }}
             />
 
+            {/* <Route exact path="/">
+              {
+                isLoggedIn ? <Redirect to="/home" /> : <LandingPage />
+              }
+            </Route> */}
+
+
             {/* authorized routes */}
-
-
 
             <Route
               path="/home"

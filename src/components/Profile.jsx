@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Redirect } from 'react-router-dom';
 import MusicianProfile from "./MusicianProfile";
 import OwnerProfile from "./OwnerProfile";
 
@@ -9,6 +10,7 @@ export default class Profile extends Component {
         const { user } = this.props;
 
         if (!user) return null;
+        // if (!user) return <Redirect push to="/" />;
 
 
         return (

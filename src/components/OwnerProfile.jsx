@@ -1,17 +1,20 @@
 import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
+import { Switch, Route } from 'react-router';
 import React, { Component } from 'react';
 import axios from "axios";
 import config from '../config';
+import AddVenueForm from "./AddVenueForm";
+import VenueDetails from "./VenueDetails";
+import EditVenueForm from "./EditVenueForm";
 
 
 
-export default class OwnerProfile extends Component {
+class OwnerProfile extends Component {
 
     state = {
         venues: []
     }
-
 
     componentDidMount() {
         const { user } = this.props;
@@ -40,16 +43,16 @@ export default class OwnerProfile extends Component {
         return (
             <div className="profile-page">
                 <Card className='card-style' >
-                <div className='pic-and-text' >
-                    <Card.Img className='profile-picture' variant="top" src={user.imgUrl} />
-                    <Card.ImgOverlay className='add-picture-btn' as={Link} to="/upload-image">+</Card.ImgOverlay>
-                    <Card.Body>
-                        <Card.Title>
-                            {user.firstName} {user.lastName}
-                        </Card.Title>
-                        </Card.Body>
-                        </div>
+                    <div className='pic-and-text' >
+                        <Card.Img className='profile-picture' variant="top" src={user.imgUrl} />
+                        <Card.ImgOverlay className='add-picture-btn' as={Link} to="/upload-image">+</Card.ImgOverlay>
                         <Card.Body>
+                            <Card.Title>
+                                {user.firstName} {user.lastName}
+                            </Card.Title>
+                        </Card.Body>
+                    </div>
+                    <Card.Body>
                         <Card.Title>Venues: </Card.Title>
                         {
                             venues.length
@@ -76,3 +79,5 @@ export default class OwnerProfile extends Component {
         )
     }
 }
+
+export default withRouter(OwnerProfile);

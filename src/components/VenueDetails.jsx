@@ -3,7 +3,6 @@ import axios from "axios";
 import config from "../config";
 import { Button, Carousel } from "react-bootstrap";
 import { Route, Link } from "react-router-dom";
-import EditVenueForm from "./EditVenueForm";
 
 export default class VenueDetails extends Component {
     state = {
