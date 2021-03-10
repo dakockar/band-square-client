@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { Form, FormGroup, Input, Label, FormFeedback, FormText } from "reactstrap";
+import { Modal } from "react-bootstrap";
+import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "reactstrap";
 
 
 function SignUp(props) {
@@ -43,7 +43,7 @@ function SignUp(props) {
 
   return (
     <div>
-      <Button className="grey-text" variant="link" onClick={handleShow}>
+      <Button className="grey-text" color="link" onClick={handleShow}>
         Sign Up
       </Button>
 
@@ -74,7 +74,7 @@ function SignUp(props) {
               <FormFeedback invalid="true">Your password is not strong enough.</FormFeedback>
               <FormText>Password must be at least 8 characters, and include at least 1 letter and 1 number.</FormText>
             </FormGroup>
-            <FormGroup tag="fieldset">
+            <FormGroup>
               <h6>Sign me up as:</h6>
               <FormGroup check>
                 <Input id="musician" type="radio" name="type" value="musician" />

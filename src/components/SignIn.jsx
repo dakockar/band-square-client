@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-// import { Modal, Form, Button, InputGroup } from "react-bootstrap";
-import { Modal, Col, Button } from "react-bootstrap";
-import { Form, FormGroup, Input, Label, FormFeedback, FormText } from "reactstrap";
+import { Modal } from "react-bootstrap";
+import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "reactstrap";
 
 function SignIn(props) {
   const [show, setShow] = useState(false);
@@ -45,7 +44,7 @@ function SignIn(props) {
 
   return (
     <div>
-      <Button className="grey-text" variant="link" onClick={handleShow}>
+      <Button className="grey-text" color="link" onClick={handleShow}>
         Sign In
       </Button>
 
@@ -55,7 +54,7 @@ function SignIn(props) {
         </Modal.Header>
         <Modal.Body>
 
-          <Form onSubmit={props.onSignUp}>
+          <Form onSubmit={props.onSignIn}>
             <FormGroup>
               <Label for="email">Email</Label>
               <Input onChange={validateEmail}
@@ -75,7 +74,7 @@ function SignIn(props) {
               {/* <FormFeedback valid>strong password!</FormFeedback>
               <FormFeedback invalid="true">Your password is not strong enough</FormFeedback> */}
             </FormGroup>
-            <Button variant="dark">Sign Up!</Button>
+            <Button variant="dark">Sign In!</Button>
           </Form>
 
 
