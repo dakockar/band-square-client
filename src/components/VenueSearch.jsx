@@ -41,12 +41,12 @@ class VenueSearch extends Component {
           <h3>Results:</h3>
           {filteredVenues.map((singleVenue) => {
             return (
-              <Link to={`/venuesDetails/${singleVenue._id}`}>
-              <div key={singleVenue._id}>
-                <h4>{singleVenue.title}</h4>
-                <p>{singleVenue.size}</p>
-                <p>{singleVenue.location}</p>
-              </div>
+              <Link key={singleVenue._id} to={`/venuesDetails/${singleVenue._id}`}>
+                <div>
+                  <h4>{singleVenue.title}</h4>
+                  <p>{singleVenue.size}</p>
+                  <p>{singleVenue.location}</p>
+                </div>
               </Link>
             );
           })}
