@@ -1,4 +1,4 @@
-import { Form } from "react-bootstrap";
+import { Form, Card } from "react-bootstrap";
 import React, { Component } from "react";
 import ErrorPage from "./ErrorPage";
 import { Link } from 'react-router-dom'
@@ -42,11 +42,18 @@ class VenueSearch extends Component {
           {filteredVenues.map((singleVenue) => {
             return (
               <Link key={singleVenue._id} to={`/venuesDetails/${singleVenue._id}`}>
-                <div>
+              <Card className="card-style-search">
+                    <Card.Body>
+                      <Card.Title className='card-title-search'>{singleVenue.title}</Card.Title>
+                      <Card.Text>{singleVenue.size}</Card.Text>
+                      <Card.Text>{singleVenue.location}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                {/* <div>
                   <h4>{singleVenue.title}</h4>
                   <p>{singleVenue.size}</p>
                   <p>{singleVenue.location}</p>
-                </div>
+                </div> */}
               </Link>
             );
           })}
