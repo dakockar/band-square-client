@@ -12,7 +12,6 @@ class VenueSearch extends Component {
       ? <ErrorPage />
       : (
         <div>
-          <h1>Venue search</h1>
           <h3>Search for: </h3>
           <Form.Group>
             <Form.Control

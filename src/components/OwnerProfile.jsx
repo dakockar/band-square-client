@@ -40,8 +40,8 @@ export default class OwnerProfile extends Component {
         return (
             <div className="profile-page">
                 <Card className='card-style' >
-                    <Card.Img variant="top" src={user.imgUrl} />
-                    <Card.ImgOverlay as={Link} to="/upload-image">+</Card.ImgOverlay>
+                    <Card.Img className='profile-picture' variant="top" src={user.imgUrl} />
+                    <Card.ImgOverlay classname='add-picture-btn' as={Link} to="/upload-image">+</Card.ImgOverlay>
                     <Card.Body>
                         <Card.Title>
                             {user.firstName} {user.lastName}
