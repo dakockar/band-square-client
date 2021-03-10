@@ -43,7 +43,7 @@ function SignUp(props) {
 
   return (
     <div>
-      <Button className="grey-text" variant="link" onClick={handleShow}>
+      <Button className="grey-text" color="link" onClick={handleShow}>
         Sign Up
       </Button>
 
