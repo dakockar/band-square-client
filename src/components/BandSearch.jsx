@@ -37,7 +37,7 @@ export default class BandSearch extends Component {
                         {filteredUsers.map((singleUser) => {
                             return (
                                 <Link key={singleUser._id} to={`/musician/${singleUser._id}`}>
-                                    <Card className="card-style">
+                                    <Card className="card-style-search">
                                         <Card.Body>
                                             <Card.Title>{singleUser.firstName} {singleUser.lastName}</Card.Title>
                                             <Card.Text>{singleUser.instrument}</Card.Text>

@@ -30,7 +30,7 @@ class VenueSearchDet extends Component {
 
     if (!venue) return null
     return (
-      <div className="profile-page">
+      <div className="venue-box">
         <Card className="card-style" style={{ width: "18rem" }}>
           <Card.Img variant="top" src={venue.imgUrl} />
           <Card.Body>
