@@ -1,15 +1,52 @@
 import React, { Component } from 'react';
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 
 
 export default class AddVenueForm extends Component {
+
+    state = {
+        imageList: [],
+        imgUrl: null
+    }
+
+    handleAddImg = (event) => {
+        event.preventDefault();
+        const { imgUrl, imageList } = this.state;
+
+        if (!imgUrl) {
+            return
+        }
+        this.setState({
+            imageList: [...imageList, imgUrl],
+            imgUrl: ""
+        })
+    };
+
+    handleImgChange = (event) => {
+        const imgUrl = event.target.value
+        this.setState({
+            imgUrl
+        })
+    }
+
+    handleDeleteImg = (index) => {
+        const { imageList } = this.state;
+        let clonedImageList = JSON.parse(JSON.stringify(imageList));
+        clonedImageList.splice(index, 1);
+
+        this.setState({
+            imageList: clonedImageList
+        })
+    }
+
     render() {
         const { onAdd } = this.props;
+        const { imageList } = this.state;
 
 
         return (
             <div>
-                <Form onSubmit={onAdd}>
+                <Form onSubmit={(event) => { onAdd(event, imageList) }}>
                     <Form.Group controlId="title">
                         <Form.Label>Title</Form.Label>
                         <Form.Control name="title" type="text" placeholder="Enter title" />
@@ -19,9 +56,33 @@ export default class AddVenueForm extends Component {
                         <Form.Control name="location" type="text" placeholder="Location" />
                     </Form.Group>
                     <Form.Group controlId="size">
-                        <Form.Label>Size</Form.Label>
-                        <Form.Control name="size" type="text" placeholder="Size (m^2)" />
+                        <Form.Label>Size (m<sup>2</sup>)</Form.Label>
+                        <Form.Control name="size" type="text" placeholder="Size" />
                     </Form.Group>
+                    <Form.Label>Images</Form.Label>
+                    <InputGroup className="mb-3">
+                        <FormControl
+                            placeholder="image url"
+                            aria-describedby="basic-addon2"
+                            name='imgUrl'
+                            onChange={this.handleImgChange}
+                        />
+                        <InputGroup.Append>
+                            <Button onClick={this.handleAddImg} variant="outline-secondary">Add image</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                    <ul>
+                        {
+                            imageList.map((img, index) => {
+                                return (
+                                    <li key={index}>
+                                        <img className="thumbnail" src={img} alt="room" />
+                                        <Button onClick={() => { this.handleDeleteImg(index) }} className="x-btn" variant="danger">x</Button>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
                     <Button className="button" type="submit">
                         Submit
                     </Button>

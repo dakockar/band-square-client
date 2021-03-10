@@ -60,7 +60,6 @@ li {
   height: 100%;
   /* padding top must be greater than 70px because of the navbar */
   padding: 70px 0 0;
-
   /* background-image: url("../src/images/rock-bg.jpg"); */
   /* background-size: cover;
   background-color: rgba(27, 53, 53, 0.8); */
@@ -105,11 +104,29 @@ li {
   max-height: 200px;
 }
 
+.thumbnail {
+  width: 100px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+.x-btn {
+  padding: 0 5px;
+  margin: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: darkred;
+  border:darkred;
+  color: rgba(255, 255, 255, 0.8)
+}
+
 .venues-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
 
 /* ------------------ */
 
@@ -223,8 +240,10 @@ margin: 20px;
 .landing-page{
   min-height: 100vh;
   height: 100%;
+  width: 100%;
   background-image: url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
   background-position: center center;
+  background-color: black;
   background-size: cover;
   background-repeat: no-repeat;
   margin:0;
