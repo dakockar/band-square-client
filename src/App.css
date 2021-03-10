@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
 html, body {
   height: 100%;
   min-height: 100vh;
+  /* font-family: 'RocknRoll One', sans-serif; */
 }
 
 .App {
