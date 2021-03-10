@@ -402,11 +402,8 @@ class App extends Component {
     event.preventDefault();
 
     const { user } = this.state;
-    const { title, location, size, imgUrl } = event.target;
+    const { title, location, size } = event.target;
 
-
-
-    // imgArr.push
 
     let newVenue = {
       title: title.value,
@@ -474,7 +471,7 @@ class App extends Component {
             filteredVenues: editedVenuesList,
           },
           () => {
-            this.props.history.push(`/profile`);
+            this.props.history.push(`/venue/${venueId}`);
           }
         );
       })

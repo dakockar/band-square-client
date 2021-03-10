@@ -19,8 +19,8 @@ export default class AddVenueForm extends Component {
                         <Form.Control name="location" type="text" placeholder="Location" />
                     </Form.Group>
                     <Form.Group controlId="size">
-                        <Form.Label>Size</Form.Label>
-                        <Form.Control name="size" type="text" placeholder="Size (m^2)" />
+                        <Form.Label>Size (m<sup>2</sup>)</Form.Label>
+                        <Form.Control name="size" type="text" placeholder="Size" />
                     </Form.Group>
                     <Button className="button" type="submit">
                         Submit

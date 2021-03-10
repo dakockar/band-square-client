@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Form, Button, InputGroup, FormControl, Accordion, Card } from "react-bootstrap";
+import { Form, Button, InputGroup, FormControl, ListGroup } from "react-bootstrap";
 import config from "../config";
 
 export default class EditVenueForm extends Component {
@@ -9,7 +9,7 @@ export default class EditVenueForm extends Component {
     showButton1: false,
     showButton2: false,
     showButton3: false,
-    image: [],
+    imageList: [],
     imgUrl: null
   };
 
@@ -23,7 +23,7 @@ export default class EditVenueForm extends Component {
         console.log("venue-----", response.data);
         this.setState({
           venue: response.data,
-          image: response.data.imgUrl
+          imageList: response.data.imgUrl
         });
       })
       .catch((err) => {
@@ -33,24 +33,37 @@ export default class EditVenueForm extends Component {
 
   handleAddImg = (event) => {
     event.preventDefault();
-    if (!this.state.imgUrl) {
+    const { imgUrl, imageList } = this.state;
+
+    if (!imgUrl) {
       return
     }
     this.setState({
-      image: [...this.state.image, this.state.imgUrl]
+      imageList: [...imageList, imgUrl],
+      imgUrl: ""
     })
   };
 
   handleImgChange = (event) => {
     const imgUrl = event.target.value
     this.setState({
-      imgUrl: imgUrl
+      imgUrl
+    })
+  }
+
+  handleDeleteImg = (index) => {
+    const { imageList } = this.state;
+    let clonedImageList = JSON.parse(JSON.stringify(imageList));
+    clonedImageList.splice(index, 1);
+
+    this.setState({
+      imageList: clonedImageList
     })
   }
 
   render() {
-    console.log('------', this.state.image)
-    const { venue, image } = this.state;
+    console.log('------', this.state.imageList)
+    const { venue, imageList } = this.state;
     // console.log(this.props);
 
     if (!venue) return null;
@@ -59,7 +72,7 @@ export default class EditVenueForm extends Component {
       <div>
         <Form
           onSubmit={(event) => {
-            this.props.onEdit(event, venue._id, image);
+            this.props.onEdit(event, venue._id, imageList);
           }}
         >
           <Form.Group controlId="title">
@@ -81,7 +94,7 @@ export default class EditVenueForm extends Component {
             />
           </Form.Group>
           <Form.Group controlId="size">
-            <Form.Label>Size</Form.Label>
+            <Form.Label>Size (m<sup>2</sup>)</Form.Label>
             <Form.Control
               name="size"
               type="text"
@@ -89,34 +102,10 @@ export default class EditVenueForm extends Component {
               defaultValue={venue.size}
             />
           </Form.Group>
-          {/* <Form.Group controlId="imgUrl">
-            <Form.Label>Image Url</Form.Label>
-            <Form.Control
-              name="imgUrl"
-              type="text"
-              placeholder="image url"
-              defaultValue={venue.imgUrl}
-            />
-          </Form.Group> */}
-
-          {/* <Form.Group controlId="imgUrl">
-                        <Form.Label>Image Url</Form.Label>
-                        <Form.Control name="imgUrl" type="text" placeholder="image url" defaultValue={venue.imgUrl} />
-                    </Form.Group> */}
-          {/* <Form.Group controlId="extra-img">
-                        <Form.Control type="button" value='+' onClick={this.createNewElement}/>
-                    </Form.Group>
-                    <Form.Group controlId="imgUrl">
-                        <Form.Control name="imgUrl" type="text" placeholder="image url" defaultValue={venue.imgUrl} />
-                    </Form.Group>
-                    <Form.Group controlId="extra-img">
-                        <Form.Control type="button" value='+' onClick={this.createNewElement}/>
-                    </Form.Group> */}
-          <Form.Label>Image Url</Form.Label>
+          <Form.Label>Images</Form.Label>
           <InputGroup className="mb-3">
             <FormControl
               placeholder="image url"
-              // aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               name='imgUrl'
               onChange={this.handleImgChange}
@@ -125,6 +114,18 @@ export default class EditVenueForm extends Component {
               <Button onClick={this.handleAddImg} variant="outline-secondary">Add image</Button>
             </InputGroup.Append>
           </InputGroup>
+          <ul>
+            {
+              imageList.map((img, index) => {
+                return (
+                  <li key={index}>
+                    <img className="thumbnail" src={img} alt="room" />
+                    <Button onClick={() => { this.handleDeleteImg(index) }} className="x-btn" variant="danger">x</Button>
+                  </li>
+                )
+              })
+            }
+          </ul>
           <Button className="button" type="submit">
             Submit
           </Button>

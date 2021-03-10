@@ -37,9 +37,9 @@ export default class VenueDetails extends Component {
             <div className="venue-box">
                 <Carousel>
                     {
-                        venue.imgUrl.map(img => {
+                        venue.imgUrl.map((img, index) => {
                             return (
-                                <Carousel.Item>
+                                <Carousel.Item key={index}>
                                     <img
                                         src={img}
                                         alt={`slide ${venue.imgUrl.indexOf(img)}`} />

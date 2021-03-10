@@ -103,11 +103,29 @@ li {
   max-height: 200px;
 }
 
+.thumbnail {
+  width: 100px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+.x-btn {
+  padding: 0 5px;
+  margin: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: darkred;
+  border:darkred;
+  color: rgba(255, 255, 255, 0.8)
+}
+
 .venues-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
 
 /* ------------------ */
 
