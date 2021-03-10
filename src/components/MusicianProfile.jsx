@@ -10,19 +10,11 @@ function MusicianProfile(props) {
   return (
     <div className="profile-page">
       <Card className='card-style' >
-<<<<<<< HEAD
-        <Card.Img className='profile-picture' variant="top" src={props.user.imgUrl} />
-        {/* <Card.ImgOverlay as={Link} to="/upload-image">+</Card.ImgOverlay> */}
-        <Card.Body>
-          <Card.Title>
-            {props.user.firstName} {props.user.lastName} <Link to="/upload-image">+</Link>
-=======
         <Card.Img variant="top" src={user.imgUrl} />
         <Card.ImgOverlay as={Link} to="/upload-image">+</Card.ImgOverlay>
         <Card.Body>
           <Card.Title>
             {user.firstName} {user.lastName}
->>>>>>> origin/damla
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             {user.location}
