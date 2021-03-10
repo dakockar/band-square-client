@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import io from "socket.io-client";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import config from "./config";
@@ -15,7 +13,6 @@ import MusicianProfileEdit from "./components/MusicianProfileEdit";
 import OwnerProfileEdit from "./components/OwnerProfileEdit";
 import AddVenueForm from "./components/AddVenueForm";
 import Chat from "./components/Chat";
-import socketIndex from "./components/socketIndex";
 import EditVenueForm from "./components/EditVenueForm";
 import "./App.css";
 import VenueDetails from "./components/VenueDetails";
@@ -398,7 +395,7 @@ class App extends Component {
     });
   };
 
-  handleAddVenue = (event) => {
+  handleAddVenue = (event, imageArr) => {
     event.preventDefault();
 
     const { user } = this.state;
@@ -410,7 +407,7 @@ class App extends Component {
       location: location.value,
       size: size.value,
       ownerId: user._id,
-      imgUrl: []
+      imgUrl: imageArr
     };
 
     axios
@@ -436,11 +433,7 @@ class App extends Component {
     event.preventDefault();
     const { venues } = this.state;
 
-    // console.log(event.target.title.value);
-    // console.log(venueId);
-
     const { title, location, size } = event.target;
-
 
     let editedVenue = {
       title: title.value,

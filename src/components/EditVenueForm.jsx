@@ -6,9 +6,6 @@ import config from "../config";
 export default class EditVenueForm extends Component {
   state = {
     venue: null,
-    showButton1: false,
-    showButton2: false,
-    showButton3: false,
     imageList: [],
     imgUrl: null
   };
@@ -64,6 +61,7 @@ export default class EditVenueForm extends Component {
   render() {
     console.log('------', this.state.imageList)
     const { venue, imageList } = this.state;
+    const { onEdit } = this.props;
     // console.log(this.props);
 
     if (!venue) return null;
@@ -71,9 +69,7 @@ export default class EditVenueForm extends Component {
     return (
       <div>
         <Form
-          onSubmit={(event) => {
-            this.props.onEdit(event, venue._id, imageList);
-          }}
+          onSubmit={(event) => { onEdit(event, venue._id, imageList) }}
         >
           <Form.Group controlId="title">
             <Form.Label>Title</Form.Label>
