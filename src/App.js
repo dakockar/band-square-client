@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import axios from "axios";
 import config from "./config";
 import Nav from "./components/Nav";
@@ -15,10 +16,8 @@ import OwnerProfileEdit from "./components/OwnerProfileEdit";
 import AddVenueForm from "./components/AddVenueForm";
 import Chat from "./components/Chat";
 import EditVenueForm from "./components/EditVenueForm";
-import "./App.css";
 import VenueDetails from "./components/VenueDetails";
 import MusicianDetails from "./components/MusicianDetails.jsx";
-import VenueSearchDet from './components/VenueSearchDet'
 import UploadImageForm from "./components/UploadImageForm";
 import ErrorPage from './components/ErrorPage'
 
@@ -27,58 +26,13 @@ class App extends Component {
   state = {
     user: null,
     isMounted: false,
+    isLoggedIn: false,
     users: [],
-    filteredUsers: [],
-    usersLookingFor: [],
-    filteredUsersLookingFor: [],
     venues: [],
-    filteredVenues: [],
-    // for keeping search terms
-    instrument: [],
-    genre: [],
-    size: 0,
-    location: [],
-    title: [],
   };
 
   componentDidMount() {
     console.log(this.state.user);
-
-    // get all musicians and also filter the ones that are lookingFor a musician
-    axios
-      .get(`${config.API_URL}/api/users`)
-      .then((response) => {
-        //console.log("what is this-----", response.data);
-
-        let usersLookingFor = response.data.filter(band => band.lookingFor)
-
-        this.setState({
-          users: response.data,
-          filteredUsers: response.data,
-          usersLookingFor,
-          filteredUsersLookingFor: usersLookingFor
-        });
-      })
-      .catch((err) => {
-        console.log("Fetching users failed", err);
-      });
-
-
-
-
-
-    // get all venues
-    axios
-      .get(`${config.API_URL}/api/venues`)
-      .then((response) => {
-        this.setState({
-          venues: response.data,
-          filteredVenues: response.data,
-        });
-      })
-      .catch(() => {
-        console.log("Fetching venues failed");
-      });
 
     if (!this.state.user) {
       axios
@@ -94,11 +48,80 @@ class App extends Component {
         });
     }
 
+
+
+
     this.setState({
       isMounted: true,
     });
   }
 
+  handleSignUp = (event) => {
+    event.preventDefault();
+
+    let newUser = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+      type: event.target.type.value,
+    };
+
+    axios
+      .post(`${config.API_URL}/api/signup`, newUser)
+      .then((response) => {
+        console.log("all data", response);
+        console.log("response.data", response.data);
+        this.handleSignIn(event);
+      })
+      .catch((err) => {
+        console.log("Error while signin up", err);
+      });
+  };
+
+  handleSignIn = (event) => {
+    event.preventDefault();
+    let newUser = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
+
+    axios
+      .post(`${config.API_URL}/api/signin`, newUser, { withCredentials: true })
+      .then((response) => {
+        console.log("Succesfully signed in --------", response.data);
+        this.setState(
+          {
+            user: response.data,
+            isLoggedIn: true
+          },
+          () => {
+            this.props.history.push("/home");
+          }
+        );
+      })
+      .catch((err) => {
+        console.log("Error while signin in", err);
+      });
+  };
+
+  handleSignOut = () => {
+    axios
+      .post(`${config.API_URL}/api/signout`, {}, { withCredentials: true })
+      .then(() => {
+        console.log("LOGOUT_____");
+        this.setState(
+          {
+            user: null,
+            isLoggedIn: false
+          },
+          () => {
+            this.props.history.push("/");
+          }
+        );
+      })
+      .catch((err) => {
+        console.log('Error while signin out', err);
+      });
+  };
 
   handleEditMusician = (event) => {
     event.preventDefault();
@@ -138,14 +161,10 @@ class App extends Component {
           return singleUser;
         });
 
-        let usersLookingFor = editedUsersList.filter(band => band.lookingFor)
         this.setState(
           {
             user: response.data,
             users: editedUsersList,
-            filteredUsers: editedUsersList,
-            usersLookingFor,
-            filteredUsersLookingFor: usersLookingFor
           },
           () => {
             this.props.history.push(`/profile`);
@@ -218,7 +237,6 @@ class App extends Component {
               {
                 user: response.data,
                 users: editedUsersList,
-                filteredUsers: editedUsersList,
               },
               () => {
                 this.props.history.push(`/profile`);
@@ -235,232 +253,10 @@ class App extends Component {
 
   }
 
-  handleSignUp = (event) => {
-    event.preventDefault();
-
-    let newUser = {
-      email: event.target.email.value,
-      password: event.target.password.value,
-      type: event.target.type.value,
-    };
-
-    axios
-      .post(`${config.API_URL}/api/signup`, newUser)
-      .then((response) => {
-        console.log("all data", response);
-        console.log("response.data", response.data);
-        this.handleSignIn(event);
-      })
-      .catch((err) => {
-        console.log("Error while signin up", err);
-      });
-  };
-
-  handleSignIn = (event) => {
-    event.preventDefault();
-    let newUser = {
-      email: event.target.email.value,
-      password: event.target.password.value,
-    };
-
-    axios
-      .post(`${config.API_URL}/api/signin`, newUser, { withCredentials: true })
-      .then((response) => {
-        console.log("Succesfully signed in --------", response.data);
-        this.setState(
-          {
-            user: response.data,
-          },
-          () => {
-            this.props.history.push("/home");
-          }
-        );
-      })
-      .catch((err) => {
-        console.log("Error while signin in", err);
-      });
-  };
-
-  handleSignOut = () => {
-    axios
-      .post(`${config.API_URL}/api/signout`, {}, { withCredentials: true })
-      .then(() => {
-        console.log("LOGOUT_____");
-        this.setState(
-          {
-            user: null,
-          },
-          () => {
-            this.props.history.push("/");
-          }
-        );
-      })
-      .catch((err) => {
-        console.log('Error while signin out', err);
-      });
-  };
-
-  onMusicianSearch = (event) => {
-    let name = event.target.name;
-    let value = event.target.value.split(" ");
-
-    switch (name) {
-      case "instrument":
-        this.setState({ instrument: value }, this.handleMusicianSearch);
-        break;
-      case "genre":
-        this.setState({ genre: value }, this.handleMusicianSearch);
-        break;
-    }
-  };
-
-  handleMusicianSearch = () => {
-    const { instrument, genre } = this.state;
-    console.log(instrument, genre)
-
-    let clonedUsers = JSON.parse(JSON.stringify(this.state.users));
-    // console.log(clonedUsers);
-
-    // filter by instrument
-    let filterList = clonedUsers.filter((singleUser) => {
-      if (!instrument.length) return true;
-      for (let i = 0; i < instrument.length; i++) {
-        if (i > 0 && !instrument[i]) return false;
-
-        for (let inst of singleUser.instrument) {
-          if (inst.toLowerCase().includes(instrument[i].toLowerCase()))
-            return true;
-        }
-      }
-    });
-    // console.log(filterList);
-
-    // filter by genre
-    filterList = filterList.filter((singleUser) => {
-      if (!genre.length) return true;
-      for (let i = 0; i < genre.length; i++) {
-        if (i > 0 && !genre[i]) return false;
-
-        for (let gen of singleUser.genre) {
-          if (gen.toLowerCase().includes(genre[i].toLowerCase())) return true;
-        }
-      }
-    });
-    // console.log(filterList)
-
-    this.setState({
-      filteredUsers: filterList,
-    });
-  };
-
-  onBandSearch = (event) => {
-    let name = event.target.name;
-    let value = event.target.value.split(" ");
-
-    switch (name) {
-      case "instrument":
-        this.setState({ instrument: value }, this.handleBandSearch);
-        break;
-      case "genre":
-        this.setState({ genre: value }, this.handleBandSearch);
-        break;
-    }
-  }
-
-  handleBandSearch = () => {
-    const { instrument, genre } = this.state;
-    console.log(instrument, genre)
-
-    let clonedUsers = JSON.parse(JSON.stringify(this.state.usersLookingFor));
-
-    // filter by instrument
-    let filterList = clonedUsers.filter((singleUser) => {
-      if (!instrument.length) return true;
-      for (let i = 0; i < instrument.length; i++) {
-        if (i > 0 && !instrument[i]) return false;
-        if (singleUser.lookingFor.toLowerCase().includes(instrument[i].toLowerCase())) return true;
-      }
-    });
-
-    // filter by genre
-    filterList = filterList.filter((singleUser) => {
-      if (!genre.length) return true;
-      for (let i = 0; i < genre.length; i++) {
-        if (i > 0 && !genre[i]) return false;
-
-        for (let gen of singleUser.genre) {
-          if (gen.toLowerCase().includes(genre[i].toLowerCase())) return true;
-        }
-      }
-    });
-
-    this.setState({
-      filteredUsersLookingFor: filterList,
-    });
-  }
-
-  onVenueSearch = (event) => {
-    let name = event.target.name;
-    let value = event.target.value.split(" ");
-
-    switch (name) {
-      case "size":
-        this.setState({ size: value[0] }, this.handleVenueSearch);
-        break;
-      case "location":
-        this.setState({ location: value }, this.handleVenueSearch);
-        break;
-      case "title":
-        this.setState({ title: value }, this.handleVenueSearch);
-        break;
-    }
-  };
-
-  handleVenueSearch = () => {
-    let clonedVenues = JSON.parse(JSON.stringify(this.state.venues));
-
-    const { size, location, title } = this.state;
-
-    // filter by size
-    let filterList = clonedVenues.filter((singleVenue) => {
-      if (!Number(size)) return true;
-      return Number(size) && singleVenue.size <= size;
-    });
-    // console.log(filterList);
-
-    // filter by location
-    filterList = filterList.filter((singleVenue) => {
-      if (!location.length) return true;
-      for (let i = 0; i < location.length; i++) {
-        if (i > 0 && !location[i]) return false;
-        if (
-          singleVenue.location.toLowerCase().includes(location[i].toLowerCase())
-        )
-          return true;
-      }
-    });
-    // console.log(filterList);
-
-    // filter by title
-    filterList = filterList.filter((singleVenue) => {
-      if (!title.length) return true;
-      for (let i = 0; i < title.length; i++) {
-        if (i > 0 && !title[i]) return false;
-        if (singleVenue.title.toLowerCase().includes(title[i].toLowerCase()))
-          return true;
-      }
-    });
-    // console.log(filterList);
-
-    this.setState({
-      filteredVenues: filterList,
-    });
-  };
-
   handleAddVenue = (event, imageArr) => {
     event.preventDefault();
 
-    const { user } = this.state;
+    const { user, venues } = this.state;
     const { title, location, size } = event.target;
 
 
@@ -478,8 +274,7 @@ class App extends Component {
         console.log(response.data);
         this.setState(
           {
-            venues: [...this.state.venues, response.data],
-            filteredVenues: [...this.state.venues, response.data],
+            venues: [...venues, response.data],
           },
           () => {
             this.props.history.push("/profile");
@@ -523,7 +318,6 @@ class App extends Component {
         this.setState(
           {
             venues: editedVenuesList,
-            filteredVenues: editedVenuesList,
           },
           () => {
             this.props.history.push(`/venue/${venueId}`);
@@ -552,7 +346,6 @@ class App extends Component {
         this.setState(
           {
             venues: venuesList,
-            filteredVenues: venuesList,
           },
           () => {
             this.props.history.push("/profile");
@@ -566,13 +359,12 @@ class App extends Component {
 
 
   render() {
-    const { user, users, filteredUsers, venues, filteredVenues, filteredUsersLookingFor } = this.state;
+    const { user, venues, isMounted, isLoggedIn } = this.state;
 
     // console.log("render venues", this.state.venues);
 
-    if (!this.state.isMounted) {
-      return null;
-    }
+    if (!isMounted) return null;
+
 
     return (
       <div className="App">
@@ -595,6 +387,8 @@ class App extends Component {
 
             {/* authorized routes */}
 
+
+
             <Route
               path="/home"
               render={(routeProps) => {
@@ -607,53 +401,52 @@ class App extends Component {
               render={(routeProps) => {
                 return (
                   <MusicianSearch
-                    user={user}
-                    filteredUsers={filteredUsers}
-                    onSearch={this.onMusicianSearch}
-                    {...routeProps}
-                  />
+                    user={user} {...routeProps} />
                 );
-              }}
-            />
+              }} />
 
             <Route
               path="/search/bands"
               render={(routeProps) => {
                 return (
                   <BandSearch
-                    user={user}
-                    filteredUsers={filteredUsersLookingFor}
-                    onSearch={this.onBandSearch}
-                    {...routeProps}
-                  />
+                    user={user} {...routeProps} />
                 );
-              }}
-            />
+              }} />
 
             <Route
               path="/search/venues"
               render={(routeProps) => {
                 return (
                   <VenueSearch
-                    user={user}
-                    filteredVenues={filteredVenues}
-                    onSearch={this.onVenueSearch}
-                    {...routeProps}
-                  />
+                    user={user} {...routeProps} />
                 );
-              }}
-            />
+              }} />
+
             <Route
               exact
               path="/profile"
               render={(routeProps) => {
-                return <Profile user={user} venues={venues} {...routeProps} />;
+                return (
+                  <Profile
+                    {...routeProps}
+                    user={user}
+                  // venues={venues} 
+                  />
+                );
               }}
             />
 
-            <Route path="/upload-image" render={routeProps => {
-              return <UploadImageForm {...routeProps} user={user} onUpload={this.handleUploadImage} />
-            }} />
+            <Route
+              path="/upload-image"
+              render={routeProps => {
+                return (
+                  <UploadImageForm
+                    {...routeProps}
+                    user={user}
+                    onUpload={this.handleUploadImage} />
+                )
+              }} />
 
             <Route
               exact
@@ -661,21 +454,19 @@ class App extends Component {
               render={(routeProps) => {
                 return (
                   <MusicianProfileEdit
+                    {...routeProps}
                     user={user}
                     onImageUpload={this.handleUploadImage}
-                    {...routeProps}
-                    onEdit={this.handleEditMusician}
-                  />
+                    onEdit={this.handleEditMusician} />
                 );
-              }}
-            />
+              }} />
+
             <Route
               exact
               path="/musician/:musicianId"
               render={(routeProps) => {
                 return <MusicianDetails {...routeProps} />;
-              }}
-            />
+              }} />
 
             <Route
               exact
@@ -685,20 +476,20 @@ class App extends Component {
                   <OwnerProfileEdit
                     user={user}
                     {...routeProps}
-                    onEdit={this.handleEditOwner}
-                  />
+                    onEdit={this.handleEditOwner} />
                 );
-              }}
-            />
+              }} />
 
             <Route
               path="/add-venue"
               render={(routeProps) => {
                 return (
-                  <AddVenueForm {...routeProps} onAdd={this.handleAddVenue} />
+                  <AddVenueForm
+                    {...routeProps}
+                    user={user}
+                    onAdd={this.handleAddVenue} />
                 );
-              }}
-            />
+              }} />
 
             <Route
               exact
@@ -707,28 +498,26 @@ class App extends Component {
                 return (
                   <VenueDetails
                     {...routeProps}
-                    onDelete={this.handleDeleteVenue}
-                  />
+                    user={user}
+                    onDelete={this.handleDeleteVenue} />
                 );
-              }}
-            />
+              }} />
+
             <Route
               path="/venue/:venueId/edit"
               render={(routeProps) => {
                 return (
                   <EditVenueForm
                     {...routeProps}
-                    onEdit={this.handleEditVenue}
-                  />
+                    user={user}
+                    onEdit={this.handleEditVenue} />
                 );
-              }}
-            />
-            <Route exact path='/venuesDetails/:venueId' render={(routeProps) => {
-              return (<VenueSearchDet {...routeProps} />)
-            }} />
+              }} />
+
             <Route path="/chat/:userId" render={(routeProps) => {
               return (<Chat {...routeProps} user={user} />)
             }} />
+
             {/* <Route path="/join" component={Join} /> */}
             <Route path='*' component={ErrorPage} />
           </Switch>

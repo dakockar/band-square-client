@@ -29,9 +29,11 @@ export default class VenueDetails extends Component {
 
     render() {
         const { venue } = this.state;
+        const { user, onDelete } = this.props;
         // console.log(this.props);
 
         if (!venue) return null;
+        if (!user) return null;
 
         return (
             <div className="venue-box">
@@ -53,21 +55,31 @@ export default class VenueDetails extends Component {
                 <div>
                     Size: {venue.size}m<sup>2</sup>
                 </div>
-                <div className="buttons">
-                    <Button
-                        className="button"
-                        as={Link}
-                        to={`/venue/${venue._id}/edit`}>
-                        Edit
-                    </Button>
-                    <Button
-                        className="button"
-                        onClick={() => {
-                            this.props.onDelete(venue._id);
-                        }}>
-                        Delete
-                    </Button>
-                </div>
+                {
+                    user._id === venue.ownerId
+                        ? (
+                            <div className="buttons">
+                                <Button
+                                    className="button"
+                                    as={Link}
+                                    to={`/venue/${venue._id}/edit`}>
+                                    Edit
+                        </Button>
+                                <Button
+                                    className="button"
+                                    onClick={() => {
+                                        onDelete(venue._id);
+                                    }}>
+                                    Delete
+                        </Button>
+                            </div>
+                        )
+                        : (
+                            <Link className="edit-btn" to="/chat">
+                                Send a message
+                            </Link>
+                        )
+                }
             </div>
         );
     }
