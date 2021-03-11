@@ -523,8 +523,12 @@ class App extends Component {
                 );
               }} />
 
-            <Route path="/chat/:userId" render={(routeProps) => {
-              return (<Chat {...routeProps} user={user} />)
+            <Route path="/chat/musician/:recipientId" render={(routeProps) => {
+              return (<Chat {...routeProps} user={user} recipientType="musician" />)
+            }} />
+
+            <Route path="/chat/owner/:recipientId" render={(routeProps) => {
+              return (<Chat {...routeProps} user={user} recipientType="venue" />)
             }} />
 
             {/* <Route path="/join" component={Join} /> */}

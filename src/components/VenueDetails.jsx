@@ -74,7 +74,7 @@ export default class VenueDetails extends Component {
                             </div>
                         )
                         : (
-                            <Link className="edit-btn" to="/chat">
+                            <Link className="edit-btn" to={`/chat/owner/${venue._id}`}>
                                 Send a message
                             </Link>
                         )

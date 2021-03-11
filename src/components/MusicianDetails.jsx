@@ -49,7 +49,7 @@ class MusicianDetails extends Component {
             <Card.Text>{user.genre}</Card.Text>
             <Card.Text>{user.instrument}</Card.Text>
             <Card.Text>{user.bandName}</Card.Text>
-            <Card.Link as={Link} className="edit-btn" to={`/chat/${this.props.match.params.musicianId}`}>
+            <Card.Link as={Link} className="edit-btn" to={`/chat/musician/${this.props.match.params.musicianId}`}>
               Send a message
           </Card.Link>
           </Card.Body>

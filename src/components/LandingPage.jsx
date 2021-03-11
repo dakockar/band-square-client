@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import picture from '../images/rock-bg.jpg'
 
 function LandingPage(props) {
+
     return (
 
         <div className="landing-page">
