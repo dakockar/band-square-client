@@ -3,7 +3,6 @@ import axios from "axios";
 import config from "../config";
 import { Button, Carousel, Card } from "react-bootstrap";
 import { Route, Link } from "react-router-dom";
-import EditVenueForm from "./EditVenueForm";
 
 export default class VenueDetails extends Component {
     state = {
@@ -82,7 +81,7 @@ export default class VenueDetails extends Component {
                             </div>
                         )
                         : (
-                            <Link className="edit-btn" to="/chat">
+                            <Link className="edit-btn" to={`/chat/owner/${venue._id}`}>
                                 Send a message
                             </Link>
                         )
