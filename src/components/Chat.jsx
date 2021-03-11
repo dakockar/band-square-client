@@ -123,12 +123,7 @@ function Chat(props) {
   return (
     <div className="App">
       {!loggedIn ? (
-        <div className="logIn">
-          {/* <form action="POST"> */}
-          {/* <input type="text" placeholder="room #" /> */}
-          <Button className="button" onClick={connectToRoom}>Connect</Button>
-          {/* </form> */}
-        </div>
+        <Button className="button connect-btn" onClick={connectToRoom}>Connect</Button>
       ) : (
         <div className="chatContainer">
           <div className="messages">
@@ -160,17 +155,6 @@ function Chat(props) {
               <Button onClick={sendMessage} variant="dark">Send</Button>
             </InputGroup.Append>
           </InputGroup>
-          {/* <div className="messageInputs">
-            <input
-              type="text"
-              placeholder="Message..."
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-            />
-            <button onClick={sendMessage}>Send</button>
-        </div> */}
         </div>
       )
       }

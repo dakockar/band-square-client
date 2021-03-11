@@ -100,41 +100,43 @@ class MusicianSearch extends Component {
 
     return (
       <div className="search-results">
-        <h1>musician search</h1>
+        <h1>Find musicians</h1>
         <Form className='search-form'>
           <Form.Group>
+            <Form.Label>Instrument</Form.Label>
             <Form.Control
               onChange={this.onMusicianSearch}
               type="text"
               name="instrument"
-              placeholder="Instrument"
+              placeholder="drums, guitar..."
             />
           </Form.Group>
           <Form.Group>
+            <Form.Label>Genre</Form.Label>
             <Form.Control
               onChange={this.onMusicianSearch}
               type="text"
               name="genre"
-              placeholder="Genre"
+              placeholder="rock, jazz..."
             />
           </Form.Group>
         </Form>
 
         <h3>Results:</h3>
-        <div className='search-scroll'>
-        {filteredMusicians.map((singleUser) => {
-          return (
-            <Link key={singleUser._id} to={`/musician/${singleUser._id}`}>
-              <Card className="card-style-search">
-                <Card.Body>
-                  <Card.Title className='card-title-search' >{singleUser.firstName} {singleUser.lastName}</Card.Title>
-                  <Card.Text>{singleUser.instrument}</Card.Text>
-                  <Card.Text>{singleUser.genre}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Link>
-          );
-        })}
+        <div className='search-scroll scrollbar scrollbar-primary mt-5 mx-auto'>
+          {filteredMusicians.map((singleUser) => {
+            return (
+              <Link key={singleUser._id} to={`/musician/${singleUser._id}`}>
+                <Card className="card-style-search">
+                  <Card.Body>
+                    <Card.Title className='card-title-search' >{singleUser.firstName} {singleUser.lastName}</Card.Title>
+                    <Card.Text>{singleUser.instrument}</Card.Text>
+                    <Card.Text>{singleUser.genre}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
       </div>
     )
