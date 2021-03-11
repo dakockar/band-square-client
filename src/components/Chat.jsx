@@ -68,7 +68,7 @@ function Chat(props) {
     console.log(room);
 
     socket.on("receive_message", (data) => {
-      console.log("inside socket.on");
+      console.log("inside socket.on", data);
       setMessageList([...messageList, data]);
     });
   });
@@ -82,7 +82,7 @@ function Chat(props) {
     // get this room's messages from database
     axios.get(`${config.API_URL}/api/messages/${recipient._id}`)
       .then((response) => {
-        console.log(response.data);
+        console.log('----response room', response.data);
         setLoggedIn(true);
         // socket.emit("join_room", room);
 
@@ -108,14 +108,16 @@ function Chat(props) {
       room: room,
       to: recipient._id,
       from: user._id,
-      content: {
-        author,
-        message: message,
-      },
+      // content: {
+      //   author,
+      //   message: message,
+      // },
+      message: message,
+      author: author
     };
 
     await socket.emit("send_message", messageContent);
-    setMessageList([...messageList, messageContent.content]);
+    setMessageList([...messageList, messageContent]);
     setMessage("");
   };
 
@@ -128,19 +130,24 @@ function Chat(props) {
       ) : (
         <div className="chatContainer">
           <div className="messages">
+            
             {messageList.map((val, index) => {
               return (
                 <div
                   key={index}
                   className="messageContainer"
-                  id={val.author === user.firstName || val.author === user.email ? "You" : "Other"}
+                  // id={val.author === user.firstName || val.author === user.email ? "You" : "Other"}
                 >
                   <div className="messageIndividual">
                     {val.author}: {val.message}
+                    {/* {val} */}
                   </div>
                 </div>
               );
             })}
+
+
+
           </div>
 
           <div className="messageInputs">
