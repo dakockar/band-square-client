@@ -1,5 +1,3 @@
-// import axios from 'axios';
-
 // import ChatMessage from './ChatMessage'
 // import ChatInput from './ChatInput'
 
@@ -12,7 +10,6 @@ import io from "socket.io-client";
 import config from '../config';
 
 let socket;
-// const CONNECTION_PORT = "localhost:3002/";
 const CONNECTION_PORT = "localhost:5005/";
 
 function Chat(props) {
@@ -20,7 +17,8 @@ function Chat(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [room, setRoom] = useState("");
   const [user, setUser] = useState("");
-  const [otherUserId, setOtherUserId] = useState('');
+  // const [recipientId, setRecipientId] = useState('');
+  const [recipient, setRecipient] = useState('');
 
 
 
@@ -31,70 +29,95 @@ function Chat(props) {
 
   useEffect(() => {
     socket = io(CONNECTION_PORT);
-    setOtherUserId(props.match.params.userId)
-    setUser(props.user)
-    
-    
+    // setRecipientId(props.match.params.recipientId)
+    const { recipientId } = props.match.params;
+    // console.log(recipientId);
+    const { recipientType, user } = props;
+
+    if (recipientType === "musician") {
+      axios.get(`${config.API_URL}/api/musician/${recipientId}`)
+        .then((response) => {
+          setRecipient(response.data)
+          setRoom(response.data._id)
+          socket.emit("join_room", response.data._id);
+
+        })
+        .catch((err) => {
+          console.log("cannot get musician from database", err);
+        });
+    }
+    else if (recipientType === "venue") {
+      axios.get(`${config.API_URL}/api/venue/${recipientId}`)
+        .then((response) => {
+          setRecipient(response.data);
+          setRoom(response.data._id)
+          socket.emit("join_room", response.data._id);
+        })
+        .catch((err) => {
+          console.log("cannot get venue from database", err);
+        });
+    }
+
+    setUser(user)
 
   }, [CONNECTION_PORT]);
 
+
+
   useEffect(() => {
+    console.log(room);
+
     socket.on("receive_message", (data) => {
+      console.log("inside socket.on", data);
       setMessageList([...messageList, data]);
     });
   });
 
+
   const connectToRoom = () => {
-    axios.get(`${config.API_URL}/api/chat/${user._id}`)
+
+    // for venues, recipient id is the venue id, not the owner id
+    // setRoom(recipient._id);
+    console.log(room);
+    // get this room's messages from database
+    axios.get(`${config.API_URL}/api/messages/${recipient._id}`)
       .then((response) => {
-         console.log('----data----',response.data)
-        setMessageList(response.data)
-        
-      })
-      .catch(() => {
-
-      })
-
-      console.log('--getblock---', messageList)
-        const rooms = messageList.map((message) => {
-          return message.room
-        })
-        if(rooms.includes((otherUserId).toString() + user._id.toString())){
-          setRoom((otherUserId.toString() + user._id.toString()))
-        }
-        else{
-          setRoom(user._id.toString() + otherUserId.toString())
-        } 
-    
-        // axios.get(`${config.API_URL}/api/chats/${room}`)
-        //   .then((response) => {
-      
-        //     setMessageList(response.data)
-        //     console.log('--room chat---', response, messageList)
-        //   })
-        //   .catch(() => {
-    
-        //   })
-    
-        console.log('rooms',rooms)
+        console.log('----response room', response.data);
         setLoggedIn(true);
-        socket.emit("join_room", room);
-    
+        // socket.emit("join_room", room);
+
+        // let list = response.data.filter(message => message.from === user._id || message.to === user._id)
+
+        setMessageList(response.data);
+      })
+      .catch((err) => {
+        console.log("can't get message list", err);
+      });
+
+
+    // console.log('rooms', rooms)
+    // setLoggedIn(true);
+    // socket.emit("join_room", room);
   };
 
   const sendMessage = async () => {
+
+    let author = user.firstName || user.email
+
     let messageContent = {
       room: room,
-      to: otherUserId,
+      to: recipient._id,
       from: user._id,
-      content: {
-        author: user.firstName,
-        message: message,
-      },
+      // content: {
+      //   author,
+      //   message: message,
+      // },
+      message: message,
+      author: author
     };
 
     await socket.emit("send_message", messageContent);
-    setMessageList([...messageList, messageContent.content]);
+    setMessageList([...messageList, messageContent]);
     setMessage("");
   };
 
@@ -107,19 +130,24 @@ function Chat(props) {
       ) : (
         <div className="chatContainer">
           <div className="messages">
+            
             {messageList.map((val, index) => {
               return (
                 <div
-                  // key={index}
+                  key={index}
                   className="messageContainer"
-                  id={val.author === user.firstName ? "You" : "Other"}
+                  // id={val.author === user.firstName || val.author === user.email ? "You" : "Other"}
                 >
                   <div className="messageIndividual">
                     {val.author}: {val.message}
+                    {/* {val} */}
                   </div>
                 </div>
               );
             })}
+
+
+
           </div>
 
           <div className="messageInputs">

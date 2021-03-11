@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
 html, body {
   height: 100%;
   min-height: 100vh;
+  /* font-family: 'RocknRoll One', sans-serif; */
 }
 
 .App {
@@ -46,8 +49,9 @@ li {
 
 .logo {
   margin: 0;
-  width: 60px;
-  opacity: 0.8;
+  height: 60px;
+  /* width: 60px; */
+  /* opacity: 0.9; */
 }
 
 .dropdown-box {
@@ -63,7 +67,17 @@ li {
   /* background-image: url("../src/images/rock-bg.jpg"); */
   /* background-size: cover;
   background-color: rgba(27, 53, 53, 0.8); */
-  background: radial-gradient(circle, rgba(27,53,53,0.9) 0%, rgba(8,17,17,0.85) 75%);
+  /* background: radial-gradient(circle, rgba(27,53,53,0.9) 0%, rgba(8,17,17,0.85) 75%); */
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)
+  ), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
+  background-position: center center;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
   color:rgba(255, 255, 255, 0.8);
   display: flex;
   justify-content: center;
@@ -90,13 +104,18 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  /* border: 1px solid black; */
-  width: 20em;
-  min-height: 20em;
-  margin: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
+  height: 92vh;
+  width: 100%;
+  background: radial-gradient(
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)
+  ), url(./images/neonbrand-practice.jpg);
+  background-position: center center;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin:0;
 }
 
 .venue-box img {
@@ -134,7 +153,21 @@ li {
 .home-page {
   display: flex;
   flex-direction: column;
+  align-items: center;
   font-size: clamp(1rem, -0.875rem + 2.333vw, 1.3rem);
+  height: 92vh;
+  width: 100%;
+  background: radial-gradient(
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)
+  ), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
+  background-position: center center;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin:0;
+  color:rgba(255, 255, 255, 0.8);
+  width: 100%;
   /* justify-content: space-evenly; */
 }
 
@@ -147,6 +180,7 @@ li {
   border-radius: 7px;
   background-color: rgba(255, 255, 255, 0.2);
   transition: 0.2s ease-in;
+  color:rgba(255, 255, 255, 0.8);
 }
 
 .search-link:hover, .search-link:active {
@@ -182,11 +216,12 @@ margin: 20px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.5);
   margin-bottom: 10px;
+  padding-top: 20px;
   /* background-color: rgba(255, 255, 255, 0.5); */
 }
 .card-img-overlay {
   height: 25px;
-  margin: 7em 0 0 13em;
+  margin: 8.3em 0 0 13em;
   color:rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.2);
   padding: 0;
@@ -204,7 +239,7 @@ margin: 20px;
   padding: 10px 20px;
   background-color: rgba(255, 255, 255, 0.2);
   font-size: 1em;
-  margin: 10px 0;
+  margin: 10px 5px;
   border-radius: 3px;
 }
 
@@ -239,8 +274,8 @@ margin: 20px;
 }
 
 .landing-page-about{
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 0 10px 10px 0;
+  background-color: rgba(41, 41, 41, 0.5);
+  padding: 14px;
   margin: 20px;
   border-radius: 10px;
 }
@@ -249,7 +284,10 @@ margin: 20px;
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background-image: url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
+  background: radial-gradient(
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)
+  ), url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
   background-position: center center;
   background-color: black;
   background-size: cover;
@@ -342,4 +380,74 @@ margin: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
   }
+  .home-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+    ), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
+    background-position: center center;
+    background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin:0;
+    color:rgba(255, 255, 255, 0.8);
+    width: 100%;
+    font-size: clamp(1rem, -0.875rem + 4.333vw, 1.5rem);
+  }
+  .search-link {
+    display: flex;
+    /* text-align: center; */
+    width: 300px;
+    padding: 30px 20px;
+    margin: 30px auto;
+    border-radius: 7px;
+    transition: 0.2s ease-in;
+  }
 }
+
+.musician-form {
+  margin: 30px;
+}
+
+.card-img-top {
+  padding:10px;
+}
+
+.search-scroll{
+  max-height: 70vh;
+  overflow: scroll;
+}
+
+.error-link {
+  color: white;
+}
+
+.error-link:hover{
+  color: rgb(179, 179, 179);
+}
+
+
+/* 
+.venue-details {
+  display: flex;
+flex-direction: column;
+color: black;
+margin: 20px;
+  height: 92vh;
+  width: 100%;
+  background: radial-gradient(
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)
+  ), url(./images/neonbrand-practice.jpg);
+  background-position: center center;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin:0;
+} */

@@ -9,8 +9,8 @@ class MusicianProfileEdit extends Component {
     if (!user) return null;
 
     return (
-      <div>
-        <h1>Edit Musician Profile</h1>
+      <div className='musician-form'>
+        <h1>Edit Your Profile</h1>
 
         <Form onSubmit={onEdit}>
           <Form.Group controlId="firstName">

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import config from "../config";
-import { Button, Carousel } from "react-bootstrap";
+import { Button, Carousel, Card } from "react-bootstrap";
 import { Route, Link } from "react-router-dom";
-import EditVenueForm from "./EditVenueForm";
 
 export default class VenueDetails extends Component {
     state = {
@@ -29,12 +28,16 @@ export default class VenueDetails extends Component {
 
     render() {
         const { venue } = this.state;
+        const { user, onDelete } = this.props;
         // console.log(this.props);
 
         if (!venue) return null;
+        if (!user) return null;
 
         return (
             <div className="venue-box">
+            <div className='profile-page'>
+            <Card className="card-style">
                 <Carousel>
                     {
                         venue.imgUrl.map((img, index) => {
@@ -48,25 +51,43 @@ export default class VenueDetails extends Component {
                         })
                     }
                 </Carousel>
-                <div>{venue.title}</div>
-                <div>Location: {venue.location}</div>
-                <div>
+                <Card.Body>
+                <Card.Title>
+              {venue.title}
+            </Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">
+              {venue.location}
+            </Card.Subtitle>
+            <Card.Text>
                     Size: {venue.size}m<sup>2</sup>
-                </div>
-                <div className="buttons">
-                    <Button
-                        className="button"
-                        as={Link}
-                        to={`/venue/${venue._id}/edit`}>
-                        Edit
-                    </Button>
-                    <Button
-                        className="button"
-                        onClick={() => {
-                            this.props.onDelete(venue._id);
-                        }}>
-                        Delete
-                    </Button>
+                </Card.Text>
+                {
+                    user._id === venue.ownerId
+                        ? (
+                            <div className="buttons">
+                                <Button
+                                    className="button"
+                                    as={Link}
+                                    to={`/venue/${venue._id}/edit`}>
+                                    Edit
+                        </Button>
+                                <Button
+                                    className="button"
+                                    onClick={() => {
+                                        onDelete(venue._id);
+                                    }}>
+                                    Delete
+                        </Button>
+                            </div>
+                        )
+                        : (
+                            <Link className="edit-btn" to={`/chat/owner/${venue._id}`}>
+                                Send a message
+                            </Link>
+                        )
+                }
+                </Card.Body>
+                </Card>
                 </div>
             </div>
         );
