@@ -124,6 +124,7 @@ class VenueSearch extends Component {
           />
         </Form.Group>
         <h3>Results:</h3>
+        <div className='search-scroll'>
         {filteredVenues.map(venue => {
           return (
             <Link key={venue._id} to={`/venue/${venue._id}`}>
@@ -137,6 +138,7 @@ class VenueSearch extends Component {
             </Link>
           );
         })}
+        </div>
       </div>
     )
   }

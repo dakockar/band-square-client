@@ -116,6 +116,7 @@ export default class BandSearch extends Component {
                 </Form>
 
                 <h3>Results:</h3>
+                <div className='search-scroll'>
                 {filteredMusiciansLooking.map(musician => {
                     return (
                         <Link key={musician._id} to={`/musician/${musician._id}`}>
@@ -133,6 +134,7 @@ export default class BandSearch extends Component {
                         </Link>
                     );
                 })}
+                </div>
             </div>
         )
     }

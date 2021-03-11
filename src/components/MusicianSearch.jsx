@@ -121,12 +121,13 @@ class MusicianSearch extends Component {
         </Form>
 
         <h3>Results:</h3>
+        <div className='search-scroll'>
         {filteredMusicians.map((singleUser) => {
           return (
             <Link key={singleUser._id} to={`/musician/${singleUser._id}`}>
               <Card className="card-style-search">
                 <Card.Body>
-                  <Card.Title className='card-title-search'>{singleUser.firstName} {singleUser.lastName}</Card.Title>
+                  <Card.Title className='card-title-search' >{singleUser.firstName} {singleUser.lastName}</Card.Title>
                   <Card.Text>{singleUser.instrument}</Card.Text>
                   <Card.Text>{singleUser.genre}</Card.Text>
                 </Card.Body>
@@ -134,6 +135,7 @@ class MusicianSearch extends Component {
             </Link>
           );
         })}
+        </div>
       </div>
     )
   }
