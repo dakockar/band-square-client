@@ -463,3 +463,36 @@ margin: 20px;
   background-repeat: no-repeat;
   margin:0;
 } */
+
+
+
+/* chat */
+
+.messages {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.5em 1.5em;
+  display: flex;
+  flex-direction: column;
+  /* width: 100%; */
+  /* line-height: 2em; */
+}
+
+#me {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0;
+  align-self: flex-end;
+  /* width: 80%; */
+}
+
+#other {
+  background-color: rgba(82, 101, 122, 0.301);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0;
+  align-self: flex-start;
+  /* width: 80%; */
+
+}
