@@ -96,7 +96,7 @@ export default class BandSearch extends Component {
         return (
             <div className="search-results">
                 <h1>band search</h1>
-                <Form>
+                <Form className='search-form'>
                     <Form.Group>
                         <Form.Control
                             onChange={this.onBandSearch}
@@ -123,8 +123,8 @@ export default class BandSearch extends Component {
                             <Card className="card-style-search">
                                 <Card.Body>
                                     <Card.Title>{musician.firstName} {musician.lastName}</Card.Title>
-                                    <Card.Text>{musician.instrument}</Card.Text>
-                                    <Card.Text>{musician.genre}</Card.Text>
+                                    <Card.Text>I play: {musician.instrument}</Card.Text>
+                                    <Card.Text>Genre: {musician.genre}</Card.Text>
                                     {
                                         musician.bandName && <Card.Text>Band: {musician.bandName}</Card.Text>
                                     }

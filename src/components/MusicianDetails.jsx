@@ -45,10 +45,10 @@ class MusicianDetails extends Component {
             <Card.Subtitle className="mb-2 text-muted">
               {user.location}
             </Card.Subtitle>
-            <Card.Text>{user.aboutMe}</Card.Text>
-            <Card.Text>{user.genre}</Card.Text>
-            <Card.Text>{user.instrument}</Card.Text>
-            <Card.Text>{user.bandName}</Card.Text>
+            <Card.Text>About me: {user.aboutMe}</Card.Text>
+            <Card.Text>Genre: {user.genre}</Card.Text>
+            <Card.Text>I play: {user.instrument}</Card.Text>
+            <Card.Text>Band: {user.bandName}</Card.Text>
             <Card.Link as={Link} className="edit-btn" to={`/chat/musician/${this.props.match.params.musicianId}`}>
               Send a message
           </Card.Link>

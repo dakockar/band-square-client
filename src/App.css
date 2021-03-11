@@ -178,7 +178,7 @@ li {
   padding: 30px 20px;
   margin: 30px auto;
   border-radius: 7px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   transition: 0.2s ease-in;
   color:rgba(255, 255, 255, 0.8);
 }
@@ -341,6 +341,9 @@ margin: 20px;
   background-color: rgba(0, 0, 0, 0.5);
   margin-bottom: 10px;
 }
+.search-form {
+  min-width: 320px;
+}
 
 @media only screen and (min-width: 780px) {
   .card-style {
@@ -409,6 +412,9 @@ margin: 20px;
     border-radius: 7px;
     transition: 0.2s ease-in;
   }
+  .search-form {
+    min-width: 480px;
+  }
 }
 
 .musician-form {
@@ -420,7 +426,7 @@ margin: 20px;
 }
 
 .search-scroll{
-  max-height: 70vh;
+  max-height: 58vh;
   overflow: scroll;
 }
 
@@ -431,6 +437,12 @@ margin: 20px;
 .error-link:hover{
   color: rgb(179, 179, 179);
 }
+
+
+/* .search-results {
+  min-width: 320px important!;
+} */
+
 
 
 /* 

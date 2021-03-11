@@ -52,8 +52,9 @@ function SignIn(props) {
               <Input
                 type="password" name="password" id="password" placeholder="password" />
             </FormGroup>
-            <Button variant="dark">Sign In!</Button>
             {props.error && <p>{props.error.errorMessage}</p>}
+            <Button variant="dark">Sign In!</Button>
+            
           </Form>
 
         </Modal.Body>

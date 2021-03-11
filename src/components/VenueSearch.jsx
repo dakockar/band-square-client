@@ -96,8 +96,9 @@ class VenueSearch extends Component {
 
 
     return (
-      <div>
+      <div >
         <h3>Search for: </h3>
+        <Form className='search-form'>
         <Form.Group>
           <Form.Control
             onChange={this.onVenueSearch}
@@ -123,6 +124,7 @@ class VenueSearch extends Component {
             placeholder="Title"
           />
         </Form.Group>
+        </Form>
         <h3>Results:</h3>
         <div className='search-scroll'>
         {filteredVenues.map(venue => {
@@ -131,8 +133,8 @@ class VenueSearch extends Component {
             <Card className="card-style-search">
                 <Card.Body>
                   <Card.Title className='card-title-search'>{venue.title}</Card.Title>
-                  <Card.Text>{venue.size}</Card.Text>
-                  <Card.Text>{venue.location}</Card.Text>
+                  <Card.Text>Size: {venue.size}m<sup>2</sup></Card.Text>
+                  <Card.Text>Location: {venue.location}</Card.Text>
                 </Card.Body>
               </Card>
             </Link>

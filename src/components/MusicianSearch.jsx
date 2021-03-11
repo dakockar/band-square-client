@@ -101,7 +101,7 @@ class MusicianSearch extends Component {
     return (
       <div className="search-results">
         <h1>musician search</h1>
-        <Form>
+        <Form className='search-form'>
           <Form.Group>
             <Form.Control
               onChange={this.onMusicianSearch}
