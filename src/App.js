@@ -29,6 +29,7 @@ class App extends Component {
     isLoggedIn: false,
     users: [],
     venues: [],
+    error: null
   };
 
   componentDidMount() {
@@ -70,8 +71,11 @@ class App extends Component {
         console.log("response.data", response.data);
         this.handleSignIn(event);
       })
-      .catch((err) => {
-        console.log("Error while signin up", err);
+      .catch((error) => {
+        console.log("Error while signin up", error);
+        this.setState({
+          error:error
+        })
       });
   };
 
@@ -96,8 +100,11 @@ class App extends Component {
           }
         );
       })
-      .catch((err) => {
-        console.log("Error while signin in", err);
+      .catch((error) => {
+        console.log("Error while signin in", error);
+        this.setState({
+          error: error
+        })
       });
   };
 
@@ -359,7 +366,7 @@ class App extends Component {
 
 
   render() {
-    const { user, venues, isMounted, isLoggedIn } = this.state;
+    const { user, venues, isMounted, isLoggedIn, error } = this.state;
 
     // console.log("render venues", this.state.venues);
 
@@ -370,6 +377,7 @@ class App extends Component {
       <div className="App">
         <Nav
           user={user}
+          error={error}
           onSignUp={this.handleSignUp}
           onSignIn={this.handleSignIn}
           onSignOut={this.handleSignOut}

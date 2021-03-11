@@ -62,7 +62,7 @@ function SignUp(props) {
             <FormGroup tag="fieldset">
               <h6>Sign me up as:</h6>
               <FormGroup check>
-                <Input id="musician" type="radio" name="type" value="musician" />
+                <Input id="musician" type="radio" name="type" value="musician" checked/>
                 <Label check for="musician">Musician</Label>
               </FormGroup>
               <FormGroup check>

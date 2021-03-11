@@ -423,7 +423,13 @@ margin: 20px;
   overflow: scroll;
 }
 
+.error-link {
+  color: white;
+}
 
+.error-link:hover{
+  color: rgb(179, 179, 179);
+}
 
 
 /* 
