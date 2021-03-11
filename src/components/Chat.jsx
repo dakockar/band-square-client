@@ -3,14 +3,15 @@
 
 
 //npm i socket.io@2.3.0
-
+import { Button, Card, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import config from '../config';
 
 let socket;
-const CONNECTION_PORT = "https://band-square.herokuapp.com";
+// const CONNECTION_PORT = "https://band-square.herokuapp.com";
+const CONNECTION_PORT = "http://localhost:5005";
 
 function Chat(props) {
   // Before Login
@@ -40,7 +41,7 @@ function Chat(props) {
           setRecipient(response.data)
           setRoom(response.data._id)
           socket.emit("join_room", response.data._id);
-
+          // connectToRoom();
         })
         .catch((err) => {
           console.log("cannot get musician from database", err);
@@ -52,6 +53,7 @@ function Chat(props) {
           setRecipient(response.data);
           setRoom(response.data._id)
           socket.emit("join_room", response.data._id);
+          // connectToRoom();
         })
         .catch((err) => {
           console.log("cannot get venue from database", err);
@@ -65,10 +67,10 @@ function Chat(props) {
 
 
   useEffect(() => {
-    console.log(room);
+    // console.log(room);
 
     socket.on("receive_message", (data) => {
-      console.log("inside socket.on", data);
+      // console.log("inside socket.on", data);
       setMessageList([...messageList, data]);
     });
   });
@@ -76,17 +78,18 @@ function Chat(props) {
 
   const connectToRoom = () => {
 
+    // event.preventDefault();
+    // console.log(event.target);
+
     // for venues, recipient id is the venue id, not the owner id
     // setRoom(recipient._id);
-    console.log(room);
+    // console.log(room);
     // get this room's messages from database
     axios.get(`${config.API_URL}/api/messages/${recipient._id}`)
       .then((response) => {
         console.log('----response room', response.data);
         setLoggedIn(true);
         // socket.emit("join_room", room);
-
-        // let list = response.data.filter(message => message.from === user._id || message.to === user._id)
 
         setMessageList(response.data);
       })
@@ -108,10 +111,6 @@ function Chat(props) {
       room: room,
       to: recipient._id,
       from: user._id,
-      // content: {
-      //   author,
-      //   message: message,
-      // },
       message: message,
       author: author
     };
@@ -125,32 +124,43 @@ function Chat(props) {
     <div className="App">
       {!loggedIn ? (
         <div className="logIn">
-          <button onClick={connectToRoom}>Enter Chat</button>
+          {/* <form action="POST"> */}
+          {/* <input type="text" placeholder="room #" /> */}
+          <Button className="button" onClick={connectToRoom}>Connect</Button>
+          {/* </form> */}
         </div>
       ) : (
         <div className="chatContainer">
           <div className="messages">
-            
             {messageList.map((val, index) => {
               return (
                 <div
                   key={index}
                   className="messageContainer"
-                  // id={val.author === user.firstName || val.author === user.email ? "You" : "Other"}
+                  id={val.author === user.firstName || val.author === user.email ? "me" : "other"}
                 >
                   <div className="messageIndividual">
                     {val.author}: {val.message}
-                    {/* {val} */}
                   </div>
                 </div>
               );
             })}
-
-
-
           </div>
 
-          <div className="messageInputs">
+          <InputGroup className="mb-3">
+            <FormControl
+              type="text"
+              placeholder="Message..."
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+            />
+            <InputGroup.Append>
+              <Button onClick={sendMessage} variant="dark">Send</Button>
+            </InputGroup.Append>
+          </InputGroup>
+          {/* <div className="messageInputs">
             <input
               type="text"
               placeholder="Message..."
@@ -160,9 +170,10 @@ function Chat(props) {
               }}
             />
             <button onClick={sendMessage}>Send</button>
-          </div>
+        </div> */}
         </div>
-      )}
+      )
+      }
     </div>
   );
 }
