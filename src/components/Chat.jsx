@@ -10,8 +10,8 @@ import io from "socket.io-client";
 import config from '../config';
 
 let socket;
-// const CONNECTION_PORT = "localhost:5005";
-const CONNECTION_PORT = "https://band-square.herokuapp.com";
+const CONNECTION_PORT = "localhost:5005";
+// const CONNECTION_PORT = "https://band-square.herokuapp.com";
 
 function Chat(props) {
   // Before Login

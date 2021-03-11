@@ -47,6 +47,15 @@ li {
   letter-spacing: 0.1em;
 }
 
+/* .nav-search{
+  display: flex;
+  justify-content: flex-start;
+} */
+
+.nav-search{
+ display: none;
+}
+
 .logo {
   margin: 0;
   height: 60px;
@@ -415,6 +424,13 @@ margin: 20px;
   .search-form {
     min-width: 480px;
   }
+  .nav-search{
+    display: flex;
+    margin-right: 20px;
+  }
+  .search-navlink{
+    margin-left: 20px;
+   }
 }
 
 .musician-form {
