@@ -3,7 +3,7 @@
 html, body {
   height: 100%;
   min-height: 100vh;
-  /* font-family: 'RocknRoll One', sans-serif; */
+  font-family: 'RocknRoll One', sans-serif;
 }
 
 .App {
@@ -171,6 +171,10 @@ li {
   /* justify-content: space-evenly; */
 }
 
+.home-page h3 {
+  margin-top: 20px;
+}
+
 .search-link {
   display: flex;
   /* text-align: center; */
@@ -216,7 +220,7 @@ margin: 20px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.5);
   margin-bottom: 10px;
-  padding-top: 20px;
+  padding: 20px 0;
   /* background-color: rgba(255, 255, 255, 0.5); */
 }
 .card-img-overlay {
@@ -224,7 +228,8 @@ margin: 20px;
   margin: 8.3em 0 0 13em;
   color:rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.2);
-  padding: 0;
+  border-radius: 50%;
+  padding: 2px;
   font-size: 1.4em;
   display: flex;
   justify-content: center;
@@ -249,6 +254,10 @@ margin: 20px;
   outline: 0 !important;
 }
 
+/* .connect-btn {
+  margin-top: 250px;
+} */
+
 .buttons {
   display: flex;
   justify-content: space-evenly;
@@ -256,17 +265,6 @@ margin: 20px;
   width: 80%;
   margin: 50px 0 0;
 }
-
-/* .edit-btn {
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
-  border-radius: 3px;
-}
-
-.edit-btn:hover, .edit-btn:active {
-  color: white;
-} */
-
 
 .carousel {
   width: 300px;
@@ -281,7 +279,7 @@ margin: 20px;
 }
 
 .landing-page{
-  min-height: 100vh;
+  min-height: 93.4vh;
   height: 100%;
   width: 100%;
   background: radial-gradient(
@@ -326,9 +324,13 @@ margin: 20px;
   font-size: clamp(2rem, 0.875rem + 5.333vw, 4.5rem);
 }
 
-/* .card-body {
-  padding-bottom: 10px;
-} */
+.card-body {
+  /* padding-bottom: 10px; */
+  /* display: flex;
+  flex-direction: column; */
+
+}
+
 .card-title {
   display: flex;
   justify-content: space-between;
@@ -343,6 +345,10 @@ margin: 20px;
 }
 .search-form {
   min-width: 320px;
+}
+
+.edit-btn {
+  margin-top: 60px;
 }
 
 @media only screen and (min-width: 780px) {
@@ -383,11 +389,12 @@ margin: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
   }
+
   .home-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    min-height: 93.2vh;
     height: 100%;
     width: 100%;
     background: linear-gradient(
@@ -405,15 +412,21 @@ margin: 20px;
   }
   .search-link {
     display: flex;
-    /* text-align: center; */
-    width: 300px;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.8em;
+    width: 18em;
     padding: 30px 20px;
     margin: 30px auto;
     border-radius: 7px;
-    transition: 0.2s ease-in;
+    transition: 0.1s ease-in;
   }
   .search-form {
     min-width: 480px;
+  }
+
+  .edit-btn {
+    margin-top: 80px;
   }
 }
 
@@ -426,8 +439,11 @@ margin: 20px;
 }
 
 .search-scroll{
-  max-height: 58vh;
+  max-height: 50vh;
   overflow: scroll;
+  padding: 0 2px;
+  /* border: 2px solid red; */
+  border-radius: 12px 20px 20px 12px;
 }
 
 .error-link {
@@ -439,31 +455,13 @@ margin: 20px;
 }
 
 
-/* .search-results {
-  min-width: 320px important!;
-} */
+.search-results {
+  /* height: 93vh; */
+}
 
-
-
-/* 
-.venue-details {
-  display: flex;
-flex-direction: column;
-color: black;
-margin: 20px;
-  height: 92vh;
-  width: 100%;
-  background: radial-gradient(
-  rgba(0, 0, 0, 0.5),
-  rgba(0, 0, 0, 0.5)
-  ), url(./images/neonbrand-practice.jpg);
-  background-position: center center;
-  background-color: black;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin:0;
-} */
-
+.search-results h1 {
+margin: 20px 0 10px;
+}
 
 
 /* chat */
@@ -474,8 +472,6 @@ margin: 20px;
   padding: 0.5em 1.5em;
   display: flex;
   flex-direction: column;
-  /* width: 100%; */
-  /* line-height: 2em; */
 }
 
 #me {
@@ -484,7 +480,6 @@ margin: 20px;
   padding: 5px;
   margin: 5px 0;
   align-self: flex-end;
-  /* width: 80%; */
 }
 
 #other {
@@ -493,6 +488,31 @@ margin: 20px;
   padding: 5px;
   margin: 5px 0;
   align-self: flex-start;
-  /* width: 80%; */
-
 }
+
+.scrollbar {
+  overflow: scroll;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 0;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* custom colors  */
+
+.scrollbar-primary {
+  scrollbar-color: rgba(0, 0, 0, 0.6);
+}
+.scrollbar-primary::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+

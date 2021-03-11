@@ -10,8 +10,8 @@ import io from "socket.io-client";
 import config from '../config';
 
 let socket;
-// const CONNECTION_PORT = "localhost:5005";
-const CONNECTION_PORT = "https://band-square.herokuapp.com";
+const CONNECTION_PORT = "localhost:5005";
+// const CONNECTION_PORT = "https://band-square.herokuapp.com";
 
 function Chat(props) {
   // Before Login
@@ -123,12 +123,7 @@ function Chat(props) {
   return (
     <div className="App">
       {!loggedIn ? (
-        <div className="logIn">
-          {/* <form action="POST"> */}
-          {/* <input type="text" placeholder="room #" /> */}
-          <Button className="button" onClick={connectToRoom}>Connect</Button>
-          {/* </form> */}
-        </div>
+        <Button className="button connect-btn" onClick={connectToRoom}>Connect</Button>
       ) : (
         <div className="chatContainer">
           <div className="messages">
@@ -160,17 +155,6 @@ function Chat(props) {
               <Button onClick={sendMessage} variant="dark">Send</Button>
             </InputGroup.Append>
           </InputGroup>
-          {/* <div className="messageInputs">
-            <input
-              type="text"
-              placeholder="Message..."
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-            />
-            <button onClick={sendMessage}>Send</button>
-        </div> */}
         </div>
       )
       }
