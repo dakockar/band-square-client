@@ -7,20 +7,24 @@ function LandingPage(props) {
     return (
 
         <div className="landing-page">
-            
-            <div className='landing-page-about'>
-            <h1>Band Square</h1>
-                Band square is a unique platform for musicians to connect with each other.<br></br>
-               - Search for bands to join <br></br>
-               - Search for people to join your band<br></br>
-               - Collaborate with other musicians<br></br>
-               - Book practice rooms<br></br>
-               <br></br>
-               You have a practice room?<br></br>
-               - List your practice room on the site!
+        <div className='top-landing'>
+        <div className='landing-right'>
+        <div>
+            <h2>Looking for talent?</h2>
+        </div>
+            <div>
+            <h5> - Get together with other <br></br>musicians</h5>
+            <h5> - Book venues</h5>
+           
             </div>
-            {/* <img src={picture}></img> */}
-
+            </div>
+        
+        <div className='landing-right'>
+            <h2>Have a place for making music?</h2>
+            <h5> - List your venues</h5>
+        </div>
+        </div>
+        <h2>Join and find your place!</h2>    
         </div>
     )
 }
