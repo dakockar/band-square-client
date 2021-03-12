@@ -55,7 +55,7 @@ export default class BandSearch extends Component {
 
     handleBandSearch = () => {
         const { instrument, genre, musiciansLooking } = this.state;
-        console.log(instrument, genre);
+        // console.log(instrument, genre);
 
         // filter by instrument
         let filterList = musiciansLooking.filter(musician => {
