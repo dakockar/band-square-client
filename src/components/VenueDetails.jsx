@@ -16,7 +16,7 @@ export default class VenueDetails extends Component {
             .get(`${config.API_URL}/api/venue/${venueId}`)
             .then((response) => {
                 // console.log("get venue by id");
-                console.log('venue-id-------', response.data);
+                // console.log('venue-id-------', response.data);
                 this.setState({
                     venue: response.data,
                 });

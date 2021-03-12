@@ -12,20 +12,25 @@ function Nav(props) {
   return (
     <Navbar className="navbar">
       {
-        props.user
+        user
           ? (
             <>
               <Navbar.Brand as={Link} to='/home'>
                 <img className="logo" src={logo} alt="logo" />
               </Navbar.Brand>
-              
-              <Navbar.Toggle aria-controls="responsive-navbar-nav"/>              
+
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-              <div className='nav-search'>
-              <Link className='search-navlink' to='/search/musicians'>Musicians</Link>
-              <Link className='search-navlink' to='/search/bands'>Bands</Link>
-              <Link className='search-navlink' to='/search/venues'>Venues</Link>
-              </div>
+                {
+                  user.type === "musician"
+                  && (
+                    <div className='nav-search'>
+                      <Link className='search-navlink' to='/search/musicians'>Musicians</Link>
+                      <Link className='search-navlink' to='/search/bands'>Bands</Link>
+                      <Link className='search-navlink' to='/search/venues'>Venues</Link>
+                    </div>
+                  )
+                }
                 <Navbar.Text>
                   <Dropdown as={NavItem} alignRight>
                     <Dropdown.Toggle className="grey-text" as={NavLink}>
