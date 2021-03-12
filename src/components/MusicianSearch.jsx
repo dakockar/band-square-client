@@ -54,7 +54,7 @@ class MusicianSearch extends Component {
 
   handleMusicianSearch = () => {
     const { instrument, genre, musicians } = this.state;
-    console.log(instrument, genre)
+    // console.log(instrument, genre)
 
     // filter by instrument
     let filterList = musicians.filter(musician => {

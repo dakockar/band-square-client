@@ -27,9 +27,7 @@ class App extends Component {
     user: null,
     isMounted: false,
     isLoggedIn: false,
-    error: null
-    // users: [],
-    // venues: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -42,7 +40,7 @@ class App extends Component {
           //console.log("logged in user info", response);
           this.setState({
             user: response.data,
-            isLoggedIn: true
+            isLoggedIn: true,
           });
         })
         .catch((err) => {
@@ -68,14 +66,14 @@ class App extends Component {
     axios
       .post(`${config.API_URL}/api/signup`, newUser)
       .then((response) => {
-        console.log("all data", response);
-        console.log("response.data", response.data);
+        // console.log("all data", response);
+        // console.log("response.data", response.data);
         this.handleSignIn(event);
       })
       .catch((error) => {
-        console.log("Error while signin up", error);
+        // console.log("Error while signin up", error);
         this.setState({
-          error:error
+          error: error
         })
       });
   };
@@ -90,7 +88,7 @@ class App extends Component {
     axios
       .post(`${config.API_URL}/api/signin`, newUser, { withCredentials: true })
       .then((response) => {
-        console.log("Succesfully signed in --------", response.data);
+        // console.log("Succesfully signed in --------", response.data);
         this.setState(
           {
             user: response.data,
@@ -113,7 +111,7 @@ class App extends Component {
     axios
       .post(`${config.API_URL}/api/signout`, {}, { withCredentials: true })
       .then(() => {
-        console.log("LOGOUT_____");
+        // console.log("LOGOUT_____");
         this.setState(
           {
             user: null,
@@ -131,7 +129,7 @@ class App extends Component {
 
   handleEditMusician = (event) => {
     event.preventDefault();
-    const { user, users } = this.state;
+    const { user } = this.state;
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
     const instrument = event.target.instrument.value;
@@ -159,18 +157,11 @@ class App extends Component {
         { withCredentials: true }
       )
       .then((response) => {
-        console.log("-----edit----", response.data);
-        // let editedUsersList = users.map((singleUser) => {
-        //   if (user._id === singleUser._id) {
-        //     singleUser = response.data;
-        //   }
-        //   return singleUser;
-        // });
+        // console.log("-----edit musician----", response.data);
 
         this.setState(
           {
             user: response.data,
-            // users: editedUsersList,
           },
           () => {
             this.props.history.push(`/profile`);
@@ -216,7 +207,7 @@ class App extends Component {
   handleUploadImage = (event) => {
     event.preventDefault();
 
-    const { user, users } = this.state;
+    const { user } = this.state;
     const image = event.target.userImg.files[0];
     // console.log(image);
 
@@ -231,18 +222,11 @@ class App extends Component {
 
         axios.patch(`${config.API_URL}/api/upload/${user._id}`, { imgUrl, type }, { withCredentials: true })
           .then((response) => {
-            console.log(response.data);
-            // let editedUsersList = users.map((singleUser) => {
-            //   if (user._id === singleUser._id) {
-            //     singleUser = response.data;
-            //   }
-            //   return singleUser;
-            // });
+            // console.log(response.data);
 
             this.setState(
               {
                 user: response.data,
-                // users: editedUsersList,
               },
               () => {
                 this.props.history.push(`/profile`);
@@ -262,9 +246,8 @@ class App extends Component {
   handleAddVenue = (event, imageArr) => {
     event.preventDefault();
 
-    const { user, venues } = this.state;
+    const { user } = this.state;
     const { title, location, size } = event.target;
-
 
     let newVenue = {
       title: title.value,
@@ -277,17 +260,8 @@ class App extends Component {
     axios
       .post(`${config.API_URL}/api/add-venue`, newVenue)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.props.history.push("/profile");
-
-        // this.setState(
-        //   {
-        //     venues: [...venues, response.data],
-        //   },
-        //   () => {
-        //     this.props.history.push("/profile");
-        //   }
-        // );
       })
       .catch((err) => {
         console.log('Errow while adding new venue', err);
@@ -296,7 +270,6 @@ class App extends Component {
 
   handleEditVenue = (event, venueId, imageArr) => {
     event.preventDefault();
-    const { venues } = this.state;
 
     const { title, location, size } = event.target;
 
@@ -312,26 +285,8 @@ class App extends Component {
         withCredentials: true,
       })
       .then((response) => {
-        console.log("venue edited: ", response.data);
+        // console.log("venue edited: ", response.data);
         this.props.history.push(`/venue/${venueId}`)
-
-        // let editedVenuesList = venues.map((venue) => {
-        //   if (venue._id === venueId) {
-        //     venue = response.data;
-        //   }
-        //   return venue;
-        // });
-
-        // console.log(editedVenuesList);
-
-        // this.setState(
-        //   {
-        //     venues: editedVenuesList,
-        //   },
-        //   () => {
-        //     this.props.history.push(`/venue/${venueId}`);
-        //   }
-        // );
       })
       .catch((err) => {
         console.log("Error while editing venue", err);
@@ -339,10 +294,6 @@ class App extends Component {
   };
 
   handleDeleteVenue = (venueId) => {
-    // const { venues } = this.state;
-
-    // const clonedVenues = JSON.parse(JSON.stringify(venues));
-
     // console.log("venue to be deleted: ", venueId);
 
     axios
@@ -350,18 +301,6 @@ class App extends Component {
       .then((response) => {
         // console.log(response);
         this.props.history.push("/profile");
-
-
-        // let venuesList = clonedVenues.filter((venue) => venue._id !== venueId);
-
-        // this.setState(
-        //   {
-        //     venues: venuesList,
-        //   },
-        //   () => {
-        //     this.props.history.push("/profile");
-        //   }
-        // );
       })
       .catch((err) => {
         console.log("Error while deleting venue", err);
@@ -376,7 +315,6 @@ class App extends Component {
 
     if (!isMounted) return null;
     // console.log(user);
-
 
     return (
       <div className="App">
@@ -539,7 +477,6 @@ class App extends Component {
               return (<Chat {...routeProps} user={user} recipientType="venue" />)
             }} />
 
-            {/* <Route path="/join" component={Join} /> */}
             <Route path='*' component={ErrorPage} />
           </Switch>
         </div>

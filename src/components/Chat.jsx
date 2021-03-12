@@ -87,7 +87,7 @@ function Chat(props) {
     // get this room's messages from database
     axios.get(`${config.API_URL}/api/messages/${recipient._id}`)
       .then((response) => {
-        console.log('----response room', response.data);
+        // console.log('----response room', response.data);
         setLoggedIn(true);
         // socket.emit("join_room", room);
 

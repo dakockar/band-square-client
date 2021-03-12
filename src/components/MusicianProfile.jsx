@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 
 function MusicianProfile(props) {
-  console.log('props------', props)
+  // console.log('props------', props)
   // if (!props.user) return null;
   const { user } = props;
   // if(!user) {

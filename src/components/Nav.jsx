@@ -56,7 +56,6 @@ function Nav(props) {
                   <SignUp onSignUp={props.onSignUp} />
                 </Navbar.Text>
               </Navbar.Collapse>
-              {/* <Redirect to="/" /> */}
             </>
           )
       }
