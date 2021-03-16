@@ -120,7 +120,6 @@ export default class BandSearch extends Component {
                     </Form>
 
                     <div className="search-results">
-                        {/* <h3>Results:</h3> */}
                         <div className='search-scroll scrollbar scrollbar-primary mx-auto'>
                             {
                                 !filteredMusiciansLooking.length
