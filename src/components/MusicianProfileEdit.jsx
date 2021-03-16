@@ -9,7 +9,7 @@ class MusicianProfileEdit extends Component {
     if (!user) return null;
 
     return (
-      <div className='musician-form'>
+      <div className='musician-edit-form'>
         <h1>Edit Your Profile</h1>
 
         <Form onSubmit={onEdit}>

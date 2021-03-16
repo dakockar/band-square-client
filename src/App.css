@@ -19,18 +19,12 @@ a:hover, a:active {
   text-decoration: none;
 }
 
-img {
-  /* width: 150px; */
-  /* height: auto; */
-}
-
 li {
   list-style-type: none;
 }
 
 /* Add a dark background color with a little bit see-through */
 .navbar {
-  /* margin-bottom: 0; */
   background-color: rgba(11, 10, 15, 1);
   border: 0;
   font-size: 12px;
@@ -59,8 +53,6 @@ li {
 .logo {
   margin: 0;
   height: 60px;
-  /* width: 60px; */
-  /* opacity: 0.9; */
 }
 
 
@@ -70,27 +62,21 @@ li {
 
 /* container for all pages */
 .page {
+  display: flex;
+  justify-content: center;
   min-height: 100vh;
   height: 100%;
   /* padding top must be greater than 70px because of the navbar */
   padding: 70px 0 0;
-  /* background-image: url("../src/images/rock-bg.jpg"); */
-  /* background-size: cover;
-  background-color: rgba(27, 53, 53, 0.8); */
-  /* background: radial-gradient(circle, rgba(27,53,53,0.9) 0%, rgba(8,17,17,0.85) 75%); */
-  height: 100%;
-  width: 100%;
   background: linear-gradient(
   rgba(0, 0, 0, 0.5),
   rgba(0, 0, 0, 0.5)
   ), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
   background-position: center center;
-  background-color: black;
   background-size: cover;
   background-repeat: no-repeat;
+  background-color: black;
   color:rgba(255, 255, 255, 0.8);
-  display: flex;
-  justify-content: center;
 }
 
 .page h2 {
@@ -105,17 +91,15 @@ li {
 .modal-content {
   background-color: rgba(255, 255, 255, 0.9);
   border: none;
-  /* font-size: 1em; */
 }
+
 
 /* owner profile page */
 
-.venue-box {
+.venue-page {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  border-radius: 5px;
-  height: 92vh;
+  justify-content: center;
   width: 100%;
   background: radial-gradient(
   rgba(0, 0, 0, 0.5),
@@ -124,14 +108,22 @@ li {
   background-position: center center;
   background-color: black;
   background-size: cover;
-  background-repeat: no-repeat;
-  margin:0;
 }
 
-.venue-box img {
+.venue-page img {
   object-fit: contain;
+  border-radius: 8px;
   width: 100%;
-  max-height: 200px;
+  height: 100%;
+}
+
+.card-style-venue {
+  width: 21em;
+  background-color: rgba(0, 0, 0, 0.7);
+  color:rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 40px 0;
 }
 
 .thumbnail {
@@ -165,20 +157,7 @@ li {
   flex-direction: column;
   align-items: center;
   font-size: clamp(1rem, -0.875rem + 2.333vw, 1.3rem);
-  height: 92vh;
-  width: 100%;
-  background: radial-gradient(
-  rgba(0, 0, 0, 0.5),
-  rgba(0, 0, 0, 0.5)
-  ), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
-  background-position: center center;
-  background-color: black;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin:0;
   color:rgba(255, 255, 255, 0.8);
-  width: 100%;
-  /* justify-content: space-evenly; */
 }
 
 .home-page h3 {
@@ -187,12 +166,11 @@ li {
 
 .search-link {
   display: flex;
-  /* text-align: center; */
   width: 300px;
   padding: 30px 20px;
   margin: 30px auto;
   border-radius: 7px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   transition: 0.2s ease-in;
   color:rgba(255, 255, 255, 0.8);
 }
@@ -205,15 +183,16 @@ li {
 /* profile pages */
 
 .profile-page {
-display: flex;
-flex-direction: column;
-color: black;
-margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: black;
+  margin: 20px;
 }
 
 .profile-page h5 {
   margin: 15px 0 5px;
-  /* display: inline; */
 }
 
 .profile-page img {
@@ -224,15 +203,14 @@ margin: 20px;
 }
 
 .card-style {
-  /* padding: 10px; */
-  width: 20rem;
-  color:rgba(255, 255, 255, 0.8);
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.5);
-  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color:rgba(255, 255, 255, 0.8);
+  width: 20rem;
   padding: 20px 0;
-  /* background-color: rgba(255, 255, 255, 0.5); */
+  margin-bottom: 10px;
 }
+
 .card-img-overlay {
   height: 25px;
   margin: 8.3em 0 0 13em;
@@ -247,13 +225,10 @@ margin: 20px;
 }
 
 .button {
-  /* display: block; */
-  /* align-self: flex-end; */
   border: none;
-  /* width: 140px; */
-  padding: 10px 20px;
+  padding: 10px 15px;
   background-color: rgba(255, 255, 255, 0.2);
-  font-size: 1em;
+  font-size: 0.9em;
   margin: 10px 5px;
   border-radius: 3px;
 }
@@ -264,49 +239,33 @@ margin: 20px;
   outline: 0 !important;
 }
 
-/* .connect-btn {
-  margin-top: 250px;
-} */
-
 .buttons {
   display: flex;
   justify-content: space-evenly;
-  align-items: flex-end;
-  width: 80%;
-  margin: 50px 0 0;
+  /* width: 80%; */
+  margin: 50px auto 0;
 }
 
 .carousel {
   width: 300px;
   height: 200px;
+  margin: 0 auto;
 }
 
-/* .landing-page-about{
-  background-color: rgba(41, 41, 41, 0.5);
-  padding: 14px;
-  margin: 20px;
-  border-radius: 10px;
-} */
-
 .landing-page{
-  min-height: 93.4vh;
-  height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   background: radial-gradient(
   rgba(0, 0, 0, 0.5),
   rgba(0, 0, 0, 0.5)
   ), url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
   background-position: center center;
-  background-color: black;
   background-size: cover;
-  background-repeat: no-repeat;
-  margin:0;
+  background-color: black;
   color:white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
   font-size: clamp(1rem, -0.875rem + 4.333vw, 1.5rem);
   text-align: center;
 }
@@ -317,37 +276,30 @@ margin: 20px;
 }
 
 .error-page{
-  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: linear-gradient(
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.5)
     ), url(./images//music-6062347.jpg);
   background-position: center center;
   background-size: cover;
-  background-repeat: no-repeat;
   background-attachment: fixed;
-  margin:0;
   color:white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  padding-top: 50px;
+  padding-top: 100px;
   text-align: center;
   font-size: clamp(1rem, -0.875rem + 4.333vw, 3.5rem);
-  font-family:monospace;
+  font-family: monospace;
 }
 
 .error-page h1 {
   font-size: clamp(2rem, 0.875rem + 5.333vw, 4.5rem);
 }
 
-.card-body {
-  /* padding-bottom: 10px; */
-  /* display: flex;
-  flex-direction: column; */
 
-}
+/* cards */
 
 .card-title {
   display: flex;
@@ -358,9 +310,10 @@ margin: 20px;
   width: 20rem;
   color:rgba(255, 255, 255, 0.8);
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   margin-bottom: 10px;
 }
+
 .search-form {
   min-width: 320px;
 }
@@ -373,19 +326,61 @@ margin: 20px;
   display: none;
 }
 
+.search-results {
+  margin-top: 40px;
+}
+
+.search-scroll {
+  max-height: 50vh;
+  overflow: scroll;
+  /* border: 2px solid green; */
+  border-radius: 5%;
+  margin-bottom: 10px;
+  padding: 10px 5px;
+}
+
+.scrollbar {
+  overflow: scroll;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 0;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* custom colors  */
+
+.scrollbar-primary {
+  scrollbar-color: rgba(0, 0, 0, 0.6);
+}
+.scrollbar-primary::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
 @media only screen and (min-width: 780px) {
   .card-style {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     flex-direction: column;
-    width: 700px;
-    height: 550px;
     justify-content: space-around;
+    width: 700px;
+    min-height: 550px;
     padding:20px;
   }
+
   .card-title {
     font-size: 50px;
   }
+
   .pic-and-text{
     display: flex;
     flex-direction: row;
@@ -400,38 +395,52 @@ margin: 20px;
     font-size: 1.4em;
     display: inline;
   }
+
   .card-title-search {
     font-size: 30px;
   }
   
   .card-style-search {
-    width: 30rem;
+    width: 28rem;
     color:rgba(255, 255, 255, 0.8);
     border-radius: 8px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     margin-bottom: 10px;
+  }
+
+  .card-style-venue {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 600px;
+    height: 700px;
+    padding: 20px;
+  }
+
+  .carousel {
+    width: 500px;
+    height: 330px;
+    margin: 10px auto;
+  }
+
+  .venue-page img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
   }
 
   .home-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 93.2vh;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.5)
-    ), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
-    background-position: center center;
-    background-color: black;
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin:0;
+    padding-top: 30px;
     color:rgba(255, 255, 255, 0.8);
-    width: 100%;
     font-size: clamp(1rem, -0.875rem + 4.333vw, 1.5rem);
   }
+
+  .home-page h3 {
+    margin: 50px 0;
+  }
+
   .search-link {
     display: flex;
     justify-content: center;
@@ -443,8 +452,46 @@ margin: 20px;
     border-radius: 7px;
     transition: 0.1s ease-in;
   }
+
+  .search-page {
+    /* border: 1px yellow solid; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .search-page h1 {
+    margin: 50px 100px;
+  }
+
   .search-form {
-    min-width: 480px;
+    /* border: 2px solid red; */
+    padding: 10px;
+  }
+
+  .search-results {
+    /* border: 2px solid red; */
+    width: 30rem;
+    margin-top: 1.8em;
+  }
+
+  .search-scroll {
+    max-height: 60vh;
+    overflow: scroll;
+    border-radius: 5%;
+    /* margin-top: 4vh; */
+    padding: 10px 5px;
+  }
+
+  .search-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px auto;
+    padding-top: 20px;
+    width: 80%;
+    height: 80%;
+    /* border: 1px solid white; */
   }
   .nav-search{
     display: flex;
@@ -459,16 +506,13 @@ margin: 20px;
   }
 
 
-  .top-landing{
+  .landing-top {
     display: flex;
     text-align: left;
     justify-content: center;
   }
-  .top-landing h5 {
-    /* margin-left: 20px */
-  }
 
-  .top-landing h2 {
+  .landing-top h2 {
     font-weight: bold;
     margin-left: 0;
   }
@@ -489,20 +533,12 @@ margin: 20px;
 
 }
 
-.musician-form {
+.musician-edit-form {
   margin: 30px;
 }
 
 .card-img-top {
   padding:10px;
-}
-
-.search-scroll{
-  max-height: 50vh;
-  overflow: scroll;
-  padding: 0 2px;
-  /* border: 2px solid red; */
-  border-radius: 12px 20px 20px 12px;
 }
 
 .error-link {
@@ -511,15 +547,6 @@ margin: 20px;
 
 .error-link:hover{
   color: rgb(179, 179, 179);
-}
-
-
-.search-results {
-  /* height: 93vh; */
-}
-
-.search-results h1 {
-margin: 20px 0 10px;
 }
 
 
@@ -548,47 +575,3 @@ margin: 20px 0 10px;
   margin: 5px 0;
   align-self: flex-start;
 }
-
-.scrollbar {
-  overflow: scroll;
-}
-
-.scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 0;
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.2);
-}
-
-/* custom colors  */
-
-.scrollbar-primary {
-  scrollbar-color: rgba(0, 0, 0, 0.6);
-}
-.scrollbar-primary::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-/* 
-.top-landing{
-  display: flex;
-  margin-top: 30px;
-  text-align: left;
-  margin-bottom: 20px;
-  display: space-around;
-}
-.top-landing h5 {
-  margin-left: 20px
-}
-.top-landing h2 {
-  font-weight: bold;
-}
-.landing-right {
-  width: 430px;
-  margin:30px;
-} */

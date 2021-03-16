@@ -44,7 +44,7 @@ class App extends Component {
           });
         })
         .catch((err) => {
-          console.log("Error gettin logged in user-----", err);
+          console.log("Error getting logged in user-----", err);
         });
     }
 
@@ -89,6 +89,8 @@ class App extends Component {
       .post(`${config.API_URL}/api/signin`, newUser, { withCredentials: true })
       .then((response) => {
         // console.log("Succesfully signed in --------", response.data);
+        console.log(response);
+
         this.setState(
           {
             user: response.data,
@@ -100,7 +102,7 @@ class App extends Component {
         );
       })
       .catch((error) => {
-        console.log("Error while signin in", error);
+        console.log("Error while signing in", error);
         this.setState({
           error: error
         })

@@ -25,6 +25,8 @@ function SignIn(props) {
     setEmailState(emailState);
   }
 
+  console.log(props.error);
+
   return (
     <div>
       <Button className="grey-text" color="link" onClick={handleShow}>
@@ -49,12 +51,13 @@ function SignIn(props) {
             </FormGroup>
             <FormGroup>
               <Label for="password">Password</Label>
-              <Input
-                type="password" name="password" id="password" placeholder="password" />
+              <Input type="password" name="password" id="password" placeholder="password" />
             </FormGroup>
-            {props.error && <p>{props.error.errorMessage}</p>}
+            <div>
+              {props.error && <p>{props.error.errorMessage}</p>}
+            </div>
             <Button variant="dark">Sign In!</Button>
-            
+
           </Form>
 
         </Modal.Body>

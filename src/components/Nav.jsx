@@ -7,7 +7,7 @@ import logo from '../images/bandsquare-logo.png';
 
 function Nav(props) {
 
-  const { user } = props;
+  const { user, error } = props;
 
   return (
     <Navbar className="navbar">
@@ -61,13 +61,12 @@ function Nav(props) {
               <Navbar.Toggle />
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                  <SignIn onSignIn={props.onSignIn} />
+                  <SignIn error={error} onSignIn={props.onSignIn} />
                 </Navbar.Text>
                 <Navbar.Text>
-                  <SignUp onSignUp={props.onSignUp} />
+                  <SignUp error={error} onSignUp={props.onSignUp} />
                 </Navbar.Text>
               </Navbar.Collapse>
-              {/* <Redirect to="/" /> */}
             </>
           )
       }

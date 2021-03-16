@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Button } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
 
 

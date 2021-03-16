@@ -96,53 +96,57 @@ class VenueSearch extends Component {
 
 
     return (
-      <div className="search-results">
+      <div className="search-page">
         <h1>Find a venue</h1>
-        <Form className='search-form'>
-          <Form.Group>
-            <Form.Label>Size</Form.Label>
-            <Form.Control
-              onChange={this.onVenueSearch}
-              name="size"
-              type="number"
-              placeholder="enter a number"
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Location</Form.Label>
-            <Form.Control
-              onChange={this.onVenueSearch}
-              name="location"
-              type="text"
-              placeholder="Munich, Ankara, Amsterdam..."
-            />
-          </Form.Group>
+        <div className="search-container">
+          <Form className='search-form'>
+            <Form.Group>
+              <Form.Label>Size</Form.Label>
+              <Form.Control
+                onChange={this.onVenueSearch}
+                name="size"
+                type="number"
+                placeholder="enter a number"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                onChange={this.onVenueSearch}
+                name="location"
+                type="text"
+                placeholder="Munich, Ankara, Amsterdam..."
+              />
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              onChange={this.onVenueSearch}
-              name="title"
-              type="text"
-              placeholder="the awesome place..."
-            />
-          </Form.Group>
-        </Form>
-        <h3>Results:</h3>
-        <div className='search-scroll scrollbar scrollbar-primary mt-5 mx-auto'>
-          {filteredVenues.map(venue => {
-            return (
-              <Link key={venue._id} to={`/venue/${venue._id}`}>
-                <Card className="card-style-search">
-                  <Card.Body>
-                    <Card.Title className='card-title-search'>{venue.title}</Card.Title>
-                    <Card.Text>Size: {venue.size}m<sup>2</sup></Card.Text>
-                    <Card.Text>Location: {venue.location}</Card.Text>
-                  </Card.Body>
-                </Card>
-              </Link>
-            );
-          })}
+            <Form.Group>
+              <Form.Label>Title</Form.Label>
+              <Form.Control
+                onChange={this.onVenueSearch}
+                name="title"
+                type="text"
+                placeholder="the awesome place..."
+              />
+            </Form.Group>
+          </Form>
+
+          <div className="search-results">
+            <div className='search-scroll scrollbar scrollbar-primary mx-auto'>
+              {filteredVenues.map(venue => {
+                return (
+                  <Link key={venue._id} to={`/venue/${venue._id}`}>
+                    <Card className="card-style-search">
+                      <Card.Body>
+                        <Card.Title className='card-title-search'>{venue.title}</Card.Title>
+                        <Card.Text>Size: {venue.size}m<sup>2</sup></Card.Text>
+                        <Card.Text>Location: {venue.location}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     )

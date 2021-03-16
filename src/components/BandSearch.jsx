@@ -24,6 +24,7 @@ export default class BandSearch extends Component {
 
                 // filter the current user out of the list
                 let filterList = response.data.filter(musician => musician._id !== this.props.user._id);
+                filterList = filterList.filter(musician => musician.firstName && musician.lastName)
 
                 // get the users that are looking for a musician
                 filterList = filterList.filter(band => band.lookingFor)
@@ -94,54 +95,57 @@ export default class BandSearch extends Component {
 
 
         return (
-            <div className="search-results">
+            <div className="search-page">
                 <h1>Find a band</h1>
-                <Form className='search-form'>
-                    <Form.Group>
-                        <Form.Label>Instrument</Form.Label>
-                        <Form.Control
-                            onChange={this.onBandSearch}
-                            type="text"
-                            name="instrument"
-                            placeholder="guitar, bass..."
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Genre</Form.Label>
-                        <Form.Control
-                            onChange={this.onBandSearch}
-                            type="text"
-                            name="genre"
-                            placeholder="pop, house..."
-                        />
-                    </Form.Group>
-                </Form>
+                <div className="search-container">
+                    <Form className='search-form'>
+                        <Form.Group>
+                            <Form.Label>Instrument</Form.Label>
+                            <Form.Control
+                                onChange={this.onBandSearch}
+                                type="text"
+                                name="instrument"
+                                placeholder="guitar, bass..."
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Genre</Form.Label>
+                            <Form.Control
+                                onChange={this.onBandSearch}
+                                type="text"
+                                name="genre"
+                                placeholder="pop, house..."
+                            />
+                        </Form.Group>
+                    </Form>
 
-                <h3>Results:</h3>
-                <div className='search-scroll scrollbar scrollbar-primary mt-5 mx-auto'>
-                    {
-                        !filteredMusiciansLooking.length
-                            ? <h6>No results</h6>
-                            : (
-                                filteredMusiciansLooking.map(musician => {
-                                    return (
-                                        <Link key={musician._id} to={`/musician/${musician._id}`}>
-                                            <Card className="card-style-search">
-                                                <Card.Body>
-                                                    <Card.Title className='card-title-search'>{musician.firstName} {musician.lastName}</Card.Title>
-                                                    <Card.Text>I play: {musician.instrument}</Card.Text>
-                                                    <Card.Text>Genre: {musician.genre}</Card.Text>
-                                                    {
-                                                        musician.bandName && <Card.Text>Band: {musician.bandName}</Card.Text>
-                                                    }
-                                                    <Card.Text>Looking for: {musician.lookingFor}</Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                        </Link>
-                                    );
-                                })
-                            )
-                    }
+                    <div className="search-results">
+                        <div className='search-scroll scrollbar scrollbar-primary mx-auto'>
+                            {
+                                !filteredMusiciansLooking.length
+                                    ? <h6>No results</h6>
+                                    : (
+                                        filteredMusiciansLooking.map(musician => {
+                                            return (
+                                                <Link key={musician._id} to={`/musician/${musician._id}`}>
+                                                    <Card className="card-style-search">
+                                                        <Card.Body>
+                                                            <Card.Title className='card-title-search'>{musician.firstName} {musician.lastName}</Card.Title>
+                                                            <Card.Text>I play: {musician.instrument}</Card.Text>
+                                                            <Card.Text>Genre: {musician.genre}</Card.Text>
+                                                            {
+                                                                musician.bandName && <Card.Text>Band: {musician.bandName}</Card.Text>
+                                                            }
+                                                            <Card.Text>Looking for: {musician.lookingFor}</Card.Text>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </Link>
+                                            );
+                                        })
+                                    )
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         )
