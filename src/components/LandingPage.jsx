@@ -1,13 +1,11 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
-import picture from '../images/rock-bg.jpg'
 
-function LandingPage(props) {
+function LandingPage() {
 
     return (
 
         <div className="landing-page">
-            <div className='top-landing'>
+            <div className='landing-top'>
                 <div className='landing-right'>
                     <div>
                         <h2>Looking for talent?</h2>
@@ -15,7 +13,6 @@ function LandingPage(props) {
                     <div>
                         <h5> - Get together with other <br></br>musicians</h5>
                         <h5> - Book venues</h5>
-
                     </div>
                 </div>
 

@@ -44,7 +44,7 @@ class App extends Component {
           });
         })
         .catch((err) => {
-          console.log("Error gettin logged in user-----", err);
+          console.log("Error getting logged in user-----", err);
         });
     }
 

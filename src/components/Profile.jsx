@@ -14,7 +14,7 @@ export default class Profile extends Component {
 
 
         return (
-            <div>
+            <>
                 {
                     user.type === "musician"
                         ? (
@@ -24,7 +24,7 @@ export default class Profile extends Component {
                             <OwnerProfile user={user} />
                         )
                 }
-            </div>
+            </>
         )
 
 

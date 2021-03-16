@@ -53,7 +53,7 @@ class OwnerProfile extends Component {
                         </Card.Body>
                     </div>
                     <Card.Body>
-                        <Card.Title>Venues: </Card.Title>
+                        <h3>Venues: </h3>
                         {
                             venues.length
                                 ? (<>{
@@ -71,8 +71,10 @@ class OwnerProfile extends Component {
                                 :
                                 <div>no venues yet</div>
                         }
-                        <Button className='button' as={Link} to='/owner-profile/edit'>Edit Profile</Button>
-                        <Button className='button' as={Link} to='/add-venue'>Add Venue</Button>
+                        <div className="buttons">
+                            <Button className='button' as={Link} to='/owner-profile/edit'>Edit Profile</Button>
+                            <Button className='button' as={Link} to='/add-venue'>Add Venue</Button>
+                        </div>
                     </Card.Body>
                 </Card>
             </div>
