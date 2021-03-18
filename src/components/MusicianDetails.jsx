@@ -10,14 +10,11 @@ class MusicianDetails extends Component {
   };
 
   componentDidMount() {
-    // console.log("musician prop-------", this.props);
     const { musicianId } = this.props.match.params;
-    // console.log(musicianId);
 
     axios
       .get(`${config.API_URL}/api/musician/${musicianId}`)
       .then((response) => {
-        // console.log("musician id-----", response.data);
         this.setState({
           user: response.data,
         });
@@ -29,7 +26,6 @@ class MusicianDetails extends Component {
 
   render() {
     const { user } = this.state;
-    // console.log(this.props);
 
     if (!user) return null;
 

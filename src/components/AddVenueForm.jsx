@@ -10,6 +10,7 @@ export default class AddVenueForm extends Component {
         imgUrl: null
     }
 
+    // Adding an image
     handleAddImg = (event) => {
         event.preventDefault();
         const { imgUrl, imageList } = this.state;
@@ -23,6 +24,7 @@ export default class AddVenueForm extends Component {
         })
     };
 
+    // Changing an image
     handleImgChange = (event) => {
         const imgUrl = event.target.value
         this.setState({
@@ -30,6 +32,7 @@ export default class AddVenueForm extends Component {
         })
     }
 
+    // Deleting an image
     handleDeleteImg = (index) => {
         const { imageList } = this.state;
         let clonedImageList = JSON.parse(JSON.stringify(imageList));

@@ -58,7 +58,6 @@ class VenueSearch extends Component {
       if (!Number(size)) return true;
       return Number(size) && venue.size <= size;
     });
-    // console.log(filterList);
 
     // filter by location
     filterList = filterList.filter(venue => {
@@ -68,7 +67,6 @@ class VenueSearch extends Component {
         if (venue.location.toLowerCase().includes(location[i].toLowerCase())) return true;
       }
     });
-    // console.log(filterList);
 
     // filter by title
     filterList = filterList.filter(venue => {
@@ -78,7 +76,6 @@ class VenueSearch extends Component {
         if (venue.title.toLowerCase().includes(title[i].toLowerCase())) return true;
       }
     });
-    // console.log(filterList);
 
     this.setState({
       filteredVenues: filterList,

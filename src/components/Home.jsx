@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom'
 
-
 class Home extends Component {
     render() {
         const { user } = this.props;

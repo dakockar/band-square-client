@@ -17,8 +17,6 @@ export default class EditVenueForm extends Component {
     axios
       .get(`${config.API_URL}/api/venue/${venueId}`)
       .then((response) => {
-        // console.log("get venue by id");
-        console.log("venue-----", response.data);
         this.setState({
           venue: response.data,
           imageList: response.data.imgUrl
@@ -29,6 +27,7 @@ export default class EditVenueForm extends Component {
       });
   }
 
+  // Adding an image
   handleAddImg = (event) => {
     event.preventDefault();
     const { imgUrl, imageList } = this.state;
@@ -41,7 +40,7 @@ export default class EditVenueForm extends Component {
       imgUrl: ""
     })
   };
-
+  // Changing an image
   handleImgChange = (event) => {
     const imgUrl = event.target.value
     this.setState({
@@ -49,6 +48,7 @@ export default class EditVenueForm extends Component {
     })
   }
 
+  // Delete image
   handleDeleteImg = (index) => {
     const { imageList } = this.state;
     let clonedImageList = JSON.parse(JSON.stringify(imageList));
@@ -61,13 +61,10 @@ export default class EditVenueForm extends Component {
 
   render() {
     const { venue, imageList } = this.state;
-    console.log('------', imageList)
     const { onEdit, user } = this.props;
-    // console.log(this.props);
 
     if (!venue) return null;
     if (!user) return null;
-
     if (user._id !== venue.ownerId) return <NotAuthorized />
 
     return (

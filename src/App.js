@@ -31,13 +31,10 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state.user);
-
     if (!this.state.user) {
       axios
         .get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
-          //console.log("logged in user info", response);
           this.setState({
             user: response.data,
             isLoggedIn: true,
@@ -54,6 +51,7 @@ class App extends Component {
     });
   }
 
+  // Sign up logic 
   handleSignUp = (event) => {
     event.preventDefault();
 
@@ -66,18 +64,16 @@ class App extends Component {
     axios
       .post(`${config.API_URL}/api/signup`, newUser)
       .then((response) => {
-        // console.log("all data", response);
-        // console.log("response.data", response.data);
         this.handleSignIn(event);
       })
       .catch((error) => {
-        // console.log("Error while signin up", error);
         this.setState({
           error: error
         })
       });
   };
 
+  // Sign in logic
   handleSignIn = (event) => {
     event.preventDefault();
     let newUser = {
@@ -88,9 +84,6 @@ class App extends Component {
     axios
       .post(`${config.API_URL}/api/signin`, newUser, { withCredentials: true })
       .then((response) => {
-        // console.log("Succesfully signed in --------", response.data);
-        console.log(response);
-
         this.setState(
           {
             user: response.data,
@@ -109,11 +102,11 @@ class App extends Component {
       });
   };
 
+  // Sign out logic
   handleSignOut = () => {
     axios
       .post(`${config.API_URL}/api/signout`, {}, { withCredentials: true })
       .then(() => {
-        // console.log("LOGOUT_____");
         this.setState(
           {
             user: null,
@@ -129,6 +122,7 @@ class App extends Component {
       });
   };
 
+  // Edit Musician profile logic
   handleEditMusician = (event) => {
     event.preventDefault();
     const { user } = this.state;
@@ -159,8 +153,6 @@ class App extends Component {
         { withCredentials: true }
       )
       .then((response) => {
-        // console.log("-----edit musician----", response.data);
-
         this.setState(
           {
             user: response.data,
@@ -175,6 +167,7 @@ class App extends Component {
       });
   };
 
+  // Edit Owner profile logic
   handleEditOwner = (event) => {
     event.preventDefault();
     const { user } = this.state;
@@ -206,26 +199,23 @@ class App extends Component {
       });
   };
 
+  // Uploading Image using cloudinary
   handleUploadImage = (event) => {
     event.preventDefault();
 
     const { user } = this.state;
     const image = event.target.userImg.files[0];
-    // console.log(image);
 
     let uploadForm = new FormData();
     uploadForm.append("imageUrl", image);
 
     axios.post(`${config.API_URL}/api/upload`, uploadForm)
       .then((response) => {
-        // console.log(response.data.image);
         let imgUrl = response.data.image;
         let type = user.type;
 
         axios.patch(`${config.API_URL}/api/upload/${user._id}`, { imgUrl, type }, { withCredentials: true })
           .then((response) => {
-            // console.log(response.data);
-
             this.setState(
               {
                 user: response.data,
@@ -245,6 +235,7 @@ class App extends Component {
 
   }
 
+  // Adding a venue logic
   handleAddVenue = (event, imageArr) => {
     event.preventDefault();
 
@@ -262,7 +253,6 @@ class App extends Component {
     axios
       .post(`${config.API_URL}/api/add-venue`, newVenue)
       .then((response) => {
-        // console.log(response.data);
         this.props.history.push("/profile");
       })
       .catch((err) => {
@@ -270,6 +260,7 @@ class App extends Component {
       });
   };
 
+  // Editing a venue logic
   handleEditVenue = (event, venueId, imageArr) => {
     event.preventDefault();
 
@@ -295,13 +286,12 @@ class App extends Component {
       });
   };
 
+  // Deleting a venue logic
   handleDeleteVenue = (venueId) => {
-    // console.log("venue to be deleted: ", venueId);
 
     axios
       .delete(`${config.API_URL}/api/venue/${venueId}`)
       .then((response) => {
-        // console.log(response);
         this.props.history.push("/profile");
       })
       .catch((err) => {
@@ -311,12 +301,9 @@ class App extends Component {
 
 
   render() {
-    const { user, isMounted, isLoggedIn, error } = this.state;
-
-    // console.log("render venues", this.state.venues);
+    const { user, isMounted, error } = this.state;
 
     if (!isMounted) return null;
-    // console.log(user);
 
     return (
       <div className="App">
@@ -337,15 +324,6 @@ class App extends Component {
                 return <LandingPage {...routeProps} />;
               }}
             />
-
-            {/* <Route exact path="/">
-              {
-                isLoggedIn ? <Redirect to="/home" /> : <LandingPage />
-              }
-            </Route> */}
-
-
-            {/* authorized routes */}
 
             <Route
               path="/home"

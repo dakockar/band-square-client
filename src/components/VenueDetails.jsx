@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import config from "../config";
 import { Button, Carousel, Card } from "react-bootstrap";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class VenueDetails extends Component {
     state = {
@@ -15,8 +15,6 @@ export default class VenueDetails extends Component {
         axios
             .get(`${config.API_URL}/api/venue/${venueId}`)
             .then((response) => {
-                // console.log("get venue by id");
-                // console.log('venue-id-------', response.data);
                 this.setState({
                     venue: response.data,
                 });
@@ -29,7 +27,6 @@ export default class VenueDetails extends Component {
     render() {
         const { venue } = this.state;
         const { user, onDelete } = this.props;
-        // console.log(this.props);
 
         if (!venue) return null;
         if (!user) return null;

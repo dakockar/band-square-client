@@ -40,9 +40,6 @@ function Nav(props) {
                       <Dropdown.Item as={Link} to='/profile'>
                         Profile
                       </Dropdown.Item>
-                      {/* <Dropdown.Item as={Link} to='/chat'>
-                        Chat
-                      </Dropdown.Item> */}
                       <Dropdown.Divider />
                       <Dropdown.Item onClick={props.onSignOut}>
                         Sign Out

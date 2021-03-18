@@ -1,14 +1,8 @@
-import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
-import { Link, Redirect, withRouter } from 'react-router-dom'
-import { Switch, Route } from 'react-router';
+import { Button, Card } from "react-bootstrap";
+import { Link, withRouter } from 'react-router-dom'
 import React, { Component } from 'react';
 import axios from "axios";
 import config from '../config';
-import AddVenueForm from "./AddVenueForm";
-import VenueDetails from "./VenueDetails";
-import EditVenueForm from "./EditVenueForm";
-
-
 
 class OwnerProfile extends Component {
 
@@ -22,7 +16,6 @@ class OwnerProfile extends Component {
         // get logged in user's venues 
         axios.get(`${config.API_URL}/api/venues/${user._id}`)
             .then((response) => {
-                // console.log(response.data);
                 this.setState({
                     venues: response.data
                 })
@@ -31,8 +24,6 @@ class OwnerProfile extends Component {
                 console.log("Error while fetching venues", err);
             });
     }
-
-
 
     render() {
         const { user } = this.props;

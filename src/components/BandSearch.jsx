@@ -20,7 +20,6 @@ export default class BandSearch extends Component {
         axios
             .get(`${config.API_URL}/api/users`)
             .then((response) => {
-                //console.log("all users", response.data);
 
                 // filter the current user out of the list
                 let filterList = response.data.filter(musician => musician._id !== this.props.user._id);
@@ -39,7 +38,6 @@ export default class BandSearch extends Component {
             });
     }
 
-
     onBandSearch = (event) => {
         let name = event.target.name;
         let value = event.target.value.split(" ");
@@ -56,7 +54,6 @@ export default class BandSearch extends Component {
 
     handleBandSearch = () => {
         const { instrument, genre, musiciansLooking } = this.state;
-        // console.log(instrument, genre);
 
         // filter by instrument
         let filterList = musiciansLooking.filter(musician => {
@@ -92,7 +89,6 @@ export default class BandSearch extends Component {
         if (!user) return null;
         if (!filteredMusiciansLooking) return null;
         if (user.type === "owner") return <NotAuthorized />
-
 
         return (
             <div className="search-page">

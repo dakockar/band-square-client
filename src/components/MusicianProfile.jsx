@@ -1,14 +1,11 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function MusicianProfile(props) {
-  // console.log('props------', props)
-  // if (!props.user) return null;
+
   const { user } = props;
-  // if(!user) {
-  //   return <Redirect to={'/signin'} />
-  // }
+
   return (
     <div className="profile-page">
       <Card className='card-style' >

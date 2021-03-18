@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Form, Row, Col, Card } from "react-bootstrap";
-import { Redirect } from "react-router";
+import { Form, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ErrorPage from "./ErrorPage";
 import axios from "axios";
 import config from "../config";
 import NotAuthorized from "./NotAuthorized";
-
 
 class MusicianSearch extends Component {
 
@@ -55,7 +52,6 @@ class MusicianSearch extends Component {
 
   handleMusicianSearch = () => {
     const { instrument, genre, musicians } = this.state;
-    // console.log(instrument, genre)
 
     // filter by instrument
     let filterList = musicians.filter(musician => {
@@ -69,7 +65,6 @@ class MusicianSearch extends Component {
         }
       }
     });
-    // console.log(filterList);
 
     // filter by genre
     filterList = filterList.filter(musician => {
@@ -82,13 +77,11 @@ class MusicianSearch extends Component {
         }
       }
     });
-    // console.log(filterList)
 
     this.setState({
       filteredMusicians: filterList,
     });
   };
-
 
 
   render() {

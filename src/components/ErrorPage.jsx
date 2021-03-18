@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import image from '../images/music-6062347.jpg'
 import {Link} from 'react-router-dom'
 
 export default class ErrorPage extends Component {
