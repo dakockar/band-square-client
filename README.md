@@ -1,6 +1,19 @@
 # BandSquare
 
+## Deployment
 [band-square.onrender.com](https://band-square.onrender.com/)
+
+Sign in with one of the test users or create your own user and discover!
+
+### Test Users
+
+#### Musician
+email: musician@test.com
+password: asdf1234
+
+#### Owner
+username: owner@test.com
+password: asdf1234
 
 ## Description
 A social app that connects musicians with each other and with people who are renting out practice spaces or concert venues.
