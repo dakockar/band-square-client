@@ -1,21 +1,23 @@
 # BandSquare
 
+[band-square.onrender.com](https://band-square.onrender.com/)
+
 ## Description
-This is an app that connects musisicans with each other and with people who are renting out practice space or venues
+A social app that connects musicians with each other and with people who are renting out practice spaces or concert venues.
 
 ## User Stories
 - 404: As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
-- Landing page: As a anon I can click on the sign up or sign in button
+- Landing page: As an anon I can click on the sign up or sign in button
 - Signup: As an anon I can sign up in the platform so that I can use platform
 - Login: As a user I can login to the platform so that I can use the platform
 - Logout: As a user I can logout from the platform
-- Home page: As an user I can choose between two search options. If my userprofile is not complete I will get a popup message
-- Search musicians/bands: As I user I can search for bands to join, find people to join my band or cooperate with musicians
-- Search venues: As I user a can look for venues where I or my band can practice, or a venue where I or my band can perform
-- NavBar: I want to have a navbar that allows me to move between the different pages.
-- Profile page: As an user I can add/edit info on my profile
-- Add Venue page: As a owner of a venue I can add my venues in the venue page 
-- Delete elements As a user I can delete elements from my backlog
+- Home page: As a user I can choose between two search options. If my user profile is not complete, I will get a popup message
+- Search musicians/bands: As a user I can search for bands to join, find people to join my band or cooperate with musicians
+- Search venues: As a user I can look for venues where I or my band can practice, or a venue where I or my band can perform
+- NavBar: As a user I can use the navbar to move between the different pages
+- Profile page: As a user I can add/edit info on my profile
+- Add Venue page: As an owner of a venue I can add my venues in the venue page
+- Delete elements: As a user I can delete elements from my backlog
 - Venue Details: When clicked on, I can see the details of the venue
 
 
@@ -142,28 +144,14 @@ Venue = {
 | PATCH       | `/api/musician-profile/edit` |                              | 201            | 400          | Show specific element    |
 | PATCH       | `/api/owner-profile/edit`    |                              | 201            | 400          | Show specific element    |
 | DELETE      | `/api/venue/:id`             | (empty)                      | 201            | 400          | Delete venue                                              |
-<!-- | DELETE      | `/api/profile/:id`           | (empty)                      | 201            | 400          | Delete musician profile           | -->
-
 
 
 ## Links
 
-### Trello/Kanban
-
-[Link to your trello board](link) 
-
 ### Git
-
-The url to your repository and to your deployed project
 
 [Client repository Link](https://github.com/dakockar/band-square-client)
 
 [Server repository Link](https://github.com/dakockar/band-square-server)
 
-[Deployed App Link](https://band-square.herokuapp.com/)
-
-### Slides
-
-The url to your presentation slides
-
-[Slides Link](link)
+[Deployed App Link](https://band-square.onrender.com/)
