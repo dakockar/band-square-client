@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Form, Button, InputGroup, FormControl, ListGroup } from "react-bootstrap";
 import config from "../config";
+import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 import NotAuthorized from "./NotAuthorized";
 
 export default class EditVenueForm extends Component {
@@ -22,8 +22,8 @@ export default class EditVenueForm extends Component {
           imageList: response.data.imgUrl
         });
       })
-      .catch((err) => {
-        console.log("Get venue failed", err);
+      .catch(() => {
+        console.log("Error while getting venue");
       });
   }
 
@@ -33,20 +33,20 @@ export default class EditVenueForm extends Component {
     const { imgUrl, imageList } = this.state;
 
     if (!imgUrl) {
-      return
+      return;
     }
     this.setState({
       imageList: [...imageList, imgUrl],
       imgUrl: ""
-    })
+    });
   };
   // Changing an image
   handleImgChange = (event) => {
-    const imgUrl = event.target.value
+    const imgUrl = event.target.value;
     this.setState({
       imgUrl
-    })
-  }
+    });
+  };
 
   // Delete image
   handleDeleteImg = (index) => {
@@ -56,8 +56,8 @@ export default class EditVenueForm extends Component {
 
     this.setState({
       imageList: clonedImageList
-    })
-  }
+    });
+  };
 
   render() {
     const { venue, imageList } = this.state;
@@ -65,13 +65,11 @@ export default class EditVenueForm extends Component {
 
     if (!venue) return null;
     if (!user) return null;
-    if (user._id !== venue.ownerId) return <NotAuthorized />
+    if (user._id !== venue.ownerId) return <NotAuthorized />;
 
     return (
       <div>
-        <Form
-          onSubmit={(event) => { onEdit(event, venue._id, imageList) }}
-        >
+        <Form onSubmit={(event) => { onEdit(event, venue._id, imageList); }}>
           <Form.Group controlId="title">
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -117,9 +115,9 @@ export default class EditVenueForm extends Component {
                 return (
                   <li key={index}>
                     <img className="thumbnail" src={img} alt="room" />
-                    <Button onClick={() => { this.handleDeleteImg(index) }} className="x-btn" variant="danger">x</Button>
+                    <Button onClick={() => { this.handleDeleteImg(index); }} className="x-btn" variant="danger">x</Button>
                   </li>
-                )
+                );
               })
             }
           </ul>

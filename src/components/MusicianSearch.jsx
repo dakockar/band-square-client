@@ -6,13 +6,12 @@ import config from "../config";
 import NotAuthorized from "./NotAuthorized";
 
 class MusicianSearch extends Component {
-
   state = {
     musicians: null,
     filteredMusicians: null,
     instrument: [],
     genre: []
-  }
+  };
 
   componentDidMount() {
     // get all musicians
@@ -23,7 +22,7 @@ class MusicianSearch extends Component {
 
         // filtering the current user out of the results list
         let filterList = response.data.filter(musician => musician._id !== this.props.user._id);
-        filterList = filterList.filter(musician => musician.firstName && musician.lastName)
+        filterList = filterList.filter(musician => musician.firstName && musician.lastName);
 
         this.setState({
           musicians: filterList,
@@ -90,7 +89,7 @@ class MusicianSearch extends Component {
 
     if (!user) return null;
     if (!filteredMusicians) return null;
-    if (user.type === "owner") return <NotAuthorized />
+    if (user.type === "owner") return <NotAuthorized />;
 
     return (
       <div className="search-page">
@@ -136,7 +135,7 @@ class MusicianSearch extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -1,12 +1,11 @@
 import React from "react";
 import { Navbar, Dropdown, NavItem, NavLink } from 'react-bootstrap';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import logo from '../images/bandsquare-logo.png';
 
 function Nav(props) {
-
   const { user, error } = props;
 
   return (
@@ -71,4 +70,4 @@ function Nav(props) {
   );
 }
 
-export default Nav
+export default Nav;

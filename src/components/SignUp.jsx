@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "reactstrap";
+
 function SignUp(props) {
   const [show, setShow] = useState(false);
   const [email, setEmailState] = useState(false);
   const [password, setPasswordState] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const validateEmail = (e) => {
     // regex for email validation
     const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let emailState = ""
+    let emailState = "";
     if (!e.target.value.length) {
       setEmailState(false);
       return;
     }
     emailRegEx.test(e.target.value) ? emailState = "has-success" : emailState = "has-danger";
     setEmailState(emailState);
-  }
+  };
+
   const validatePassword = (e) => {
     const passRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     let passwordState = "";
@@ -27,7 +30,8 @@ function SignUp(props) {
     }
     passRegEx.test(e.target.value) ? passwordState = "has-success" : passwordState = "has-danger";
     setPasswordState(passwordState);
-  }
+  };
+
   return (
     <div>
       <Button className="grey-text" color="link" onClick={handleShow}>
@@ -62,7 +66,7 @@ function SignUp(props) {
             <FormGroup tag="fieldset">
               <h6>Sign me up as:</h6>
               <FormGroup check>
-                <Input id="musician" type="radio" name="type" value="musician" checked/>
+                <Input id="musician" type="radio" name="type" value="musician" checked />
                 <Label check for="musician">Musician</Label>
               </FormGroup>
               <FormGroup check>
@@ -77,4 +81,5 @@ function SignUp(props) {
     </div>
   );
 }
+
 export default SignUp;

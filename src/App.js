@@ -50,7 +50,7 @@ class App extends Component {
     });
   }
 
-  // Sign up logic 
+  // Sign up logic
   handleSignUp = (event) => {
     event.preventDefault();
 

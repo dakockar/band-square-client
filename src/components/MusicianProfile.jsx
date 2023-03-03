@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function MusicianProfile(props) {
-
   const { user } = props;
 
   return (
@@ -34,7 +33,7 @@ function MusicianProfile(props) {
           <div className="edit-btn">
             <Card.Link className="button" as={Link} to="/musician-profile/edit">
               Edit Profile
-          </Card.Link>
+            </Card.Link>
           </div>
         </Card.Body>
       </Card>

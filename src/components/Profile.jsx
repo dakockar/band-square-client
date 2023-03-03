@@ -4,26 +4,18 @@ import OwnerProfile from "./OwnerProfile";
 
 
 export default class Profile extends Component {
-    render() {
+  render() {
+    const { user } = this.props;
+    if (!user) return null;
 
-        const { user } = this.props;
-
-        if (!user) return null;
-
-        return (
-            <>
-                {
-                    user.type === "musician"
-                        ? (
-                            <MusicianProfile user={user} />
-                        )
-                        : (
-                            <OwnerProfile user={user} />
-                        )
-                }
-            </>
-        )
-
-
-    }
+    return (
+      <>
+        {
+          user.type === "musician"
+            ? <MusicianProfile user={user} />
+            : <OwnerProfile user={user} />
+        }
+      </>
+    );
+  }
 }

@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 
 class MusicianProfileEdit extends Component {
-
   render() {
-    const { user, onEdit } = this.props
-
+    const { user, onEdit } = this.props;
     if (!user) return null;
 
     return (

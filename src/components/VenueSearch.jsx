@@ -7,14 +7,13 @@ import NotAuthorized from "./NotAuthorized";
 
 
 class VenueSearch extends Component {
-
   state = {
     venues: [],
     filteredVenues: [],
     size: 0,
     location: [],
     title: []
-  }
+  };
 
   componentDidMount() {
     // get all venues
@@ -27,7 +26,7 @@ class VenueSearch extends Component {
         });
       })
       .catch(() => {
-        console.log("Fetching venues failed");
+        console.log("Error while fetching venues");
       });
   }
 
@@ -89,7 +88,7 @@ class VenueSearch extends Component {
 
     if (!user) return null;
     if (!filteredVenues) return null;
-    if (user.type === "owner") return <NotAuthorized />
+    if (user.type === "owner") return <NotAuthorized />;
 
 
     return (
@@ -146,7 +145,7 @@ class VenueSearch extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

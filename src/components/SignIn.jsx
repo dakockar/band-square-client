@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Form, FormGroup, Input, Label, FormFeedback, FormText, Button } from "reactstrap";
+import { Form, FormGroup, Input, Label, FormFeedback, Button } from "reactstrap";
 
 function SignIn(props) {
-
   const [show, setShow] = useState(false);
   const [email, setEmailState] = useState(false);
 
@@ -13,7 +12,7 @@ function SignIn(props) {
   const validateEmail = (e) => {
     // regex for email validation
     const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let emailState = ""
+    let emailState = "";
 
     if (!e.target.value.length) {
       setEmailState(false);
@@ -23,9 +22,7 @@ function SignIn(props) {
     emailRegEx.test(e.target.value) ? emailState = "has-success" : emailState = "has-danger";
 
     setEmailState(emailState);
-  }
-
-  console.log(props.error);
+  };
 
   return (
     <div>

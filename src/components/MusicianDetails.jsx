@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import config from "../config";
-import { Button, Card } from "react-bootstrap";
-import { Route, Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class MusicianDetails extends Component {
   state = {
@@ -19,23 +19,20 @@ class MusicianDetails extends Component {
           user: response.data,
         });
       })
-      .catch((err) => {
-        console.log("Get musician failed", err);
+      .catch(() => {
+        console.log("Get musician failed");
       });
   }
 
   render() {
     const { user } = this.state;
-
     if (!user) return null;
 
     return (
-
       <div className="profile-page">
         <Card className='card-style' >
           <div className='pic-and-text'>
             <Card.Img className='profile-picture' variant="top" src={user.imgUrl} />
-            <Card.ImgOverlay className="card-img-overlay" as={Link} to="/upload-image">+</Card.ImgOverlay>
             <Card.Body>
               <Card.Title>
                 {user.firstName} {user.lastName}

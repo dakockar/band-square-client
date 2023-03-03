@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
 
-html, body {
+html,
+body {
   height: 100%;
   min-height: 100vh;
   font-family: 'RocknRoll One', sans-serif;
@@ -14,7 +15,8 @@ a {
   color: rgba(255, 255, 255, 0.7)
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
   color: rgba(255, 255, 255, 1);
   text-decoration: none;
 }
@@ -36,18 +38,14 @@ li {
   font-size: 16px;
 }
 
-.navbar, .grey-text {
+.navbar,
+.grey-text {
   color: #d5d5d5 !important;
   letter-spacing: 0.1em;
 }
 
-/* .nav-search{
-  display: flex;
-  justify-content: flex-start;
-} */
-
-.nav-search{
- display: none;
+.nav-search {
+  display: none;
 }
 
 .logo {
@@ -68,15 +66,13 @@ li {
   height: 100%;
   /* padding top must be greater than 70px because of the navbar */
   padding: 70px 0 0;
-  background: linear-gradient(
-  rgba(0, 0, 0, 0.5),
-  rgba(0, 0, 0, 0.5)
-  ), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)), url(./images/neonbrand-PckVwEbtBeU-unsplash.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: black;
-  color:rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .page h2 {
@@ -101,10 +97,8 @@ li {
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: radial-gradient(
-  rgba(0, 0, 0, 0.5),
-  rgba(0, 0, 0, 0.5)
-  ), url(./images/neonbrand-practice.jpg);
+  background: radial-gradient(rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)), url(./images/neonbrand-practice.jpg);
   background-position: center center;
   background-color: black;
   background-size: cover;
@@ -120,7 +114,7 @@ li {
 .card-style-venue {
   width: 21em;
   background-color: rgba(0, 0, 0, 0.7);
-  color:rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   border-radius: 8px;
   margin-bottom: 10px;
   padding: 40px 0;
@@ -139,7 +133,7 @@ li {
   font-size: 14px;
   font-weight: bold;
   background-color: darkred;
-  border:darkred;
+  border: darkred;
   color: rgba(255, 255, 255, 0.8)
 }
 
@@ -157,7 +151,7 @@ li {
   flex-direction: column;
   align-items: center;
   font-size: clamp(1rem, -0.875rem + 2.333vw, 1.3rem);
-  color:rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .home-page h3 {
@@ -172,10 +166,11 @@ li {
   border-radius: 7px;
   background-color: rgba(0, 0, 0, 0.6);
   transition: 0.2s ease-in;
-  color:rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.search-link:hover, .search-link:active {
+.search-link:hover,
+.search-link:active {
   transform: scale(1.1);
 }
 
@@ -205,16 +200,17 @@ li {
 .card-style {
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.7);
-  color:rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   width: 20rem;
   padding: 20px 0;
   margin-bottom: 10px;
 }
 
 .card-img-overlay {
+  width: 25px;
   height: 25px;
   margin: 8.3em 0 0 13em;
-  color:rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   padding: 2px;
@@ -233,7 +229,9 @@ li {
   border-radius: 3px;
 }
 
-.button:hover, .button:active, .button:focus  {
+.button:hover,
+.button:active,
+.button:focus {
   background-color: rgba(255, 255, 255, 0.5) !important;
   color: black !important;
   outline: 0 !important;
@@ -242,7 +240,6 @@ li {
 .buttons {
   display: flex;
   justify-content: space-evenly;
-  /* width: 80%; */
   margin: 50px auto 0;
 }
 
@@ -252,20 +249,18 @@ li {
   margin: 0 auto;
 }
 
-.landing-page{
+.landing-page {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background: radial-gradient(
-  rgba(0, 0, 0, 0.5),
-  rgba(0, 0, 0, 0.5)
-  ), url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
+  background: radial-gradient(rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)), url(./images/glenn-van-de-wiel-DWHSc8o8K9Y-unsplash.jpg);
   background-position: center center;
   background-size: cover;
   background-color: black;
-  color:white;
+  color: white;
   font-size: clamp(1rem, -0.875rem + 4.333vw, 1.5rem);
   text-align: center;
 }
@@ -275,18 +270,16 @@ li {
   padding-top: 100px;
 }
 
-.error-page{
+.error-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.5)
-    ), url(./images//music-6062347.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)), url(./images//music-6062347.jpg);
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;
-  color:white;
+  color: white;
   width: 100%;
   padding-top: 100px;
   text-align: center;
@@ -308,7 +301,7 @@ li {
 
 .card-style-search {
   width: 20rem;
-  color:rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.7);
   margin-bottom: 10px;
@@ -333,7 +326,6 @@ li {
 .search-scroll {
   max-height: 50vh;
   overflow: scroll;
-  /* border: 2px solid green; */
   border-radius: 5%;
   margin-bottom: 10px;
   padding: 10px 5px;
@@ -359,6 +351,7 @@ li {
 .scrollbar-primary {
   scrollbar-color: rgba(0, 0, 0, 0.6);
 }
+
 .scrollbar-primary::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
@@ -374,35 +367,31 @@ li {
     justify-content: space-around;
     width: 700px;
     min-height: 550px;
-    padding:20px;
+    padding: 20px;
   }
 
   .card-title {
     font-size: 50px;
   }
 
-  .pic-and-text{
+  .pic-and-text {
     display: flex;
     flex-direction: row;
   }
+
   .card-img-overlay {
-    height: 25px;
-    width: 25px;
     margin: 7.5em 0 0 14em;
-    color:rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
     background-color: rgba(0, 0, 0, 0.2);
-    padding: 0;
-    font-size: 1.4em;
-    display: inline;
   }
 
   .card-title-search {
     font-size: 30px;
   }
-  
+
   .card-style-search {
     width: 28rem;
-    color:rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     background-color: rgba(0, 0, 0, 0.7);
     margin-bottom: 10px;
@@ -433,7 +422,7 @@ li {
     flex-direction: column;
     align-items: center;
     padding-top: 30px;
-    color:rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     font-size: clamp(1rem, -0.875rem + 4.333vw, 1.5rem);
   }
 
@@ -454,7 +443,6 @@ li {
   }
 
   .search-page {
-    /* border: 1px yellow solid; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -466,12 +454,10 @@ li {
   }
 
   .search-form {
-    /* border: 2px solid red; */
     padding: 10px;
   }
 
   .search-results {
-    /* border: 2px solid red; */
     width: 30rem;
     margin-top: 1.8em;
   }
@@ -480,7 +466,6 @@ li {
     max-height: 60vh;
     overflow: scroll;
     border-radius: 5%;
-    /* margin-top: 4vh; */
     padding: 10px 5px;
   }
 
@@ -491,15 +476,16 @@ li {
     padding-top: 20px;
     width: 80%;
     height: 80%;
-    /* border: 1px solid white; */
   }
-  .nav-search{
+
+  .nav-search {
     display: flex;
     margin-right: 20px;
   }
-  .search-navlink{
+
+  .search-navlink {
     margin-left: 20px;
-   }
+  }
 
   .edit-btn {
     margin-top: 80px;
@@ -538,14 +524,14 @@ li {
 }
 
 .card-img-top {
-  padding:10px;
+  padding: 10px;
 }
 
 .error-link {
   color: white;
 }
 
-.error-link:hover{
+.error-link:hover {
   color: rgb(179, 179, 179);
 }
 

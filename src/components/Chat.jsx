@@ -29,8 +29,8 @@ function Chat(props) {
           setRoom(response.data._id);
           socket.emit("join_room", response.data._id);
         })
-        .catch((err) => {
-          console.log("cannot get musician from database", err);
+        .catch(() => {
+          console.log("error while getting musician from database");
         });
     }
     else if (recipientType === "venue") {
@@ -40,15 +40,14 @@ function Chat(props) {
           setRoom(response.data._id);
           socket.emit("join_room", response.data._id);
         })
-        .catch((err) => {
-          console.log("cannot get venue from database", err);
+        .catch(() => {
+          console.log("error while getting venue from database");
         });
     }
     setUser(user);
   }, [config.API_URL]);
 
   useEffect(() => {
-
     socket.on("receive_message", (data) => {
       setMessageList([...messageList, data]);
     });
@@ -63,8 +62,8 @@ function Chat(props) {
 
         setMessageList(response.data);
       })
-      .catch((err) => {
-        console.log("can't get message list", err);
+      .catch(() => {
+        console.log("error while getting message list");
       });
   };
 
