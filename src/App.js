@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, withRouter, Redirect } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import axios from "axios";
@@ -18,7 +18,7 @@ import EditVenueForm from "./components/EditVenueForm";
 import VenueDetails from "./components/VenueDetails";
 import MusicianDetails from "./components/MusicianDetails.jsx";
 import UploadImageForm from "./components/UploadImageForm";
-import ErrorPage from './components/ErrorPage'
+import ErrorPage from './components/ErrorPage';
 import Chat from "./components/Chat";
 
 
@@ -40,11 +40,10 @@ class App extends Component {
             isLoggedIn: true,
           });
         })
-        .catch((err) => {
-          console.log("Error getting logged in user-----", err);
+        .catch(() => {
+          console.log('no signed in user');
         });
     }
-
 
     this.setState({
       isMounted: true,
@@ -63,13 +62,13 @@ class App extends Component {
 
     axios
       .post(`${config.API_URL}/api/signup`, newUser)
-      .then((response) => {
+      .then(() => {
         this.handleSignIn(event);
       })
       .catch((error) => {
         this.setState({
           error: error
-        })
+        });
       });
   };
 
@@ -95,10 +94,9 @@ class App extends Component {
         );
       })
       .catch((error) => {
-        console.log("Error while signing in", error);
         this.setState({
           error: error
-        })
+        });
       });
   };
 
@@ -117,8 +115,8 @@ class App extends Component {
           }
         );
       })
-      .catch((err) => {
-        console.log('Error while signin out', err);
+      .catch(() => {
+        console.log('Error while signing out');
       });
   };
 
@@ -158,12 +156,12 @@ class App extends Component {
             user: response.data,
           },
           () => {
-            this.props.history.push(`/profile`);
+            this.props.history.push("/profile");
           }
         );
       })
-      .catch((err) => {
-        console.log("Edit musician failed", err);
+      .catch(() => {
+        console.log("Error while editing musician");
       });
   };
 
@@ -190,12 +188,12 @@ class App extends Component {
             user: response.data,
           },
           () => {
-            this.props.history.push(`/profile`);
+            this.props.history.push("/profile");
           }
         );
       })
-      .catch((err) => {
-        console.log("Edit owner failed", err);
+      .catch(() => {
+        console.log("Error while editing owner");
       });
   };
 
@@ -221,19 +219,19 @@ class App extends Component {
                 user: response.data,
               },
               () => {
-                this.props.history.push(`/profile`);
+                this.props.history.push("/profile");
               }
             );
           })
-          .catch((err) => {
-            console.log("Error uploading musician image", err);
+          .catch(() => {
+            console.log("Error while uploading musician image");
           });
       })
-      .catch((err) => {
-        console.log('Error while uploading musician image', err)
+      .catch(() => {
+        console.log('Error while uploading musician image');
       });
 
-  }
+  };
 
   // Adding a venue logic
   handleAddVenue = (event, imageArr) => {
@@ -252,11 +250,11 @@ class App extends Component {
 
     axios
       .post(`${config.API_URL}/api/add-venue`, newVenue)
-      .then((response) => {
+      .then(() => {
         this.props.history.push("/profile");
       })
-      .catch((err) => {
-        console.log('Errow while adding new venue', err);
+      .catch(() => {
+        console.log('Error while adding new venue');
       });
   };
 
@@ -277,12 +275,11 @@ class App extends Component {
       .patch(`${config.API_URL}/api/venue/${venueId}`, editedVenue, {
         withCredentials: true,
       })
-      .then((response) => {
-        // console.log("venue edited: ", response.data);
-        this.props.history.push(`/venue/${venueId}`)
+      .then(() => {
+        this.props.history.push(`/venue/${venueId}`);
       })
-      .catch((err) => {
-        console.log("Error while editing venue", err);
+      .catch(() => {
+        console.log("Error while editing venue");
       });
   };
 
@@ -291,11 +288,11 @@ class App extends Component {
 
     axios
       .delete(`${config.API_URL}/api/venue/${venueId}`)
-      .then((response) => {
+      .then(() => {
         this.props.history.push("/profile");
       })
-      .catch((err) => {
-        console.log("Error while deleting venue", err);
+      .catch(() => {
+        console.log("Error while deleting venue");
       });
   };
 
@@ -380,7 +377,7 @@ class App extends Component {
                     {...routeProps}
                     user={user}
                     onUpload={this.handleUploadImage} />
-                )
+                );
               }} />
 
             <Route
@@ -450,11 +447,11 @@ class App extends Component {
               }} />
 
             <Route path="/chat/musician/:recipientId" render={(routeProps) => {
-              return (<Chat {...routeProps} user={user} recipientType="musician" />)
+              return (<Chat {...routeProps} user={user} recipientType="musician" />);
             }} />
 
             <Route path="/chat/owner/:recipientId" render={(routeProps) => {
-              return (<Chat {...routeProps} user={user} recipientType="venue" />)
+              return (<Chat {...routeProps} user={user} recipientType="venue" />);
             }} />
 
             <Route path='*' component={ErrorPage} />

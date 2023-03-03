@@ -1,0 +1,5 @@
+# development
+REACT_APP_SERVER_URL_DEV=http://localhost:5005
+
+# production
+REACT_APP_SERVER_URL_PRO=https://band-square.onrender.com

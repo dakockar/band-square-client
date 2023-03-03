@@ -1,11 +1,10 @@
-import { Button, Card, InputGroup, FormControl } from "react-bootstrap";
+import { Button, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import config from '../config';
 
 let socket;
-const CONNECTION_PORT = "https://band-square.herokuapp.com";
 
 function Chat(props) {
   // Before Login
@@ -19,15 +18,15 @@ function Chat(props) {
   const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
-    socket = io(CONNECTION_PORT);
+    socket = io(config.API_URL);
     const { recipientId } = props.match.params;
     const { recipientType, user } = props;
 
     if (recipientType === "musician") {
       axios.get(`${config.API_URL}/api/musician/${recipientId}`)
         .then((response) => {
-          setRecipient(response.data)
-          setRoom(response.data._id)
+          setRecipient(response.data);
+          setRoom(response.data._id);
           socket.emit("join_room", response.data._id);
         })
         .catch((err) => {
@@ -38,15 +37,15 @@ function Chat(props) {
       axios.get(`${config.API_URL}/api/venue/${recipientId}`)
         .then((response) => {
           setRecipient(response.data);
-          setRoom(response.data._id)
+          setRoom(response.data._id);
           socket.emit("join_room", response.data._id);
         })
         .catch((err) => {
           console.log("cannot get venue from database", err);
         });
     }
-    setUser(user)
-  }, [CONNECTION_PORT]);
+    setUser(user);
+  }, [config.API_URL]);
 
   useEffect(() => {
 
@@ -70,8 +69,7 @@ function Chat(props) {
   };
 
   const sendMessage = async () => {
-
-    let author = user.firstName || user.email
+    let author = user.firstName || user.email;
 
     let messageContent = {
       room: room,
