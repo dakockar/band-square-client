@@ -20,7 +20,7 @@ class MusicianDetails extends Component {
         });
       })
       .catch(() => {
-        console.log("Get musician failed");
+        console.log("Error while getting musician");
       });
   }
 

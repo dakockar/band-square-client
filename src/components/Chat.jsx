@@ -30,7 +30,7 @@ function Chat(props) {
           socket.emit("join_room", response.data._id);
         })
         .catch(() => {
-          console.log("error while getting musician from database");
+          console.log("Error while getting musician");
         });
     }
     else if (recipientType === "venue") {
@@ -41,7 +41,7 @@ function Chat(props) {
           socket.emit("join_room", response.data._id);
         })
         .catch(() => {
-          console.log("error while getting venue from database");
+          console.log("Error while getting venue");
         });
     }
     setUser(user);
@@ -63,7 +63,7 @@ function Chat(props) {
         setMessageList(response.data);
       })
       .catch(() => {
-        console.log("error while getting message list");
+        console.log("Error while getting message list");
       });
   };
 

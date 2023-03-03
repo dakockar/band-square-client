@@ -18,8 +18,6 @@ class MusicianSearch extends Component {
     axios
       .get(`${config.API_URL}/api/users`)
       .then((response) => {
-        console.log("all musicians---", response.data);
-
         // filtering the current user out of the results list
         let filterList = response.data.filter(musician => musician._id !== this.props.user._id);
         filterList = filterList.filter(musician => musician.firstName && musician.lastName);
@@ -29,8 +27,8 @@ class MusicianSearch extends Component {
           filteredMusicians: filterList,
         });
       })
-      .catch((err) => {
-        console.log("Fetching users failed", err);
+      .catch(() => {
+        console.log("Error while fetching users");
       });
   }
 
